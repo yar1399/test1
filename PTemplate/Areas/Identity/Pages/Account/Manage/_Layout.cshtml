@@ -1,0 +1,25 @@
+﻿@{ 
+
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+
+}
+
+<h2>مدیریت حساب کاربری</h2>
+
+<div>
+    <h4>در این صفحه میتوانید تنظیمات حساب کاربری خود را تغییر دهید</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

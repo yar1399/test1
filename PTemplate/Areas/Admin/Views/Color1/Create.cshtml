@@ -1,0 +1,44 @@
+﻿@model PTemplate.Data.DataBase.Color1
+
+@using PTemplate
+@using PTemplate.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "درج رنگ جدید";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>ساخت</h2>
+
+<h4>رنگ</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="~/Admin/Colors/Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+            شماره
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+             نام
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              توضیح
+                <input asp-for="Descrition" class="form-control" />
+                <span asp-validation-for="Descrition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/Color1/Index">برگشت</a>
+</div>
+

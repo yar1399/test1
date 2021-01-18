@@ -1,0 +1,52 @@
+﻿@model PTemplate.Data.DataBase.Menu
+
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ویرایش منو";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1>ویراش منو</h1>
+
+<h4>زیر منو</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="~/Admin/Menus/Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                زیر گروه
+                <select asp-for="Idmenugroup" class="form-control" asp-items="ViewBag.Idmenugroup"></select>
+                <span asp-validation-for="Idmenugroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                نام
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                توضیح
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                فعال
+                @Html.CheckBox("Isactive", Model.Isactive)
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/Menus/Index">برگشت</a>
+</div>
+

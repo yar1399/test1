@@ -1,0 +1,77 @@
+﻿
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+
+
+    ApplicationDbContext appA = new
+        ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+
+    var adress = appA.Addresssystems.FirstOrDefault();
+
+
+}
+
+
+@{
+    ViewData["Title"] = "درباره ما : " + @adress.Name;
+    Layout = "~/Views/dadras/Shared/_MainPostPages.cshtml";
+    ViewData["externalHomeUrl"] = "/dadras/";
+}
+
+
+
+
+
+@section posttitle{
+    <h1 class="text-white"> درباره ما : @adress.Name </h1>
+}
+
+
+@section sitmapplaceholder{
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]about"><i class="fa " aria-hidden="true"></i> درباره ما</a></li>
+
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<div class="col-12 col-xl-8">
+    <!-- About Us Content -->
+    <div class="about-us-content bg-white mb-30 p-30 box-shadow">
+        <!-- Section Title -->
+        <div class="section-heading">
+            <h5>درباره ما</h5>
+
+        </div>
+        <div class="text-right ">
+            @Html.Raw(@adress.Text)
+        </div>
+
+    </div>
+</div>

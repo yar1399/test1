@@ -1,0 +1,101 @@
+﻿@model PTemplate.Data.DataBase.Productinfo
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "ویرایش اطلاعات محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ویرایش</h2>
+
+<h4>اطلاعات محصول</h4>
+<hr />
+@using PTemplate.Models
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["Product"];
+
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @if (b.Isactive.Value)
+            {
+                <span>فعال</span>
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                محصول
+                <select asp-for="Idproductmenuinfo" class="form-control" asp-items="ViewBag.idproductmenuinfo"></select>
+                <span asp-validation-for="Idproductmenuinfo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                شماره محصول
+                <select asp-for="Idproduct" class="form-control" asp-items="ViewBag.idproduct"></select>
+                <span asp-validation-for="Idproduct" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                توضیح
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="datecreate" class="control-label"></label>
+                    <input asp-for="datecreate" class="form-control" />
+                    <span asp-validation-for="datecreate" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@Model.Idproduct">برگشت</a>
+</div>
+

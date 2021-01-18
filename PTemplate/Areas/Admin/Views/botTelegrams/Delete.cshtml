@@ -1,0 +1,76 @@
+﻿@model PTemplate.Data.DataBase.BotTelegram
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>حذف</h2>
+
+<h3>آیا مایل به حذف این بات هستید؟</h3>
+<div>
+    <h4>botTelegram</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Namechanale)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Namechanale)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Token)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Token)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Isactive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isactive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Isactivesendauto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isactivesendauto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Isactivediscription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isactivediscription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Isactivepost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isactivepost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Isactiveproduct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isactiveproduct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a href="~/Admin/botTelegrams/Index">برگشت</a>
+    </form>
+</div>

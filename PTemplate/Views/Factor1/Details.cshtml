@@ -1,0 +1,133 @@
+﻿@model PTemplate.Data.DataBase.Factor1
+
+@{
+    ViewData["Title"] = "اقلام خریداری شده در فاکتور";
+   Layout = "~/Views/cbkala/Shared/personmanger.cshtml";
+}
+
+
+
+
+
+
+
+<div>
+    <h4>اطلاعات فاکتور</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            فعال
+        </dt>
+        <dd>
+            @if ((bool)Model.Isactive)
+            {
+
+                <img src="~/images/icons8-green.png" />
+            }
+            else
+            {
+                <img src="~/images/icons8-silver.png" />
+            }
+        </dd>
+
+        <dt>
+            تاریخ تغییرات فعالیت
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDate((DateTime)Model.Datechangestate);
+
+        </dd>
+      
+        <dt>
+            @Html.DisplayNameFor(model => model.IdproductaddressNavigation)
+        </dt>
+        <dd>
+            @if (Model.IdproductaddressNavigation != null)
+            {
+                Write(Model.IdproductaddressNavigation.Province + ":" + Model.IdproductaddressNavigation.City + " " +
+                    Model.IdproductaddressNavigation.Address + " " + Model.IdproductaddressNavigation.Postalcode);
+            }
+            else
+            {
+                <span>آدرسی وارد نشده است.</span>
+            }
+
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdproductpaytypeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductpaytypeNavigation.Id)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.IduserNavigation)*@
+        </dt>
+        <dd>
+            @*@Html.DisplayFor(model => model.IduserNavigation.Id)*@
+        </dd>
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                تعداد
+            </th>
+            <th>
+                قیمت
+            </th>
+            <th>
+                قیمت تخفیف
+            </th>
+            <th>
+                تاریخ درج
+            </th>
+            <th>
+                مدل رنگ
+            </th>
+            <th>
+                رنگ کالا
+            </th>
+            <th>
+                عنوان محصول
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Factorsubs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Money)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Offpercent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datecreate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdproductcolorNavigation.IdcolorNavigation.Name)
+                </td>
+                <td>
+                    @PersianDate.ToPersianDate((DateTime)item.IdfactorNavigation.Datecreate)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdproductNavigation.Title)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+
+    <a asp-action="Index">برگشت</a>
+</div>

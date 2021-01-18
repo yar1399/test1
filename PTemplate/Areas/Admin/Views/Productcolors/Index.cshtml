@@ -1,0 +1,108 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Productcolor>
+
+
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "رنگ های محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>قیمت گذاری و رنگ</h2>
+
+
+@{
+
+    var b = (PTemplate.Data.DataBase.Product)ViewData["product"];
+}
+<p>
+    <a href="~/Admin/Productcolors/Create/@b.Id">رنگ جدید</a>
+</p>
+
+
+
+<div>
+
+    <h4>محصول : @b.Title</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            قیمت
+        </dt>
+        <dd>
+            @b.Price
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @b.Isactive
+        </dd>
+        <dt>
+            توضیح
+        </dt>
+        <dd>
+            @b.Description
+        </dd>
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.Id
+        </dd>
+        <dt>
+            عنوان
+        </dt>
+        <dd>
+            @b.Title
+        </dd>
+    </dl>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                تعداد
+            </th>
+            <th>
+                رنگ
+            </th>
+            @*<th>
+                   محصول
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdcolorNavigation.Name)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.IdcolorNavigation.)
+                    </td>*@
+                <td>
+                    <a href="~/Admin/Productcolors/Edit/@item.Id">ویرایش</a> |
+                    <a href="~/Admin/Productcolors/Details/@item.Id">توضیح هات</a> |
+                    <a href="~/Admin/Productcolors/Delete/@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

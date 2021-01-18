@@ -1,0 +1,77 @@
+﻿@model PTemplate.Data.DataBase.Productdata
+
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "حذف محتوای پست";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>حذف داده</h2>
+
+<h3>ایا مایل به حذف داده می باشید</h3>
+<div>
+    <h4>محتوای پست</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            داده
+        </dt>
+        <dd>
+            <img src="~/uploads/product/@Model.Pathdata" />
+         
+        </dd>
+        <dt>
+            @if (Model.Isactive.Value)
+            {
+                <span>فعال</span>
+                <img src="~/images/icons8-green.png" />
+            }
+            else
+            {
+                <span> غیر فعال</span>
+                <img src="~/images/icons8-silver.png" />
+            }
+          
+        </dt>
+        <dd>
+            @if (Model.Isactive == true)
+            {
+                <span>فعال</span>
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+            @*@Html.DisplayFor(model => model.Isactive)*@
+        </dd>
+        <dt>
+            توضیح
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            نوع پست
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IddatatypeNavigation.Name)
+        </dd>
+        <dt>
+            پست
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductNavigation.Title)
+        </dd>
+    </dl>
+
+    <form action="~/Admin/Products/ProductDatasDelete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف" class="btn btn-default" /> |
+        <a href="~/Admin/Products/ProductDataIndex/@Model.Idproduct">برگشت</a>
+    </form>
+</div>

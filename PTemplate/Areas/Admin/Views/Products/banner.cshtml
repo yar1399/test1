@@ -1,0 +1,127 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Productdata>
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "لیست محصولات در بنرها";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>لیست بنرهامحصولات</h2>
+
+@*<p>
+    <a href="~/Admin/Products/Create">محصول جدید</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                فعال/غیرفعال
+            </th>
+
+            <th>
+                گروه
+            </th>
+            <th>
+                عنوان پست
+            </th>
+
+            <th>
+                قیمت
+            </th>
+            <th>
+                تاریخ درج
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <div class="form-group">
+        <form name="form1" asp-controller="Products" asp-action="Index">
+            <label class="control-label"> دسته کالا</label>
+            <select class="form-control"
+                    name="ProductsBase"
+                    id="ProductsBase"
+                    asp-items="@ViewBag.Idmenu"
+                    onchange="change">
+                <option>یک گزینه را انتخاب کنید</option>
+            </select>
+            <a href="~/Admin/Products/index?Idmenu=0&paging=1" class="btn btn-action">همه لیست</a>
+            @section scripts {
+                <script>
+                    $("#ProductsBase").on("change", function () {
+
+                        var select = document.getElementById("ProductsBase");
+
+                        var option = select.options[select.selectedIndex];
+
+                        if (option.value != "Please select")
+                        {
+
+                            document.form1.action = "/Admin/Products/banner?Idmenu=" + option.value + "&paging=1";
+                            document.form1.submit();
+
+                        }
+
+                    });
+                </script>
+            }
+        </form>
+    </div>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @if (item.Isactive.Value)
+                    {
+                        <span>فعال</span>
+                    }
+                    else
+                    {
+                        <span>غیر فعال</span>
+                    }
+
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                  </td>*@
+                <td>
+                   @* @Html.DisplayFor(modelItem => item.IdmenuNavigation.Name) *@
+                </td>
+                <td>
+                    <a href="/cbkala/Product/@item.Id"> @Html.DisplayFor(modelItem => item.IdproductNavigation.Title)</a>
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdproductNavigation.Price)
+                </td>
+                <td>
+                    @PersianDate.ToPersianDateString((DateTime)item.IdproductNavigation.Datecreate)
+                    @*@Html.DisplayFor(modelItem => item.Datecreate)*@
+                </td>
+                <td>
+                 
+
+                    <a href="~/Admin/Products/ProductDataIndex/@item.IdproductNavigation.Id"> محتوا </a>  ||
+                    <a href="~/Admin/Products/ProductDeAactive/@item.Id"> غیر فعال </a>  
+                    
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*<a href="~/Admin/Products/slider?Idmenu=0&paging=@ViewData["FirstRowOnPage"].ToString()" class="btn btn-default">ابتدا</a>
+@for (var p = 1; p <= int.Parse(ViewData["PageCount"].ToString()); p++)
+{
+
+    <a href="~/Admin/Products/slider?Idmenu=0&paging=@p" class="btn btn-default">@p</a>
+}
+<a href="~/Admin/Products/slider?Idmenu=0&paging=@ViewData["PageCount"].ToString()" class="btn btn-default">انتها</a>*@

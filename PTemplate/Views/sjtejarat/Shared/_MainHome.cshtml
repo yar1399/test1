@@ -1,0 +1,457 @@
+﻿@{
+    ViewData["homeUrl"] = "";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+@{
+    ApplicationDbContext appA = new
+        ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+    var adress = appA.Addresssystems.FirstOrDefault();
+    var slide = appA.sp_postgetSlide();
+
+
+    var pro = appA.Menugroups.Where(b => b.Istype == false && b.Isactive == true).Include(a => a.Menus).ToList();
+    var social = appA.Socialwebs.Where(b => b.Isactive == true ).Include(a => a.IdsocialNavigation).ToList();
+
+
+}
+
+
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR">
+<head>
+    <meta charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>@adress.Name</title>
+
+
+
+
+
+    <link rel='stylesheet' type="text/css" href="/sjtejarat/css/dashicons.min.css" />
+    <link rel='stylesheet' type="text/css" href="~/sjtejarat/css/style.css" />
+    <link rel='stylesheet' type="text/css" href="~/sjtejarat/css/bootstrap.min.css" />
+    <link rel='stylesheet' type="text/css" href="~/sjtejarat/css/style-home-page.css" />
+    <link rel='stylesheet' type="text/css" href="~/sjtejarat/css/style2.css" />
+    <link rel='stylesheet' type="text/css" href="~/sjtejarat/css/style3.css" />
+    <link rel='stylesheet' type="text/css" href="~/sjtejarat/css/bootstrap-icons.css" />
+
+
+    <script src="~/sjtejarat/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="~/sjtejarat/js/bootstrap.min.js"></script>
+    <script src="~/sjtejarat/js/slick-slider.js"></script>
+    <script src="~/sjtejarat/js/ver-slide-head.js"></script>
+    <script src="~/sjtejarat/js/all.js"></script>
+
+
+
+
+
+
+    <link rel="icon" href="~/sjtejarat/images/icon.jpg" />
+
+
+
+</head>
+
+<body id="page-top">
+
+
+    <div class="news-slide-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <p class="dateTopSlider">
+                        امروز :
+                        <span>@{
+                            string st = DateTime.Now.ToPersianDateTimeString();
+                        WriteLiteral(    st.Remove(st.Length-14));
+                                }
+                        </span>
+                    </p>
+                </div>
+                <div class="col-lg-9">
+                    <section class="vertical-slider-header slider">
+                        @{
+                            if (slide.Count != 0)
+                            {
+                                foreach (var i in slide)
+                                {
+                                    <div class="slide">
+                                        <h6 class="d-inline">i.Title &nbsp;</h6>
+                                        @*<p class="d-inline">    </p>
+                        <p class="d-inline"></p>*@
+                                        @*<p class="d-inline"><span class="des">1000 تومان!</span></p>*@
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="slide">
+                                    <a href="~/sjtejarat/contact" class="d-inline" >با ما در ارتباط باشید بهترین را برای شما به ارمغان خواهیم آورد</a>
+                                    @*<h6 class="d-inline">i.Title &nbsp;</h6>*@
+                                    @*<p class="d-inline">    </p>
+                    <p class="d-inline"></p>*@
+                                    @*<p class="d-inline"><span class="des">1000 تومان!</span></p>*@
+                                </div>
+                            }
+                        }
+
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="siteHeader">
+        <div class="container">
+            <div class="row siteHeader-top">
+                <div class="col-lg-4 salenewtop">
+                    <div class="siteHeader-userItem">
+                        <a href="#" title="">
+                            <menu-icon class="bi bi-patch-check"></menu-icon>
+                            <b> (بزودی)نرخ ارز </b>
+                        </a>
+                    </div>
+                 
+                        <div class="siteHeader-userItem"><span class="siteHeader-separator">|</span></div>
+                        <div class="siteHeader-userItem">
+                            <a href="news_list.html">
+                                <menu-icon class="bi bi-patch-check"></menu-icon>
+                                <b> گمرگ (بزودی)اخبار ویژه</b>
+                            </a>
+                        </div>
+                    </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-9 col-12">
+                            <nav class="siteHeader-top-menu">
+                                <div>
+                                    <ul class="menu">
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom "><a href="~/Admin/Admin" class="text-info">مدیریت</a></li>
+                                        }
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom "><a href="@ViewData["externalHomeUrl"]index">صفحه نخست</a></li>
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom "><a href="@ViewData["externalHomeUrl"]about">درباره ما</a></li>
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom "><a href="@ViewData["externalHomeUrl"]contact">تماس با ما</a></li>
+
+
+
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <a asp-area="Identity" class="login-btn" asp-page="/Account/Manage/Index" title="پروفایل">پروفایل   @User.Identity.Name</a>
+                                            <a href="/Identity/Account/Logout" title="خروج از سامانه" class="login-btn">خروج</a>
+                                        }
+                                        else
+                                        {
+                                            <!-- Login -->
+                                            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+                                                <a href="/Identity/Account/Login" class="login-btn">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                    &nbsp; ورود به سایت
+                                                </a>
+                                            </li>
+
+                                            <!-- Register -->
+                                            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+                                                <a href="/Identity/Account/Register" class="login-btn" style="padding-right: 0px;">
+                                                    <i class="fa fa fa-user-plus" aria-hidden="true"></i>&nbsp; ثبت نام
+                                                </a>
+                                            </li>
+                                        }
+
+
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-lg-3 col-12">
+                            <div class="siteHeader-call">
+                                <i class="bi bi-phone-vibrate"></i><span>
+                                  <b>@adress.Tell</b>
+                                </span>با ما در تماس باشید
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="navSticky">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <a href="~/" title="@adress.Name" class="navbarbrand">
+                            <h5 class="siteHeader-logo navbar-brand-img">
+                                <img src="~/sjtejarat/images/logo.png" alt="@adress.Name" title="@adress.Name">
+                            </h5>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 nopadding marno">
+                        <!--      start base menu  -->
+                        <div class="sec navigation">
+                            <div class="nav-container">
+                                <nav>
+                                    <div id="mega-menu-wrap-main-menu" class="mega-menu-wrap">
+                                        <div class="mega-menu-toggle">
+                                            <div class="mega-toggle-blocks-left"></div>
+                                            <div class="mega-toggle-blocks-center"></div>
+                                            <div class="mega-toggle-blocks-right">
+                                                <div class='mega-toggle-block mega-menu-toggle-block mega-toggle-block-1' id='mega-toggle-block-1' tabindex='0'>
+                                                    <span class='mega-toggle-label' role='button' aria-expanded='false'>
+                                                        <span class='mega-toggle-label-closed'></span>
+                                                        <span class='mega-toggle-label-open'>بستن</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul id="mega-menu-main-menu" class="mega-menu max-mega-menu mega-menu-horizontal mega-no-js" data-event="hover" data-effect="fade_up" data-effect-speed="200" data-effect-mobile="disabled" data-effect-speed-mobile="0" data-mobile-force-width="body" data-second-click="go" data-document-click="collapse" data-vertical-behaviour="accordion" data-breakpoint="600" data-unbind="true" data-mobile-state="collapse_all" data-hover-intent-timeout="300" data-hover-intent-interval="100">
+
+                                            @{
+
+                                                foreach (var i in pro)
+                                                {
+                                                    if (i.Isactive.Value == true)
+                                                    {
+
+                                                    <li class=' mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-menu-megamenu mega-align-bottom-left mega-menu-megamenu'>
+                                                        <a title="@i.Name" class="mega-menu-link" aria-haspopup="true" aria-expanded="false" tabindex="0">
+                                                            <menu-icon class="bi bi-check2-circle"></menu-icon>@i.Name<span class="mega-indicator"></span>
+                                                        </a>
+                                                        <ul class="mega-sub-menu">
+                                                            @foreach (var j in i.Menus)
+                                                            {
+                                                                if (j.Isactive.Value == true)
+                                                                {
+
+
+                                                                <li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-columns-1-of-3'>
+                                                                    <a title="@(j.Name)" class="mega-menu-link" href="news_list.html">@(j.Name)</a>
+                                                                </li>
+                                                                }
+                                                            }
+                                                         
+                                                        </ul>
+                                                    </li>
+
+                                                        }
+
+                                                    }
+
+
+                                                }
+                                        
+
+                                        </ul>
+                                    </div>
+                                </nav>
+                                <script>
+                                    (function ($) {
+                                        $(function () {
+                                            $('.sec.navigation nav ul li a:not(:only-child)').hover(function (e) {
+                                                $(this).siblings('.sec.navigation .sub-menu').toggle();
+                                                $('.sec.navigation .sub-menu').not($(this).siblings()).hide();
+                                                e.stopPropagation();
+                                            });
+                                            $('html').click(function () {
+                                                $('.sec.navigation .sub-menu').hide();
+                                            });
+                                            $('.sec.navigation #nav-toggle').click(function () {
+                                                jQuery('.sec.navigation nav ul').toggle();
+                                            });
+                                            $('.sec.navigation #nav-toggle').on('click', function () {
+                                                this.classList.toggle('active');
+                                            });
+                                        });
+                                    })(jQuery);
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        window.onscroll = function () { myFunction() };
+                        var navbar = document.getElementById("navSticky");
+                        var sticky = navbar.offsetTop;
+                        function myFunction() {
+                            if (window.pageYOffset >= sticky) {
+                                navbar.classList.add("sticky")
+                            } else {
+                                navbar.classList.remove("sticky");
+                            }
+                        }
+                        jQuery(window).scroll(function () {
+
+                            var top = 150;
+
+                            var currentTop = jQuery(window).scrollTop();
+
+                            if (jQuery(window).width() <= 800) {
+
+                                if (currentTop > top) {
+
+                                    jQuery(".sec.navigation .nav-mobile").css("right", "86%");
+                                    jQuery(".sec.navigation .nav-mobile").css("position", "absolute");
+                                    jQuery(".sec.navigation nav").css("position", "relative");
+                                    jQuery(".sec.navigation nav").css("bottom", "10px");
+                                    jQuery(".sec.navigation .nav-mobile").css("width", "45px");
+                                    jQuery(".sec.navigation #nav-toggle").css("right", "17%");
+                                    jQuery(".sec.navigation .nav-mobile").css("border-radius", "3px");
+                                    jQuery(".sec.navigation .nav-mobile").css("top", "7px");
+                                    jQuery(".siteHeader-logo").css("bottom", "4%");
+                                }
+
+                                else {
+                                    jQuery(".sec.navigation .nav-mobile").css("position", "relative");
+                                    jQuery(".sec.navigation .nav-mobile").css("width", "100%");
+                                    jQuery(".sec.navigation .nav-mobile").css("right", "0");
+                                    jQuery(".sec.navigation #nav-toggle").css("right", "45%");
+                                    jQuery(".siteHeader-logo").css("bottom", "95%");
+
+                                }
+
+                            }
+
+                        });
+                    </script>
+
+                    <div class="col-lg-4 hidden-xs">
+
+                        <div class="social siteHeader-social ">
+
+                            @foreach (var i in social)
+                            {
+                                <a href="@i.Link" title="@i.IdsocialNavigation.Name" target="_blank">
+                                    <i class="@i.IdsocialNavigation.Tag"></i>
+                                </a>
+                            }
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="home">
+        @RenderSection("videoplaceholder", required: false)
+        @RenderSection("sitmapplaceholder", required: false)
+        @RenderBody()
+    </main>
+
+    <!-----------Footer------------->
+    <footer class="siteFooter text-justify">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 footerOne text-center">
+                    <img src="~/sjtejarat/images/logo_white.png" alt="@adress.Name"
+                         title="@adress.Name">
+                </div>
+                <div class="col-lg-3 footerTwo">
+                    <p>
+                        @adress.Description
+
+
+                    </p>
+                </div>
+                <div class="col-lg-4 footerTree">
+
+
+
+                    <p><menu-icon class="bi bi-building"></menu-icon>@adress.Address</p>
+                    <p><menu-icon class="bi bi-phone-vibrate"></menu-icon>@adress.Tell</p>
+
+                    <p>
+                        <menu-icon class="bi bi-clock"></menu-icon>
+                        @adress.Time
+
+                    </p>
+
+                </div>
+                <div class="col-lg-3 footerFour">
+                    <div style="width: 100%; display: inline-block;">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <a target="_blank" href="#">
+                                    <img src="images/enamad.png" alt="اینماد" style="cursor:pointer;">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footerBottom">
+        <div class="container">
+            <nav class="footerMenu">
+                <div>
+                    <ul class="menu">
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="@ViewData["externalHomeUrl"]about">درباره ما</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="@ViewData["externalHomeUrl"]contact">تماس با ما</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="@ViewData["externalHomeUrl"]register">عضویت در سایت</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-lg-1">
+                    <a href="#page-top" class="goTop" title="برو بالا"><i class="icon-top"></i></a>
+                </div>
+
+
+                <div class="col-lg-11">
+                    <div class="copyRight">
+                        تمامی حقوق این سایت برای
+                        <a href="~/sjtejarat/about"> @adress.Name</a> محفوظ می‌باشد.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-----------End of Footer------------->
+
+    <script src='~/sjtejarat/js/hoverIntent.min.js'></script>
+    <script src='~/sjtejarat/js/maxmegamenu.js'></script>
+
+    <script>
+        var megamenu = { "timeout": "300", "interval": "100" };
+        document.addEventListener("touchstart", function (e) {
+            console.log(e.defaultPrevented);
+            e.preventDefault();
+            console.log(e.defaultPrevented);
+        }, Modernizr.passiveeventlisteners ? { passive: true } : false);
+
+
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+
+
+

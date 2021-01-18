@@ -1,0 +1,127 @@
+﻿
+@model PTemplate.Models.DataViewModel.Postarchive
+@namespace PTemplate.Areas.Admin.Data
+
+
+@{
+    ViewData["Title"] = "آرشیو";
+    Layout = "~/Views/dadras/Shared/_MainPostPages.cshtml";
+    ViewData["externalHomeUrl"] = "/dadras/";
+}
+
+
+@section sitmapplaceholder{
+    
+    
+<div class="mag-breadcrumb py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb rtl">
+                        <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                        <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]archive?Idmenu= 0&paging=1"><i class="fa " aria-hidden="true"></i> آرشیو</a></li>
+                        @if (@ViewData["nameMenu"] != null)
+                        {
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]archive?Idmenu= @ViewData["nameMenu"]&paging=1"> @ViewData["nameMenu"]</a></li>
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]archive?Idmenu= 0&paging=1"> همه تکیه های دانایی</a></li>
+                        }
+                     
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+    
+    }
+
+
+    <div class="col-12 col-xl-8">
+        <div class="archive-posts-area bg-white p-30 mb-30 box-shadow">
+
+
+            @foreach (var i in Model.post)
+            {
+                <!-- Single Catagory Post -->
+                <div class="single-catagory-post d-flex flex-wrap">
+                    <!-- Thumbnail -->
+                    <div class="post-thumbnail bg-img" style="background-image: url(@i.Pathdata);">
+                        @if (i.Idposttype == (int)PTemplate.Models.Enum.Posts.video)
+                        {
+                            <a href="@ViewData["externalHomeUrl"]singlepost/@i.Id" class="video-play"><i class="fa fa-play"></i></a>
+                        }
+                        else
+                        {
+                            <a href="@ViewData["externalHomeUrl"]singlepost/@i.Id" class="video-play"><i class="fa"></i></a>
+                        }
+
+                    </div>
+
+                    <!-- Post Contetnt -->
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <a href="@ViewData["externalHomeUrl"]singlepost/@i.Id">@PTemplate.Models.PersianDate.ToPersianDate((DateTime)i.Datecreate)</a>
+                            @if (@i.IdmenuNavigation != null)
+                            {
+                                <a href="@ViewData["externalHomeUrl"]singlepost/@i.Id">@i.IdmenuNavigation.Name</a>
+                            }
+
+                        </div>
+                        <a href="@ViewData["externalHomeUrl"]singlepost/@i.Id" class="post-title">@i.Title</a>
+                        <!-- Post Meta -->
+                        <div class="post-meta-2">
+                            <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> ? </a>
+                            @*<a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 834</a>
+                                <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 234</a>*@
+                        </div>
+                        <p>
+                            @i.Description
+                        </p>
+                    </div>
+                </div>
+
+            }
+
+
+
+            @if (Model.post != null)
+            {
+                if (Model.post.Count >= 1)
+                {
+
+
+                    <!-- Pagination -->
+                    <nav>
+                        <ul class="pagination rtl">
+                            <li class="page-item "><a class="page-link" href="@ViewData["externalHomeUrl"]archive?Idmenu=@ViewData["idmenu"]&paging=1">ابتدا</a></li>
+                            @for (var p = 1; p <= (int)ViewData["PostRe"]; p++)
+                            {
+                                if ((int)ViewData["paging"] == p)
+                                {
+                                    <li class="page-item active"><a class="page-link" href="@ViewData["externalHomeUrl"]archive?Idmenu=@ViewData["idmenu"]&paging=@p">@p</a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="@ViewData["externalHomeUrl"]archive?Idmenu=@ViewData["idmenu"]&paging=@p">@p</a></li>
+                                }
+                            }
+                            <li class="page-item ">
+                                <a class="page-link" href="@ViewData["externalHomeUrl"]archive?Idmenu=@ViewData["idmenu"]&paging=@ViewData["PostRe"]">انتها</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                }
+                else
+                {
+                    <span class="text-xlarge center-block"> موردی یافت نشد </span>
+                }
+            }
+        </div>
+    </div>

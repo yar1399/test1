@@ -1,0 +1,48 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Color1>
+
+@using PTemplate
+@using PTemplate.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>رنگه ها</h2>
+
+<p>
+    <a href="~/Admin/Color1/Create">رنگ جدید</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               نام
+            </th>
+            <th>
+              توضیح
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descrition)
+                </td>
+                <td>
+                    <a href="~/Admin/Color1/Edit/@item.Id">ویرایش</a> |
+                    <a href="~/Admin/Color1/Details/@item.Id">جزئیات</a> |
+                    <a href="~/Admin/Color1/Delete/@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

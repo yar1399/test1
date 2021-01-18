@@ -1,0 +1,39 @@
+﻿@model PTemplate.Data.DataBase.Bitafile
+
+@{
+    ViewData["Title"] = "Details";
+    ViewData["homeUrl"] = "/Home/";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="p-r-20 p-l-20">Details</h2>
+
+<div>
+    <h4>Bitafile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Namefile)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Namefile)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datecreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datecreate)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

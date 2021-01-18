@@ -1,0 +1,149 @@
+﻿@model PTemplate.Data.DataBase.Addresssystem
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "اطلاعات سامانه";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+
+    <link href="~/leaflet/leaflet.css" rel="stylesheet" />
+
+    <script src="~/leaflet/leaflet.js"></script>
+}
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <h4>اطلاعات موقعیت شما</h4>
+        <hr />
+
+
+        <div id="map" style="width:600px; height:400px"></div>
+        <br />
+
+        <input class="btn btn-success" type="button" onclick="startaddmap();" value="درج مختصات جدید" />
+    </div>
+</div>
+<div>
+    <a class="text-success" href="~/Admin/Addresssystems/Details">برگشت</a> |
+
+    @*<a asp-action="Index">برگشت</a>*@
+</div>
+
+
+
+
+
+@section Scripts
+{
+    <script>
+        var lat=0;
+        var lng=0;
+
+        var marker25;
+        // Creating map options
+        var mapOptions = {
+            center: [17.385044, 78.486671],
+            zoom: 10
+        }
+
+        // Creating a map object
+        var map = new L.map('map', mapOptions);
+
+        // Creating a Layer object
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+
+        // Adding layer to the map
+        map.addLayer(layer);
+
+        // Icon options
+        var iconOptions = {
+
+            iconUrl: 'https://s16.picofile.com/file/8420870192/logo.png',
+            iconSize: [50, 50]
+        }
+
+
+        // Creating a custom icon
+        var customIcon = L.icon(iconOptions);
+
+        // Creating Marker Options
+        var markerOptions = {
+            title: "...",
+            clickable: true,
+            draggable: true,
+            icon: customIcon,
+            zoom: 50
+        }
+        // Creating a Marker
+        var marker = L.marker([@Model.Lat, @Model.Lng], markerOptions);
+
+        // Adding popup to the marker
+        marker.bindPopup('@Model.Name').openPopup();
+
+        // Adding marker to the map
+        marker.addTo(map);
+
+        map.on("click", function (e) {
+
+            if (marker25!=null)
+                map.removeLayer(marker25);
+
+            marker25 = new L.Marker([e.latlng.lat, e.latlng.lng]);
+            marker25.addTo(map);
+
+            lat = e.latlng.lat;
+            lng = e.latlng.lng;
+
+
+
+
+        })
+
+
+
+        function startaddmap() {
+
+            if (lat == 0 && lng == 0) {
+
+                alert(' لطفا مختصات را وارد کنید ');
+                return;
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '/admin/Addresssystems/addmap?lat=' + lat + '&lng=' + lng,
+                contentType: "application/json",
+                success: function (result) {
+
+
+                    if (result.ts.length == 1) {
+                        if (result.ts[0].message === "NO") {
+                            alert('عملیات ناموفق');
+                        } else if (result.ts[0].message === "Yes") {
+                           
+                            window.location.replace("/Admin/Addresssystems/Details");
+                        }
+                    } else {
+                        alert('دوباره تلاش کن');
+                    }
+
+                }
+                , error: function (xhr, status, error) {
+                    alert('دوباره تلاش کنید');
+                }
+            });
+
+        }
+    </script>
+
+
+}

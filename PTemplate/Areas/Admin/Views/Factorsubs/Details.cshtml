@@ -1,0 +1,61 @@
+﻿@model PTemplate.Data.DataBase.Factorsub
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Factorsub</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Count)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Money)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Money)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Offpercent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Offpercent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datecreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datecreate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdproductcolorNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductcolorNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdfactorNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdfactorNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdproductNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductNavigation.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,118 @@
+﻿@model PTemplate.Data.DataBase.Factorpost
+
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "جزئیات ارسال مرسوله";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>جزئیات ارسال مرسوله</h2>
+
+<div>
+    <h4>ارساله مرسوله</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            کد پیگیری
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Codefollowup)
+        </dd>
+        <dt>
+            وجه
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Money)
+        </dd>
+        @*<dt>
+            کاربر سازنده
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IduserCreator)
+        </dd>
+        <dt>
+            ارسال کننده
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Iduserpost)
+        </dd>*@
+        <dt>
+            تاریخ ساخت
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datecreate)
+        </dd>
+        <dt>
+            تاریخ ارسال مرسوله
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datepost)
+        </dd>
+        <dt>
+            ارسال با اتوبوس
+        </dt>
+
+        <dd>
+
+            @if (Model.Isbus.Value)
+            {
+                <span>فعال</span>
+                <img src="~/images/icons8-green.png" />
+            }
+            else
+            {
+                <span>  غیر فعال</span>
+                <img src="~/images/icons8-silver.png" />
+            }
+
+            @*@Html.DisplayFor(model => model.Isbus)*@
+        </dd>
+        <dt>
+            وضعیت پایان مرسوله
+        </dt>
+        <dd>
+
+            @if (Model.Isfinesh.Value)
+            {
+                <span>فعال</span>
+                <img src="~/images/icons8-green.png" />
+            }
+            else
+            {
+                <span>  غیر فعال</span>
+                <img src="~/images/icons8-silver.png" />
+            }
+           
+        </dd>
+        <dt>
+            شمار فاکتور
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdfactorNavigation.Id)
+        </dd>
+        <dt>
+            وضعیت مرسوله
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdfactorposttypeNavigation.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">ویرایش</a> |
+    <a asp-action="Index">برگشت</a>
+</div>

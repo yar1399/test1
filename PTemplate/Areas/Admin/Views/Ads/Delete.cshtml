@@ -1,0 +1,85 @@
+﻿@model PTemplate.Data.DataBase.Ad
+
+
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Models
+
+
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+    @{
+        ViewData["Title"] = "حذف تبلیغات";
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
+
+    <h2>حذف</h2>
+
+    <h3>ایا مایل به حذف تبلیغ هستید؟</h3>
+    <div>
+        <h4>Ad</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                مسیر
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Path)
+                <img src="@Model.Path" /><br />
+
+            </dd>
+            <dt>
+                لینک
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Link)
+
+            </dd>
+            <dt>
+                فعال
+            </dt>
+            <dd>
+                @if (Model.Isactive != null)
+                    @if ((Boolean)Model.Isactive)
+                    {
+                        <span>فعال</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+
+            </dd>
+            <dt>
+                تاریخ ساخت
+            </dt>
+            <dd>
+                <span> @PersianDate.ToPersianDateString((DateTime)Model.Datecreate)</span>
+                @*@Html.DisplayFor(model => model.Datecreate)*@
+            </dd>
+            <dt>
+                تاریخ شروع
+            </dt>
+            <dd>
+                <span> @PersianDate.ToPersianDateString((DateTime)Model.Datestart)</span>
+                @*@Html.DisplayFor(model => model.Datestart)*@
+            </dd>
+            <dt>
+                تاریخ پایان
+            </dt>
+            <dd>
+                <span> @PersianDate.ToPersianDateString((DateTime)Model.Dateend)</span>
+                @*@Html.DisplayFor(model => model.Dateend)*@
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="حذف" class="btn btn-default" /> |
+            <a asp-action="Index">برگشت</a>
+        </form>
+    </div>

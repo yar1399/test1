@@ -1,0 +1,133 @@
+﻿@model PTemplate.Data.DataBase.Productinfo
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using PTemplate.Data.DataBase;
+
+@using PTemplate.Models
+
+
+@{
+    ViewData["Title"] = "اطلاعات محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ساخت</h2>
+
+<h4>اطلاعات محصول</h4>
+<hr />
+
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["Product"];
+
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @if (b.Isactive.Value)
+            {
+                <span>فعال</span>
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                دسته
+                @{
+                    SelectList bb1 = (SelectList)ViewData["idproductmenuinfo"];
+
+                    @if (bb1.Count() == 0)
+                    {
+                        <span><a href="~/Admin/productmenuinfoes/index?Idmenu=@b.Idmenu&paging=1"> جزپیاتی تعریف نشد است -برای تعریف اطلاعات کالا کلیک کنید </a></span>
+                    }
+
+                    else
+                    {
+                        <select asp-for="Idproductmenuinfo" class="form-control" asp-items="@ViewBag.idproductmenuinfo"></select>
+                    }
+
+                }
+
+
+
+
+            </div>
+            <div class="form-group">
+                محصول
+                <select asp-for="Idproduct" class="form-control" asp-items="ViewBag.idproduct"></select>
+            </div>
+            <div class="form-group">
+                توضیح هات
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="datecreate" class="control-label"></label>
+            <input asp-for="datecreate" class="form-control" />
+            <span asp-validation-for="datecreate" class="text-danger"></span>
+        </div>*@
+
+            @if (bb1.Count() == 0)
+            {
+                <span><a href="~/Admin/productmenuinfoes/index?Idmenu=@b.Idmenu&paging=1"> جزپیاتی تعریف نشد است -برای تعریف اطلاعات کالا کلیک کنید </a></span>
+            }
+            else
+            {
+                <div class="form-group">
+                    <input type="submit" value="درج" class="btn btn-default" />
+                </div>
+            }
+
+
+
+            0
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">برگشت</a>
+</div>
+

@@ -1,0 +1,134 @@
+﻿@model PTemplate.Data.DataBase.Product
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@namespace PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ویرایش محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["product"];
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            قیمت
+        </dt>
+        <dd>
+            @b.Price
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @b.Isactive
+        </dd>
+       
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+       
+    </dl>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Admin/Products/Editpost" method="post" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            @*<div class="form-group">
+                    <label asp-for="Iduser" class="control-label"></label>
+                    <input asp-for="Iduser" class="form-control" readonly/>
+                    <span asp-validation-for="Iduser" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+               @*نوع پست
+                <select asp-for="Idposttype" class="form-control" asp-items="ViewBag.Idposttype"></select>
+                <span asp-validation-for="Idposttype" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+
+              دسته اطلاعاتی
+
+                @*@if (ViewBag.Idposttoptype != null)
+                {
+                    <select asp-for="Idposttoptype" class="form-control" asp-items="ViewBag.Idposttoptype"></select>
+                }*@
+
+            </div>
+            <div class="form-group">
+              منو
+                <select asp-for="Idmenu" class="form-control" asp-items="ViewBag.Idmenu"></select>
+                <span asp-validation-for="Idmenu" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+              عنوان
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              توضیح
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               متن
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              آدرس فایل
+                <input asp-for="Pathdata" class="form-control" />
+                <span asp-validation-for="Pathdata" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                    <label asp-for="Datecreate" class="control-label"></label>
+                    <input asp-for="Datecreate" class="form-control" />
+                    <span asp-validation-for="Datecreate" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+               فعال
+                @*<input asp-for="Isactive" class="form-control" />*@
+                @Html.CheckBox("Isactive",Model.Isactive);
+                @*<span asp-validation-for="Isactive" class="text-danger"></span>*@
+            </div>
+
+            <div class="form-group">
+              (این گزینه فعال نیست)
+                @*<input asp-for="Iswrite" class="form-control" />*@
+                @*@Html.CheckBox("Iswrite",Model.Iswrite)*@
+                @*<span asp-validation-for="Iswrite" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/Products/Index">برگشت</a>
+</div>
+

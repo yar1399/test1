@@ -1,0 +1,86 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Factor1>
+
+@{
+    ViewData["Title"] = "آرشیو سبد خرید";
+    Layout = "~/Views/cbkala/Shared/personmanger.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               فعال
+            </th>
+          
+            <th>
+              تاریخ اخرین  فعالیت فاکتور
+            </th>
+          
+            @*<th>
+                @Html.DisplayNameFor(model => model.IdbankstateNavigation)
+            </th>*@
+
+            <th>
+               وضعیت فاکتور
+            </th>
+
+            <th>
+               آدرس   
+            </th>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.IdproductpaytypeNavigation.Name)*@
+            </th>
+           
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @if((bool)item.Isactive)
+                {
+<img src="~/images/icons8-green.png" />
+                }else
+                {
+<img src="~/images/icons8-silver.png" />
+                }
+               
+            </td>
+
+            <td>
+                @PersianDate.ToPersianDate((DateTime)item.Datechangestate)
+               
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.IdfactorstateNavigation.Name)
+            </td>
+            <td>
+                @if (item.IdproductaddressNavigation != null)
+                {
+                 Write(   item.IdproductaddressNavigation.Province + ":" + item.IdproductaddressNavigation.City + " " +
+                     item.IdproductaddressNavigation.Address + " " + item.IdproductaddressNavigation.Postalcode);
+                }else
+                {
+                <span>آدرسی وارد نشده است.</span>  
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdproductpaytypeNavigation.Name)
+            </td>
+          
+            <td>
+
+                <a asp-action="Details" asp-route-id="@item.Id">اطلاعات بیشتر</a> 
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

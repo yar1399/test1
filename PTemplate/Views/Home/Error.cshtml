@@ -1,0 +1,29 @@
+﻿
+@model PTemplate.Models.Error
+
+@{
+    ViewData["Title"] = "استثناء";
+    ViewData["homeUrl"] = "/Home/";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="hero-section" style="padding: 120px 0 0 0;">
+
+
+    <div class="split-features2" style="padding: 100px 0px;">
+
+        <!-- <div class=" col-md-12 m-b-50">
+                <img class="img-responsive wow fadeInUp" data-wow-delay="0.1s" src="~/images/arman_sad.png" width="254px" height="254px" alt="App" />
+            </div>
+        -->
+        <div class="col-md-12 wow fadeInUp text-xxlarge center-form alert alert-danger">
+            <h2>@(Model.message)</h2>
+            <span>@(Model.codeError)</span>
+        </div>
+
+    </div>
+
+
+</div>

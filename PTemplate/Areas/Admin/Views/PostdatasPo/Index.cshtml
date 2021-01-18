@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Postdata>
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Models
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "محتوا جدید";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ساخت محتوای جدید</h2>
+
+<p>
+
+
+    @if (long.Parse(ViewData["Idpost"].ToString()) >= 1)
+    {
+        <span>  <a harf="~/Admin/PostdatasPo/Create/@ViewData["Idpost"]">درج محتوا</a></span>
+    }
+
+    <a harf="~/Admin/PostdatasPo/Create/@ViewData["Idpost"]">درج محتوا</a>
+</p>
+
+
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Post)ViewData["post"];
+
+    }
+    <h1> @b.Title</h1>
+    <p> @b.Description</p>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @b.Isactive
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+
+            <th>
+                توضیح هات
+            </th>
+            <th>
+                نوع پست
+            </th>
+            <th>
+                فعال
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IddatatypeNavigation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isactive)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">ویرایش</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">جزئیات</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

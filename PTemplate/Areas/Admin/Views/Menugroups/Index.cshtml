@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Menugroup>
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>منو </h1>
+
+<p>
+    <a href="~/Admin/Menugroups/Create">منو جدید </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               نام
+            </th>
+            <th>
+              توضیح
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (item.Isactive != null)
+                    @if ((Boolean)item.Isactive)
+                    {
+                        <span>فعال</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+            </td>
+            <td>
+                @if (item.Istype != null)
+                    @if ((Boolean)item.Istype)
+                    {
+                        <span>خبری</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  پست</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+            </td>
+            <td>
+                <a href="~/Admin/Menugroups/Edit/@item.Id">ویرایش</a> |
+                <a href="~/Admin/Menugroups/Details/@item.Id">جزئیات</a> |
+                <a href="~/Admin/Menugroups/Delete/@item.Id">حذف</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

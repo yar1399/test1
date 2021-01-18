@@ -1,0 +1,177 @@
+﻿@model List<PTemplate.Data.DataBase.Productdata>
+
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+@{
+    ViewData["Title"] = "محتوا پست";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>محتوای پست</h2>
+
+<p>
+
+    @if (long.Parse(ViewData["IdProduct"].ToString()) != 0)
+    {
+
+        <a href="/Admin/Products/ProductsDataPost/@ViewData["IdProduct"]">محتوای جدید</a>
+    }
+    else
+    {
+        <a asp-action="Create">ساخت محتوا</a>
+    }
+
+</p>
+
+
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["Product"];
+
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @if (b.Isactive.Value)
+            {
+                <span>فعال</span>
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                عکس
+            </th>
+            <th>
+                فعال
+            </th>
+            <th>
+                توضیح
+            </th>
+            <th>
+                نوع وضعیت
+            </th>
+            @*<th>
+                      @Html.DisplayNameFor(model => model.IdpostNavigation)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            WriteLiteral("<tr>");
+            @Html.Raw("<td>")
+            //  WriteLiteral("<td>");
+
+
+            @if (item.Iddatatype == (byte)PTemplate.Models.Enum.TypsImgesize.banner ||
+       item.Iddatatype == (byte)PTemplate.Models.Enum.TypsImgesize.Slider ||
+       item.Iddatatype == (byte)PTemplate.Models.Enum.TypsImgesize.Thumbnail ||
+        item.Iddatatype == (byte)PTemplate.Models.Enum.TypsImgesize.Discription ||
+        item.Iddatatype == (byte)PTemplate.Models.Enum.TypsImgesize.imgepluse)
+            {
+                <img src="~/uploads/product/@item.Pathdata" width="200" height="200" />
+            }
+
+            @Html.Raw("</td>")
+            // WriteLiteral("</ td >");
+
+            @Html.Raw("<td>")
+           // WriteLiteral("< td >");
+
+            @if (item.Isactive.Value)
+            {
+
+                <span>فعال</span>
+
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+
+            @Html.Raw("</td>")
+            @Html.Raw("<td>")
+
+            //  WriteLiteral("</td>");
+
+            //WriteLiteral("<td>");
+
+
+
+            @Html.DisplayFor(modelItem => item.Description)
+
+            // WriteLiteral("</td>");
+            @Html.Raw("</td>")
+
+            // WriteLiteral("< td >");
+            @Html.Raw("<td>")
+
+            @Html.DisplayFor(modelItem => item.IddatatypeNavigation.Name)
+
+            //WriteLiteral("</ td >");
+            @Html.Raw("</td>")
+
+
+            @Html.Raw("<td>")
+            //  WriteLiteral("<td>");
+
+
+            //  @Html.ActionLink("~/Admin/PostdatasDelete/Delete/" + item.Id, "حذف")
+
+            <a href="~/Admin/Products/ProductdatasDelete/@item.Id" title="حذف">حذف</a>
+
+            @Html.Raw("</td>")
+            // WriteLiteral(" </td>");
+            WriteLiteral("</tr>");
+        }
+    </tbody>
+</table>

@@ -1,0 +1,99 @@
+﻿@model PTemplate.Models.DataViewModel.UploadViewModel
+
+@using PTemplate.Models
+
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "محتوای ارسالی";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["product"];
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            قیمت
+        </dt>
+        <dd>
+            @b.Price
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @b.Isactive
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form  action="~/Admin/Products/ProductsDataPost" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="idpost" />
+
+            <div class="form-group">
+                نوع داده
+                <select asp-for="Iddatatype" class="form-control" asp-items="ViewBag.Datatype"></select>
+            </div>
+            <div class="form-group">
+                توضیح هات
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Photo" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+
+                فعال بودن محتوا
+                @Html.CheckBox("isActive")
+               
+
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="ارسال" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/Products/Index">برگشت</a>
+</div>
+

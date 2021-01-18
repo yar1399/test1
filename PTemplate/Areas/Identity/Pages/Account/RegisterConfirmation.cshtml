@@ -1,0 +1,53 @@
+﻿@page
+@model RegisterConfirmationModel
+
+@{
+    ViewData["Title"] = "ساخت حساب کاربری";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "/";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+
+
+@section sitmapplaceholder{
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="fa " aria-hidden="true"></i> تایید ایمیل</a></li>
+
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div id="container">
+    <div class="container panel panel-default ">
+        <h2>@ViewData["Title"]</h2>
+        @{
+            if (@Model.DisplayConfirmAccountLink)
+            {
+                <p>
+                    شما با موفقیت یک حساب کاربری ایجا نموده اید .لطفا برای تایید ایمیل و فعال شدن حساب شما به ایمیل خود مراجعه کنید)ایمیل فعال سازی ارسال شد
+
+                </p>
+            }
+            else
+            {
+                <p>
+                    شما با موفقیت یک حساب کاربری ایجا نموده اید .لطفا برای تایید ایمیل و فعال شدن حساب شما به ایمیل خود مراجعه کنید)ایمیل فعال سازی ارسال شد
+                </p>
+            }
+        }
+
+    </div>
+</div>

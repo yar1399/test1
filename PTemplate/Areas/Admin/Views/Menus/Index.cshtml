@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Menu>
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>گروه منو</h1>
+
+<p>
+   <a href="~/Admin/Menus/Create">ساخت زیر منو</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+              نام
+            </th>
+            <th>
+             توضیح
+            </th>
+            <th>
+               گروه منو
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (item.Isactive != null)
+                    @if ((Boolean)item.Isactive)
+                    {
+                        <span>فعال</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdmenugroupNavigation.Name)
+            </td>
+            <td>
+                <a href="~/Admin/Menus/Edit/@item.Id">ویرایش</a> |
+                <a href="~/Admin/Menus/Details/@item.Id">جزئیات</a> |
+                <a href="~/Admin/Menus/Delete/@item.Id">حذف</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

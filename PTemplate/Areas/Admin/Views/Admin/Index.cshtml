@@ -1,0 +1,355 @@
+﻿@using PTemplate
+@using PTemplate.Models
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+@using PTemplate.Models.Statestics;
+
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+
+@{
+    ViewData["Title"] = "صفحه مدیریت فروشگاه";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+
+@{
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+    PTsecContext PTContext = new PTsecContext(new Microsoft.EntityFrameworkCore.DbContextOptions<PTsecContext>());
+
+
+    var adress = appA.Addresssystems.FirstOrDefault();
+
+    StClassStruct stclassstruct = StGet.GetStatestisc();
+
+
+    var StTik = appA.Statestics.Where(a => a.Day >= DateTime.Now.AddDays(-8)).OrderByDescending(a=>a.Day).ToList();
+    var countUderRegister = PTContext.Users.Where(a => a.EmailConfirmed == true).ToList().Count;
+
+}
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h4 class="page-title m-0"> داشبورد : @adress.Name</h4>
+                            <span class="text-dark">کاربر :   @User.Identity.Name</span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right d-none d-md-block">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="ti-settings mr-1"></i> تنظیمات
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                        <a class="dropdown-item" href="#">عملیات</a>
+                                        <a class="dropdown-item" href="#">اقدام دیگر</a>
+                                        <a class="dropdown-item" href="#">چیز های دیگر</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">پیوند جدا شده</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end page-title-box -->
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary mini-stat text-white">
+                    <div class="p-3 mini-stat-desc">
+                        <div class="clearfix">
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">تعداد ثبت نام</h6>
+                            <h4 class="mb-3 mt-0 float-right">@countUderRegister</h4>
+                        </div>
+                        <div>
+                            <a href="#" style="color:white;"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a>
+                        </div>
+
+                    </div>
+                    <div class="p-3">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-cube-outline h5"></i></a>
+                        </div>
+                        <p class="font-14 m-0"> <a href="#" class="badge badge-light text-info"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-info mini-stat text-white">
+                    <div class="p-3 mini-stat-desc">
+                        <div class="clearfix">
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">کاربران امروز</h6>
+                            <h4 class="mb-3 mt-0 float-right">@stclassstruct.TodayIP</h4>
+                        </div>
+                        <div>
+                            <a href="#" style="color:white;"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
+                        </div>
+                        <p class="font-14 m-0"> <a href="#" class="badge badge-light text-info"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-pink mini-stat text-white">
+                    <div class="p-3 mini-stat-desc">
+                        <div class="clearfix">
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">بازدید امروز</h6>
+                            <h4 class="mb-3 mt-0 float-right">@stclassstruct.Today</h4>
+                        </div>
+                        <div>
+                            <a href="#" style="color:white;"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-tag-text-outline h5"></i></a>
+                        </div>
+                        <p class="font-14 m-0"> <a href="#" class="badge badge-light text-info"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success mini-stat text-white">
+                    <div class="p-3 mini-stat-desc">
+                        <div class="clearfix">
+                            <h6 class="text-uppercase mt-0 float-left text-white-50">محصولات</h6>
+                            <h4 class="mb-3 mt-0 float-right">N/A</h4>
+                        </div>
+                        <div>
+                            <a href="#" style="color:white;"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-briefcase-check h5"></i></a>
+                        </div>
+                        <p class="font-14 m-0"> <a href="#" class="badge badge-light text-info"><span class="badge badge-light text-info"> N/A </span> <span class="ml-2">بیشتر ببینم</span></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">بازدید ده روز گذشته</h4>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div id="morris-line-example" class="morris-chart" style="height: 300px"></div>
+                            </div>
+                            <div class="col-lg-6">
+
+                                <h5 class="font-14 mb-5">آمار</h5>
+
+
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد کاربران انلاین &nbsp;:&nbsp;  <span>@stOnlion.GetOnlion()</span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد کاربران امروز &nbsp;:&nbsp;  <span>@stclassstruct.TodayIP</span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد بازدید امروز &nbsp;:&nbsp;  <span>@stclassstruct.Today</span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد بازدید دیروز &nbsp;:&nbsp;  <span>@stclassstruct.Yesterday </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد بازدید این ماه &nbsp;:&nbsp;  <span>@stclassstruct.Month </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد بازدید ماه قبل  &nbsp;:&nbsp;  <span>@stclassstruct.LastMonth </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد بازدید سال  &nbsp;:&nbsp;  <span>@stclassstruct.Year </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        تعداد بازدید کل  &nbsp;:&nbsp;  <span>@stclassstruct.Total </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        ----
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        ----
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        ----
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        ----
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        IP  &nbsp;:&nbsp; تعداد کاربران امروز &nbsp;:&nbsp;  <span> @stclassstruct.TodayIP</span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        IP  &nbsp;:&nbsp; تعداد کاربران دیروز &nbsp;:&nbsp;  <span> @stclassstruct.YesterdayIP </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        IP  &nbsp;:&nbsp; تعداد کاربران این ماه  &nbsp;:&nbsp;<span> @stclassstruct.MonthIP </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        IP  &nbsp;:&nbsp; تعداد کاربران ماه قبل  &nbsp;:&nbsp;<span> @stclassstruct.LastMonthIP </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        IP&nbsp;:&nbsp; تعداد کاربران سال &nbsp; :&nbsp;  <span> @stclassstruct.YearIP </span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                                        IP&nbsp;:&nbsp;تعداد کاربران کل  &nbsp;:&nbsp;<span> @stclassstruct.TotalIP </span>
+                                    </div>
+
+                                    <div id="responnamerang" class="col-md-6 col-lg-6 color-white wow fadeInLeft">
+                                        <p class="text-justify">
+                                        </p>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm">ادامه مطلب <i class="mdi mdi-chevron-right"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">درصد مرو گر ها</h4>
+                        <div id="morris-donut-example" class="morris-chart" style="height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+      
+
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title mb-4">پر بازدید ها  </h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">آی دی.</th>
+                                        <th scope="col">نام</th>
+                                        <th scope="col">تارخ</th>
+                                        <th scope="col">...</th>
+                                        <th scope="col">تعداد</th>
+                                        <th scope="col">وضعیت</th>
+                                        <th scope="col">میزان</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">000.000.000.000</th>
+                                        <td>...</td>
+                                        <td>1399/08/08</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>
+                                            <div class="progress" style="height: 5px;">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 89%;" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td>000</td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title mb-4">بک لینک ها</h4>
+                        <table class="table table-striped mb-0">
+                            <tbody>
+                                <tr>
+                                    <td><i class="far fa-file-pdf text-primary h2"></i></td>
+                                    <td>
+                                        <h6 class="mt-0">1011</h6>
+                                        <p class="text-muted mb-0">...</p>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+    </div><!-- container fluid -->
+
+</div> <!-- Page content Wrapper -->
+
+
+@section scripts {
+    <script>
+        document.onload = function () {
+            
+            var $data = [
+               @{
+                   string str = "";
+                   for (int i=0;i<= StTik.Count-1;i++)
+                   {
+                       if (i == StTik.Count - 1)
+                           str += "{ y: '100" + i+ "', a: " + StTik[i].Counter + ", b: "+ StTik[i].Counter + " }";
+                       else
+                           str += "{ y: '100" + i + "', a: " + StTik[i].Counter + ", b: " + StTik[i].Counter + " },";
+                   }
+
+                   WriteLiteral(str);
+            }
+            ];
+
+
+           $.Dashboard.init($data);
+        } (window.jQuery);
+    </script>
+
+
+
+
+}

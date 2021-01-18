@@ -1,0 +1,546 @@
+﻿@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+@{
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+   
+    var pro = appA.Menugroups.Where(b => b.Istype == true).ToList();
+
+    var adress = appA.Addresssystems.FirstOrDefault();
+
+ //   var mg = appA.Menugroup.Where(b => b.istype == true).ToList();
+    //var b = (PTemplate.Data.DataBase.Product)ViewData["product"];
+}
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <link rel="shortcut icon" type="image/png" href="~/cbkala/image/logo.png" />
+    @if (adress != null)
+    {
+        <title>@adress.Name - @ViewData["Title"]</title>
+        <meta name="description" content="فروشگاه @adress.Name">
+    }
+    else
+    {
+        <title>فروشگاه - @ViewData["Title"]</title>
+        <meta name="description" content="فروشگاه ">
+    }
+
+
+    <!-- CSS Part Start-->
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/js/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/js/bootstrap/css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/owl.carousel.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/owl.transitions.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/stylesheet-rtl.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/responsive-rtl.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/stylesheet-skin3.css" />
+    <link rel="stylesheet" type="text/css" href="@ViewData["HomeUrl"]cbkala/css/jquery-ui.css" />
+
+    <!-- CSS Part End-->
+
+
+</head>
+<body>
+
+    <div class="wrapper-wide">
+        <div id="header">
+            <!-- Top Bar Start-->
+            <nav id="top" class="htop">
+                <div class="container">
+                    <div class="row">
+                        <span class="drop-icon visible-sm visible-xs"><i class="fa fa-align-justify"></i></span>
+                        <div class="  left-top">
+                            <div class="links">
+                                <ul>
+                                    <li class="mobile"><i class="fa fa-phone"></i>@adress.Tell</li>
+                                    <li class="email"><i class="fa fa-envelope"></i>@adress.Email</li>
+                                    @*<li style="display:none;"><a href="#">لیست علاقه مندی ها (0)</a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+
+                        @*<partial name="_LoginPartial" />*@
+
+                        <div id="top-links" class="nav ">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+                                <ul>
+                                    <li>  <a href="/Identity/Account/Manage" title="پروفایل">پروفایل   @User.Identity.Name</a></li>
+                                    <li>  <a href="/Identity/Account/Logout" title="خروج از سامانه">خروج</a></li>
+                                    @*<li>
+                                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+                                            <button type="submit" class="btn btn-link navbar-btn navbar-link">خروج</button>
+                                        </form>
+                                    </li>*@
+                                </ul>
+
+                            }
+                            else
+                            {
+                                <ul>
+                                    <li><a href="/Identity/Account/Register">ثبت نام</a></li>
+                                    <li><a href="/Identity/Account/Login">ورود به حساب کاربری</a></li>
+                                </ul>
+                            }
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </nav>
+            <!-- Top Bar End-->
+            <!-- Header Start-->
+            <header class="header-row">
+                <div class="container">
+                    <div class="table-container">
+                        <!-- Logo Start -->
+                        <div class="col-table-cell col-lg-3 col-md-3 col-sm-12 col-xs-12 inner">
+                            <div id="logo" class="color-ccc">
+                            <a href="@ViewData["HomeUrl"]"><img class="img-responsive" src="@ViewData["HomeUrl"]cbkala/image/logo.png" title="MarketShop" alt="MarketShop" /></a></div>
+                        </div>
+                        <!-- Logo End -->
+                        <!-- جستجو Start-->
+                        <div class="col-table-cell col-lg-7 col-md-7 col-md-push-0 col-sm-12 col-sm-push-0 col-xs-12">
+                            <div id="search" class="input-group">
+
+
+
+                                @*@using (Html.BeginForm("AutoCompleteName", "cbkala", FormMethod.Get))
+        {*@
+
+                                
+                                   
+                                <input id="filter_name" type="text" name="search" value="" placeholder="جستجو" class="form-control input-lg" />
+                                <button type="button" id="btnfilter_name" class="button-search"><i class="fa fa-search"></i></button>
+
+
+                                @*}*@
+
+
+
+
+
+
+                            </div>
+                        </div>
+                        <!-- جستجو End-->
+                        <!-- Mini Cart Start-->
+                        <div class="col-table-cell col-lg-2 col-md-2 col-md-pull-0 col-sm-12 col-sm-pull-6 col-xs-12 inner">
+
+                            @RenderSection("Factor", required: false)
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+
+                                var iduser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                                var subproduct = await appA.sp_subfactorlist(iduser);
+                                decimal Sum = 0, offer = 0;
+                                if (subproduct.Count != 0)
+                                {
+                                    <div id="cart">
+                                        <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..." class="heading dropdown-toggle">
+                                            <span class="fa fa-shopping-cart pull-left flip" style="font-size:24px;"></span>
+                                            <span id="cart-total">@subproduct.Count آیتم - @subproduct.Sum(p => p.productprice) ریال</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <span id="messageSub" class="text-center text-info">
+
+                                                </span>
+                                                <table class="table">
+                                                    <tbody>
+                                                        @foreach (var i in subproduct)
+                                                        {
+                                                            <tr id="quantity-2-@i.idfactorsub">
+                                                                <td class="text-center"><a href="@ViewData["externalHomeUrl"]Product/@i.idproduct"><img class="img-thumbnail" title="@i.title" alt="@i.title" src="/uploads/product/@i.pathdata"></a></td>
+                                                                <td class="text-left"><a href="@ViewData["externalHomeUrl"]Product/@i.idproduct">@i.title</a></td>
+                                                                <td class="text-right" id="quantity-1-@i.idproduct">x @i.countfactorsub</td>
+                                                                <td class="text-right">@i.productprice ریال</td>
+                                                                <td class="text-center"><button class="btn btn-danger btn-xs remove" title="حذف" onClick="startDeletesub('@i.idfactorsub')" type="button"><i class="fa fa-times"></i></button></td>
+                                                            </tr>
+
+
+                                                            Sum += i.productcount * i.productprice;
+                                                        }
+
+
+                                                    </tbody>
+                                                </table>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-right"><strong>جمع کل</strong></td>
+                                                                <td class="text-right">@Sum ریال</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-right"><strong>کسر هدیه</strong></td>
+                                                                <td class="text-right">0 ریال</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="text-right"><strong>قابل پرداخت</strong></td>
+                                                                <td class="text-right">@Sum ریال</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p class="checkout"><a href="@ViewData["externalHomeUrl"]Cart" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="@ViewData["externalHomeUrl"]Checkout" class="btn btn-primary"><i class="fa fa-share"></i> تسویه حساب</a></p>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>}
+                                else
+                                {
+                                    <div id="cart">
+                                        <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..."
+                                                class="heading dropdown-toggle">
+                                            <span class="fa fa-shopping-cart pull-left flip" style="font-size:24px;"></span>
+                                            <span id="cart-total"> آیتم - یافت نشد </span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <div>
+                                                    <span> موردی یافت نشد. </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div id="cart">
+                                    <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..."
+                                            class="heading dropdown-toggle">
+                                        <span class="fa fa-shopping-cart pull-left flip" style="font-size:24px;"></span>
+                                        <span id="cart-total"> آیتم - یافت نشد </span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <div>
+                                                <span><a href="/cbkala/Factor">بایگانی خرید</a> موردی یافت نشد. </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+
+
+
+
+                        </div>
+                        <!-- Mini Cart End-->
+
+                    </div>
+                </div>
+            </header>
+            <!-- Header End-->
+            <!-- Main آقایانu Start-->
+            <nav id="menu" class="navbar">
+                <div class="container">
+                    <div class="navbar-header"> <span class="visible-xs visible-sm"> منو <b></b></span></div>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a>دسته بندی کالاها</a>
+                                <div class="dropdown-menu">
+                                    <ul>
+
+                                        @foreach (var i in pro)
+                                        {
+                                            <li>
+                                                <a href="@ViewData["externalHomeUrl"]Category?count=12&group=0&menu=0"> @i.Name <span>&rsaquo;</span></a>
+                                                @{
+
+
+
+                                                    i.Menus = @appA.Menus.AsEnumerable().Where(m => (long)m.Idmenugroup == (long)i.Id).ToList();
+                                                    if (@i.Menus.Count >= 0)
+                                                    {
+                                                        <div class="dropdown-menu">
+                                                            <ul>
+
+                                                                @foreach (var j in i.Menus)
+                                                                {
+                                                                    <li><a href="@ViewData["externalHomeUrl"]Category?count=12&group=0&menu=@j.Id"> @j.Name</a> </li>
+                                                                }
+
+                                                            </ul>
+                                                        </div>
+                                                    }
+                                                }
+                                            </li>
+                                        }
+
+
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="contact-link"><a href="/Factor1">آرشیو سبد خرید</a></li>
+                            <li class="contact-link"><a href="@ViewData["externalHomeUrl"]Contactus">تماس با ما</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Main آقایانu End-->
+        </div>
+        <div id="container">
+            <div class="container">
+                @RenderBody()
+             </div>
+           </div>
+                @RenderSection("Scripts", required: false)
+                <!--Footer Start-->
+                <footer id="footer">
+                    <div class="fpart-first">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                                    <h5>راهنمای خرید از حامد استوک</h5>
+                                    <ul>
+                                        <li><a href="@ViewData["externalHomeUrl"]Howtoorder">نحوه ثبت سفارش</a></li>
+                                        <li><a href="@ViewData["externalHomeUrl"]Howtosendorder">رویه ارسال سفارش</a></li>
+                                        <li><a href="@ViewData["externalHomeUrl"]Howtopay">شیوه های پرداخت</a></li>
+                                    </ul>
+                                </div>
+                                <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                                    <h5>خدمات مشتریان</h5>
+                                    <ul>
+
+                                        <li><a href="@ViewData["externalHomeUrl"]Questions">پرسش و پاسخ های متداول</a></li>
+                                        <li><a href="@ViewData["externalHomeUrl"]Policy">قوانین و شرایط استفاده</a></li>
+                                        <li><a href="@ViewData["externalHomeUrl"]Privacy">حریم خصوصی</a></li>
+                                        <li><a href="@ViewData["externalHomeUrl"]Contactus">تماس با ما</a></li>
+                                    </ul>
+                                </div>
+                                <div class="contact col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <h5>اطلاعات تماس</h5>
+                                    <ul>
+                                        <li class="address"><i class="fa fa-map-marker"></i>@adress.Province - @adress.City - @adress.Address</li>
+                                        <li class="mobile"><i class="fa fa-phone"></i>@adress.Tell</li>
+                                        <li class="email"><i class="fa fa-envelope"></i>@adress.Email</li>
+                                    </ul>
+                                </div>
+                                <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                                    <img src="@ViewData["HomeUrl"]cbkala/image/enamad_logo.png" />
+                                </div>
+
+                                <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                                    <img src="@ViewData["HomeUrl"]cbkala/image/samandehi_logo.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fpart-second">
+                        <div class="container">
+
+                            <div class="bottom-row">
+                                <div class="custom-text text-center">
+                                    <img alt="" src="@ViewData["HomeUrl"]cbkala/image/logo-small.png">
+                                    <p>کلیه حقوق مادی و معنوی این وبسایت متعلق به فروشگاه  @adress.Name میباشد. کپی رایت © 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="back-top"><a data-toggle="tooltip" title="بازگشت به بالا" href="javascript:void(0)" class="backtotop"><i class="fa fa-chevron-up"></i></a></div>
+                </footer>
+                <!--Footer End-->
+
+            </div>
+            <!-- JS Part Start-->
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/jquery-2.1.1.min.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/bootstrap/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/jquery.easing-1.3.min.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/jquery.dcjqaccordion.min.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/owl.carousel.min.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/custom.js"></script>
+
+
+
+            <!-- JS Part End-->
+
+
+
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/jquery.elevateZoom-3.0.8.min.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/swipebox/lib/ios-orientationchange-fix.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/swipebox/src/js/jquery.swipebox.min.js"></script>
+
+            <!-- AutoComplate-->
+
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/jquery-ui.js"></script>
+            <script type="text/javascript" src="@ViewData["HomeUrl"]cbkala/js/jquery-ui.js"></script>
+
+
+
+            <script type="text/javascript">
+
+
+
+        // Elevate Zoom for Product Page image
+        $("#zoom_01").elevateZoom({
+            gallery: 'gallery_01',
+            cursor: 'pointer',
+            galleryActiveClass: 'active',
+            imageCrossfade: true,
+            zoomWindowFadeIn: 500,
+            zoomWindowFadeOut: 500,
+            zoomWindowPosition: 11,
+            lensFadeIn: 500,
+            lensFadeOut: 500,
+            loadingIcon: 'image/progress.gif'
+        });
+
+        //////pass the images to swipebox
+        $("#zoom_01").bind("click", function (e) {
+            var ez = $('#zoom_01').data('elevateZoom');
+            $.swipebox(ez.getGalleryList());
+            return false;
+        });
+
+
+        function startDeletesub(idsubfutor) {
+
+            if (idsubfutor <= 0) {
+                document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + 'درخواست نامعتبر' + '</span>';
+                return;
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '/cbkala/DeleteProduct?idsubfactor=' + idsubfutor,
+                contentType: "application/json",
+                success: function (result) {
+
+                    if ('Yes' == result) {
+                        document.getElementById("messageSub").innerHTML = ' <span class="text-info text-lg-center">' + result + '</span>';
+                        window.location.replace("/cbkala/Cart");
+                        var subid = "quantity-2-" + idsubfutor;
+                    }
+                    else {
+
+
+                        document.getElementById("messageSub").innerHTML = ' <span class="text-danger text-lg-center">' + result + '</span>';
+
+
+                    }
+
+
+                }
+            });
+
+        }
+
+
+
+
+
+        $(function () {
+
+
+            $("#filter_name").keyup(function (event) {
+                if (event.keyCode === 13) {
+                    sendSearch();
+                }
+            });
+
+             $("#btnfilter_name").click(function (event) {
+
+                    sendSearch();
+
+            });
+
+            function sendSearch() {
+                var name = $('#filter_name').val();
+
+                if (name == 'undefined' || name == null || name == '') {
+
+                    return;
+                }
+
+                window.location.replace("/cbkala/Category?page=1&count=12&group=0&menu= @ViewData["menu"]&maxmoney=@ViewData["maxmoney"]&minmoney=@ViewData["minmoney"]&isactiveproduct=@ViewData["isactiveproduct"]&name=" + name);
+
+            }
+
+
+            $("#filter_name").autocomplete({
+                 delay: 500,
+                classes: {
+                    "ui-autocomplete": "highlight"
+                },
+
+                source: function (request, response) {
+                   let tag = {
+        "Name": $('#filter_name').val(),
+        "DateTime": "..."
+    };
+                    $.ajax({
+                        url: '/cbkala/AutoComplete/',
+                        data: JSON.stringify(tag),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.name,
+                                    value: item.idmenu
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                          window.location.replace("/cbkala/Category?page=1&count=12&group=0&menu= "+i.item.val+"&maxmoney=@ViewData["maxmoney"]&minmoney=@ViewData["minmoney"]&isactiveproduct=@ViewData["isactiveproduct"]&name=@ViewData["name"]"  );
+             //       $("#filter_name").val(i.item.val);
+                },
+                minLength: 3
+            });
+            //.focus(function () {
+            //    $(this).autocomplete("search");
+            //});
+        });
+
+
+            </script>
+            <!-- JS Part End-->
+
+
+
+</body>
+</html>

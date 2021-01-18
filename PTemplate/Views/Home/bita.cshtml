@@ -1,0 +1,282 @@
+﻿
+@{
+    ViewData["Title"] = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["homeUrl"] = "";
+}
+
+<section class="header parallax home-parallax page" id="HOME">
+
+    <div class="section_overlay">
+
+        <div class="container home-container">
+
+            <div class="row">
+                <div class="col-md-8 col-sm-8">
+                    <div class="home_text">
+                        <!-- TITLE AND DESC -->
+                        <h1>داستان نویسی انیمیشن(فراخوان داستان نویسی)</h1>
+                        <p>
+                            زندگی انیمیشن سازی را با بیتایاران تجربه کنیم
+                        </p>
+
+                        <div class="download-btn">
+                            <!-- BUTTON -->
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn home-btn wow fadeInRight" href="/Bitafiles/Index">ارسال داستان</a>
+                                <a class="tuor btn wow fadeInLeft" href="/Home/policy">   نگاهی به دستور العمل ها و قوانین<i class="fa fa-angle-down"></i></a>
+                            }
+                            else
+                            {
+                                <a class="btn home-btn wow fadeInRight" asp-area="Identity" asp-page="/Account/Register">ثبت نام</a>
+                                <a class="tuor btn wow fadeInLeft" asp-area="Identity" asp-page="/Account/Login">ورد به سامانه فراخوان</a>
+
+
+                            }
+
+
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="home-iphone">
+                        <img src="~/Bita/images/logo.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================
+     START FEATURES
+============================== -->
+<section id="FEATURES" class="features page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <!-- FEATURES SECTION TITLE -->
+                <div class="section_title wow fadeIn" data-wow-duration="1s">
+                    <h2>درباره فراخوان</h2>
+                    <p class="text-justify">
+                        این فراخوان از طرف شرکت نرم افزاری یاران صفر و یک جهان گستر
+                        با هدف انتخاب یک داستان زیبا که پتانسیل و کشش لازم برای
+                        تولید یک سریال انیمیشنی 12 قسمتی داشته باشد (هر قسمت 24 دقیقه)، برگزار شده است.
+                        داستانی که در این فراخوان توسط شرکت کنندگان ارسال میشود،
+                        یک داستان حداکثر 3 صفحه ای خواهد بود که نشان میدهد داستانی که مد نظر فراخوان است
+                        در اصل یک خلاصه داستان است اما داستانی است که زیبا باشد و پتانسیل لازم برای پرورش را داشته باشد.
+                        داستان منتخب پس از تایید،در اختیار یک تیم متشکل از نویسنده،
+                        فیلمنامه نویس و ناظر داستان قرار می گیرد لذا نیاز نیست که
+                        شرکت کننده در فراخوان از دانش فنی جهت نوشتن یک داستان متناسب با تهیه انیمیشن برخوردار باشد؛
+                        تنها امر ضروری ارایه یک داستان زیبا، جذاب و قوی به لحاظ محتوی است
+                        که توانایی و کشش لازم برای تهیه سریال انیمیشنی را دارا باشد. در صورتیکه از طریق این فراخوان، داستانی
+                        مناسب برای تهیه انیمیشن، تایید شود، برنده‌‌ی فراخوان،
+                        منتخب می‌شود تا ایده‌ی خود را برای تهیه یک انیمیشن 12 قسمتی،
+                        در کنار یک تیم متخصص، خلق نماید تا در نهایت
+                        به یک داستان انیمیشنی زیبا و فوق العاده
+                        تبدیل شود و علاوه بر آن حق الزمه سه میلیون تومانی دریافت نماید.
+                    </p>
+                </div>
+                <!-- END FEATURES SECTION TITLE -->
+            </div>
+        </div>
+    </div>
+
+    <div class="feature_inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 left_no_padding wow fadeInRight" data-wow-duration="1s">
+                    <!-- FEATURE -->
+
+                    <div class="right_single_feature">
+                        <!-- ICON -->
+                        <div><span class="pe-7s-notebook"></span></div>
+
+                        <!-- FEATURE HEADING AND DESCRIPTION -->
+                        <h3 >
+                            قابلیت ارسال 3 داستان
+                        </h3>
+                        <p class="text-justify">
+                            هر فرد می‌تواند همزمان سه داستان را به سامانه ارسال کند.
+                        </p>
+                    </div>
+
+                    <!-- END SINGLE FEATURE -->
+                    
+                    <!-- FEATURE -->
+                    <div class="right_single_feature">
+                        <!-- ICON -->
+                        <div><span class="pe-7s-note2"></span></div>
+
+                        <!-- FEATURE HEADING AND DESCRIPTION -->
+                        <h3 class="text-justify"> قوانین و شرایط شرکت در فراخون</h3>
+                        <p class="text-justify">
+                            لطفا برای آگاهی از شرایط، قوانین و نحوه ی شرکت در فراخوان حتما شرایط را از طریق
+                            <a href="/Home/policy" target="_blank"> این لینک </a>
+                            مطالعه فرمایید.
+                        </p>
+
+                    </div>
+                    <!-- END SINGLE FEATURE -->
+                    <!-- FEATURE -->
+                    <div class="right_single_feature">
+                        <!-- ICON -->
+                        <div><span class="pe-7s-upload"></span></div>
+
+                        <!-- FEATURE HEADING AND DESCRIPTION -->
+                        <h3>
+                            فرایند ارسال داستان
+                        </h3>
+                        <p class="text-justify">
+                        فرایند ارسال داستان حاوی پنج مرحله است.
+                            مرحله اول: شامل
+                            <a href="/Home/policy" target="_blank"> مطالعه قوانین و شرایط شرکت در فراخوان </a>
+                            میباشد. در صورتیکه علاقه مند 
+                            به شرکت در فراخوان و ارسال داستان باشید، به مرحله دوم خواهید رفت، در مرحله دوم: لازم 
+                            است که فایل
+                            Word 
+                            مربوط به فرمت و قالب استاندارد داستان نویسی 
+                            را از
+                            <a href="@ViewData["homeUrl"]#DOWNLOAD" target="_blank">این قسمت  </a>
+                            دانلود نمایید. پس از آن وارد مرحله سوم میشوید. 
+                            در مرحله سوم: براحتی می توانید در سامانه
+                            <a href="/Identity/Account/Register" target="_blank">ثبت نام </a>
+                            نمایید.
+                            سپس در مرحله چهارم: 
+                            از طریق 
+                            <a href="/Identity/Account/Login" target="_blank">فرم ورود </a>
+                            ، می توانید وارد سامانه شوید. 
+                            در نهایت در مرحله پنجم: 
+                            بسادگی میتوانید از طریق
+                            <a href="/Bitafiles/Index" target="_blank"> فرم ارسال داستان </a>
+                            ، داستان یا داستان های خود را برای شرکت در فراخون ارسال نمایید.
+                        </p>
+                    </div>
+                    <!-- END SINGLE FEATURE -->
+
+                </div>
+                <div class="col-md-4">
+                    <div class="feature_iphone">
+                        <!-- FEATURE PHONE IMAGE -->
+                        <img class="wow bounceIn" data-wow-duration="1s" src="~/Bita/images/one_punch_man.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-4 right_no_padding wow fadeInLeft" data-wow-duration="1s">
+
+                    <!-- FEATURE -->
+                    <div class="left_single_feature">
+                        <!-- ICON -->
+                        <div><span class="pe-7s-gift"></span></div>
+
+                        <!-- FEATURE HEADING AND DESCRIPTION -->
+                        <h3>پاداش داستان منتخب</h3>
+                        <p class="text-justify">
+                            شرکت کننده ی منتخب در صورت همکاری با تیم داستان و فیلمنامه نویسی شرکت یاران صفر و یک جهان گستر،
+                            مبلغ 3 میلیون تومان برای اتمام داستان سریال انیمیشنی خود و در صورت تمایل نداشتن فرد منتخب
+                            به تکمیل داستان خود برای سریال انیمیشنی 12 قسمتی مبلغ چهارصد هزار تومان جایزه دریافت خواهد نمود.
+                        </p>
+                    </div>
+                    <!-- END SINGLE FEATURE -->
+                    <!-- FEATURE -->
+                    <div class="left_single_feature">
+                        <!-- ICON -->
+                        <div><span class="pe-7s-timer"></span></div>
+
+                        <!-- FEATURE HEADING AND DESCRIPTION -->
+                        <h3>
+                            تقویم برگزاری
+                        </h3>
+                        <ul class="text-justify">
+                            <li>تاریخ اعلام فراخوان:  18 ابان ماه 1398</li>
+                            <li>   آخرین مهلت ارسال آثار: یک دی ماه 1398 </li>
+                            <li>   زمان اعلام چهار منتخب  : 15 دی ماه 1398 </li>
+                            <li>   اعلام داستان منتخب در شب یلدای 1398 (30 آذر ماه 1398) بهمراه اعلام آثار برگزیده در سامانه </li>
+                        </ul>
+                    </div>
+                    <!-- END SINGLE FEATURE -->
+                    <!-- FEATURE -->
+                    <div class="left_single_feature">
+                        <!-- ICON -->
+                        <div><span class="pe-7s-phone"></span></div>
+
+                        <!-- FEATURE HEADING AND DESCRIPTION -->
+
+                        <h3>
+                            تماس با ما
+                        </h3>
+                        <p class="text-justify">
+                            لطفا هرگونه سوال، پیشنهاد و انتقادی در رابطه با فراخوان دارید، راحت باشید و از طریق
+                            <a href="/Home/contact" target="_blank">این لینک </a>
+                            ، آن را با ما در میان بگذارید.
+                        </p>
+                    </div>
+                    <!-- END SINGLE FEATURE -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END FEATURES SECTION -->
+
+
+
+<!-- =========================
+     START DOWNLOAD NOW
+============================== -->
+<section class="download page" id="DOWNLOAD">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <!-- DOWNLOAD NOW SECTION TITLE -->
+                <div class="section_title p-t-0 p-b-0">
+                    <h2>
+                        دانلود فرم داستان نویسی
+                    </h2>
+                    <p>
+                        لطفا فایل Word زیر را   <a class="btn btn-link btn-action" style="display:block;" href="/Bitafiles/Download?filename=storybita.docx" role="button">
+                            دانلود
+                        </a> نموده و
+                        داستان های خود را در قالب این فرم استاندارد، بصورت PDF برای ما ارسال نمایید.
+
+                    </p>
+                </div>
+                <!--END DOWNLOAD NOW SECTION TITLE -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="text-center wow fadeInUp" data-wow-duration="1s" style="background-color:#fff;">
+                    <img src="~/Bita/images/format.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="section_title text-center p-t-10 p-b-10" >
+                    <a class="btn btn-primary btn-action"  style="display:block;" href="/Bitafiles/Download?filename=storybita.docx" role="button">
+                        دانلود
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+
+</section>
+<!-- END DOWNLOAD -->
+
+
+
+<!-- =========================
+     SCRIPTS
+============================== -->

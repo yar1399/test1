@@ -1,0 +1,98 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "ورود به سامانه";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "/";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+@*<div id="container">*@
+@*<div class="container panel panel-default">*@
+
+
+
+@section sitmapplaceholder{
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="fa " aria-hidden="true"></i> ورود</a></li>
+
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="col-12 col-xl-8 p-b-20">
+    <div class="contact-content-area bg-white mb-30 p-30 box-shadow">
+
+        <s_ection>
+            <form id="account" method="post">
+                <h4>با استفاده از اطلاعات حساب کاربری میتوانید به سامانه وارد شوید.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email">آدرس ایمیل</label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password">گذرواژه</label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe">
+                            <input asp-for="Input.RememberMe" />
+                            مرا بخاطر بسپار
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">ورود به سامانه</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">گذر واژه خود را فراموش کرده اید؟</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">حساب کاربری جدید</a>
+                    </p>
+                </div>
+            </form>
+        </s_ection>
+
+        @*<div class="col-md-6 col-md-offset-2">
+                <section>
+                    <h4>برای ورود به سیستم از سرویس دیگری استفاده کنید.</h4>
+                    <hr />
+                    @{
+
+                            <div>
+                                <p>
+                                    Welcome
+                                </p>
+                            </div>
+
+                    }
+                </section>
+            </div>*@
+    </div>
+
+
+</div>
+@*</div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

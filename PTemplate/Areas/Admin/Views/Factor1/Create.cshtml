@@ -1,0 +1,65 @@
+﻿@model PTemplate.Data.DataBase.Factor1
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>Factor1</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="~/Admin/Factor1/Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Iduser" class="control-label"></label>
+                <select asp-for="Iduser" class="form-control" asp-items="ViewBag.Iduser"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idfactorstate" class="control-label"></label>
+                <select asp-for="Idfactorstate" class="form-control" asp-items="ViewBag.Idfactorstate"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idbankstate" class="control-label"></label>
+                <input asp-for="Idbankstate" class="form-control" />
+                <span asp-validation-for="Idbankstate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Isactive" class="control-label"></label>
+                <input asp-for="Isactive" class="form-control" />
+                <span asp-validation-for="Isactive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datecreate" class="control-label"></label>
+                <input asp-for="Datecreate" class="form-control" />
+                <span asp-validation-for="Datecreate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datechangestate" class="control-label"></label>
+                <input asp-for="Datechangestate" class="form-control" />
+                <span asp-validation-for="Datechangestate" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Addressreceiver" class="control-label"></label>
+                <input asp-for="Addressreceiver" class="form-control" />
+                <span asp-validation-for="Addressreceiver" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="درج" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">برگشت</a>
+</div>
+

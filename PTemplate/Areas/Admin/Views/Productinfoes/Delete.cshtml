@@ -1,0 +1,104 @@
+﻿@model PTemplate.Data.DataBase.Productinfo
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "حذف اطلاعات محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>حذف</h2>
+
+<h3>آیا مایل به حذف اطلاعات هستید?</h3>
+
+
+@using PTemplate.Models
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["Product"];
+
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @if (b.Isactive.Value)
+            {
+                <span>فعال</span>
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+<div>
+    <h4>اطلاعات فنی محصول</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            توضیح هات
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datecreate)
+        </dd>
+        <dt>
+            دسته
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductmenuinfoNavigation.Title)
+        </dd>
+        <dt>
+            محصول
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductNavigation.Title)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف" class="btn btn-default" /> |
+        <a asp-action="Index" asp-route-id="@Model.Idproduct">برگشت</a>
+    </form>
+</div>

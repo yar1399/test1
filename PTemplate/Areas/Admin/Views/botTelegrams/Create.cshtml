@@ -1,0 +1,88 @@
+﻿@model PTemplate.Data.DataBase.BotTelegram
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ساخت</h2>
+
+<h4>بوت تلگرام</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form  method="post" action="~/Admin/Colors/Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Namechanale" class="control-label"></label>
+                <input asp-for="Namechanale" class="form-control" />
+                <span asp-validation-for="Namechanale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Token" class="control-label"></label>
+                <input asp-for="Token" class="form-control" />
+                <span asp-validation-for="Token" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactive" /> @Html.DisplayNameFor(model => model.Isactive)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactivesendauto" /> @Html.DisplayNameFor(model => model.Isactivesendauto)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactivediscription" /> @Html.DisplayNameFor(model => model.Isactivediscription)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactivepost" /> @Html.DisplayNameFor(model => model.Isactivepost)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactiveproduct" /> @Html.DisplayNameFor(model => model.Isactiveproduct)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ساخت" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/botTelegrams/Index">برگشت</a>
+</div>
+

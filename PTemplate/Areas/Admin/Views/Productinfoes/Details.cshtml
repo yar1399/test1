@@ -1,0 +1,98 @@
+﻿@model PTemplate.Data.DataBase.Productinfo
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "جزئیات اطلاعات محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>جزئیات اطلاعات محصول</h2>
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["Product"];
+
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @if (b.Isactive.Value)
+            {
+                <span>فعال</span>
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    <h4>جزئیات اطلاعات محصول</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            توضیح هات
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            تاریخ ساعت
+        </dt>
+        <dd>
+            @PTemplate.Models.PersianDate.ToPersianDate(Model.Datecreate.Value)
+            @*@Html.DisplayFor(model => model.datecreate)*@
+        </dd>
+        <dt>
+            دسته
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductmenuinfoNavigation.Title)
+        </dd>
+        <dt>
+            محصول
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdproductNavigation.Title)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">ویرایش</a> |
+    <a asp-action="Index" asp-route-id="@Model.Idproduct">برگشت</a>
+</div>

@@ -1,0 +1,205 @@
+﻿@model PTemplate.Data.DataBase.Addresssystem
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "اطلاعات سامانه";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    <link href="~/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="~/leaflet/leaflet.js"></script>
+}
+
+
+
+@section Scripts
+{
+    <script>
+        var lat=0;
+        var lng=0;
+
+        var marker25;
+        // Creating map options
+        var mapOptions = {
+            center: [17.385044, 78.486671],
+            zoom: 40
+        }
+
+        // Creating a map object
+        var map = new L.map('map', mapOptions);
+
+        // Creating a Layer object
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+
+        // Adding layer to the map
+        map.addLayer(layer);
+
+        // Icon options
+        var iconOptions = {
+
+            iconUrl: 'https://s16.picofile.com/file/8420870192/logo.png',
+            iconSize: [50, 50]
+        }
+
+
+        // Creating a custom icon
+        var customIcon = L.icon(iconOptions);
+
+        // Creating Marker Options
+        var markerOptions = {
+            title: "MyLocation",
+            clickable: true,
+            draggable: true,
+            icon: customIcon
+        }
+        // Creating a Marker
+        var marker = L.marker([@Model.Lat, @Model.Lng], markerOptions);
+
+        // Adding popup to the marker
+        marker.bindPopup('@Model.Name').openPopup();
+
+        map.on("click", function (e) {
+
+            if (marker25!=null)
+                map.removeLayer(marker25);
+
+            marker25 = new L.Marker([e.latlng.lat, e.latlng.lng]);
+            marker25.addTo(map);
+
+            lat = e.latlng.lat;
+            lng = e.latlng.lng;
+
+
+
+
+        })
+        // Adding marker to the map
+        marker.addTo(map);
+
+
+        function startaddmap() {
+
+
+
+            if (lat == 0 && lng == 0) {
+
+                alert(' لطفا مختصات را وارد کنید ');
+                return;
+            }
+
+
+
+            $.ajax({
+                type: 'GET',
+                url: '/admin/Addresssystems/addmap?lat=' + lat + '&lng=' + lng,
+                contentType: "application/json",
+                success: function (result) {
+
+
+                    if (result.ts.length == 1) {
+                        if (result.ts[0].message === "NO") {
+                            alert('عملیات ناموفق');
+                        } else if (result.ts[0].colorname === "Yes") {
+                            window.location.replace("/Admin/Addresssystems/Details");
+                        }
+                    }
+
+                }
+                , error: function (xhr, status, error) {
+                    alert('دوباره تلاش کنید');
+                }
+            });
+
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-7">
+        <h4>اطلاعات سیستم</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                نام
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                تلفن
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tell)
+            </dd>
+            <dt>
+                فکس
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Fax)
+            </dd>
+            <dt>
+                توضیح
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                استان
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Province)
+            </dd>
+            <dt>
+                شهر
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt>
+                ادرس
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt>
+                ایمیل
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                کد پستی
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Postalcode)
+            </dd>
+            <dt>
+                متن
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Text)
+            </dd>
+            <dt>
+                نام مدیر
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Namemanger)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-5">
+
+        <div id="map" style="width: 100%; height: 70%"></div>
+        <br />
+
+        <input class="btn btn-success" type="button" onclick="startaddmap();" value="درج مختصات جدید" />
+    </div>
+</div>
+<div>
+    <a class="text-success" href="~/Admin/Addresssystems/Edit/@Model.Id">ویرایش</a> |
+    <a class="text-success" href="~/Admin/Addresssystems/setmap/@Model.Id">ویرایش موقعیت جغرافیایی</a> |
+    @*<a asp-action="Index">برگشت</a>*@
+</div>

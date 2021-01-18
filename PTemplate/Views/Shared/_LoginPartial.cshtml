@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+<li>
+    @*<a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> <span>پروفایل</span></a>*@
+    <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">سلام @UserManager.GetUserName(User)!</a>
+</li>
+        <li>
+
+          
+            <form  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("bita", "Home", new { area = "" })">
+                
+                    <button  type="submit" class="  btn-link ">
+                       خروج
+                    </button>
+               
+             </form>
+           
+        </li>
+    }
+    else
+    {
+        <li >
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">ثبت نام</a>
+        </li>
+        <li >
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">ورود</a>
+        </li>
+    }

@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+@{
+
+
+    ApplicationDbContext appA = new
+        ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+
+    var adress = appA.Addresssystems.FirstOrDefault();
+
+   
+    var pro = appA.Menugroups.Where(b => b.Istype == false && b.Isactive == true).ToList();
+    var pronews = appA.Menugroups.Where(b => b.Istype == true && b.Isactive == true).ToList();
+
+     
+
+
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- The above meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>من دادرس - @ViewData["title"]</title>
+
+    <!-- Favicon -->
+ 
+    <link rel="icon" href="~/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="~/dadras/style.css">
+
+</head>
+
+<body>
+
+
+    <!-- ##### Header Area Start ##### -->
+
+
+    <header class="header-area">
+
+        <!-- Navbar Area -->
+        <div class="mag-main-menu" id="sticker">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="magNav">
+
+                    <!-- Nav brand -->
+                    <a id="logolink" href="@ViewData["homeUrl"]" class="nav-brand"><img src="~/dadras/img/core-img/logo.png" alt="">من دادرس</a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Nav Content -->
+                    <div class="nav-content d-flex align-items-center">
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li class="active"><a href="@ViewData["homeUrl"]">خانه</a></li>
+                                    <li>
+                                        <a href="#">آرشیو تکیه ای از دانایی</a>
+                                        <ul class="dropdown">
+
+                                            @foreach (var i in pro)
+                                            {
+
+                                                        i.Menus = @appA.Menus.AsEnumerable().Where(m => (long)m.Idmenugroup == (long)i.Id && m.Isactive==true).ToList();
+                                                        if (@i.Menus.Count >= 0)
+                                                        {
+                                                           
+                                 
+                                                                                                                        @foreach (var j in i.Menus)
+                                                                                                                        {
+                                                                                                                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=@(j.Id)&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i>@(j.Name)</span></a></li>
+                                                                                                                        }
+
+                                                           
+                                                        }
+                                                
+                                            }
+
+                                            @*<li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=11&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> کوچینگ</span></a></li>
+                                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=7&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> سواد زندگی</span> </a></li>
+                                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=8&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> روابط زناشویی</span></a></li>
+                                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=9&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> تغییر و تحول فردی</span> </a></li>
+                                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=10&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> مهندسی متقاعد سازی</span> </a></li>
+                                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=12&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> جذابیت</span> </a></li>*@
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">آرشیو اخبار</a>
+                                        <ul class="dropdown">
+
+                                            @foreach (var i in pronews)
+                                            {
+
+                                                i.Menus = @appA.Menus.AsEnumerable().Where(m => (long)m.Idmenugroup == (long)i.Id && m.Isactive == true).ToList();
+                                                if (@i.Menus.Count >= 0)
+                                                {
+
+
+                                                    @foreach (var j in i.Menus)
+                                                    {
+                                                        <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=@(j.Id)&paging=1"> @(j.Name) </a></li>
+                                                    
+                                                    }
+
+
+                                                }
+
+                                            }
+
+                                            @*<li><a href="@ViewData["externalHomeUrl"]archive">دوره های آموزشی</a></li>
+        <li><a href="@ViewData["externalHomeUrl"]archive">کارگاه های آموزشی</a></li>
+        <li><a href="@ViewData["externalHomeUrl"]archive">پکیج های آموزشی</a></li>
+        <li><a href="@ViewData["externalHomeUrl"]archive">برگزاری سمینارها</a></li>
+        <li><a href="@ViewData["externalHomeUrl"]archive">برگزاری وبینارها</a></li>
+        <li><a href="@ViewData["externalHomeUrl"]archive">مسابقه و مناسبت ها</a></li>*@
+                                        </ul>
+                                    </li>
+                                    <li><a href="@ViewData["externalHomeUrl"]contact">ارتباط با ما</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+
+                        <div class="top-meta-data d-flex align-items-center">
+
+
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-area="Identity" class="login-btn" asp-page="/Account/Manage/Index" title="پروفایل">پروفایل   @User.Identity.Name</a>
+                                <a href="/Identity/Account/Logout" title="خروج از سامانه" class="login-btn">خروج</a>
+                            }
+                            else
+                            {
+                                <!-- Login -->
+                                <a href="/Identity/Account/Login" class="login-btn">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    &nbsp; ورود به سایت
+                                </a>
+
+
+                                <!-- Register -->
+                                <a href="/Identity/Account/Register" class="login-btn" style="padding-right: 0px;">
+                                    <i class="fa fa fa-user-plus" aria-hidden="true"></i>&nbsp; ثبت نام
+                                </a>
+
+                            }
+
+
+
+                            <!-- Submit Video -->
+
+                            <a href="@ViewData["externalHomeUrl"]about" class="submit-video"> درباره ما</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ##### Header Area End ##### -->
+    <!-- ##### Mag Posts Area Start ##### -->
+
+
+    @RenderBody()
+
+
+    @RenderSection("Scripts", required: false)
+
+
+    <!-- ##### Mag Posts Area End ##### -->
+    <!-- ##### Footer Area Start ##### -->
+
+
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row">
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <!-- Logo -->
+                        <a href="@ViewData["homeUrl"]" class="foo-logo color-ccc"><img src="~/dadras/img/core-img/logo.png" alt="">من دادرس</a>
+                        <p>
+                            @adress.Description
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h6 class="widget-title">ارتباط با ما</h6>
+                        <p class="footer-contact">از طریق روش های زیر به راحتی می توانید با ما ارتباط برقرار کنید:</p>
+                        <ul class="footer-contact">
+                            <li><span><i class="fa fa-phone" aria-hidden="true"></i><span>&nbsp;</span> @adress.Tell</span> </li>
+                            <li><span><i class="fa fa-envelope-o" aria-hidden="true"></i><span>&nbsp;</span> @adress.Email</span> </li>
+                            <li><span><i class="fa fa-map-marker" aria-hidden="true"></i><span>&nbsp;</span> @adress.Address </span> </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h6 class="widget-title">سایر لینک های راهنما</h6>
+                        <ul class="footer-contact">
+                            <li><a href="@ViewData["externalHomeUrl"]about">درباره ما</a></li>
+                            <li><a href="@ViewData["externalHomeUrl"]contact">ارتباط با ما</a></li>
+                            @*<li><a href="@ViewData["externalHomeUrl"]policy">قوانین و مقررات</a></li>*@
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+                            }
+                            else
+                            {
+                                <li><a href="/Identity/Account/Login">ورود به سایت</a></li>
+                                <li><a href="/Identity/Account/Register">عضویت در سایت</a></li>
+                            }
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h6 class="widget-title">ما در سایر رسانه ها</h6>
+
+                        <!-- Social Followers Info -->
+                        <div class="footer-social-info">
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/mandadras/" class="instagram-following"><i class="fa fa-instagram"></i></a>
+                            <!-- Telegram -->
+                            <a href="https://t.me/mandadras" class="telegram-following"><i class="fa fa-telegram"></i></a>
+                            <!-- Aparat -->
+                            <a href="https://www.aparat.com/maryam.dadras" class="aparat-following"><img class="icon" src="~/dadras/img/core-img/aparat_48.png"></a>
+                            <!-- Namasha
+                                 <a href="#" class="namasha-following"><img class="icon" style="margin-top: -4px;" src="~/dadras/img/core-img/namasha_32.png"></a>
+
+                                 <a href="#" class="tamasha-following"><img class="icon" style="margin-top: -2px;" src="~/dadras/img/core-img/tamasha_24.png"></a>
+                            Tamasha -->
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copywrite Area -->
+        <div class="copywrite-area">
+            <div class="container">
+                <div class="row">
+                    <!-- Copywrite Text -->
+                    <div class="col-12 col-sm-12">
+                        <p class="copywrite-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            کلیه حقوق مادی و معنوی این وب ‌سایت متعلق به
+                            <a href="@ViewData["externalHomeUrl"]about">  @adress.Name </a>
+                            می‌باشد.
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script>
+
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ##### Footer Area End ##### -->
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="~/dadras/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="~/dadras/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="~/dadras/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="~/dadras/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="~/dadras/js/active.js"></script>
+
+
+</body>
+
+
+
+</html>

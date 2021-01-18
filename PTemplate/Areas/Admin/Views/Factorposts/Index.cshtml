@@ -1,0 +1,151 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Factorpost>
+
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+
+    ApplicationDbContext appA = new
+     ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+    string st = ViewData["id"].ToString();
+    var fa = appA.Factors1.Where( a => a.Id ==Guid.Parse( st ) /*&& a.Idfactorstate !=2*/ ).FirstOrDefault();
+
+
+    if (fa == null)
+        ViewData["Title"] = "فاکتور وضعیت مرسوله قطعی نیست.";
+    else
+        ViewData["Title"] =  "=  مرسوله";
+
+
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>وضعیت مرسوله</h2>
+
+<p>
+    @if(fa != null)
+    {
+        @:<a href="/Admin/Factorposts/Create/@ViewData["id"].ToString()">وضعیت جدید مرسوله</a>
+    }
+    else
+    {
+        @:<span class="text-danger">فاکتور پرداخت نشده</span>
+    }
+
+
+
+
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                کد پیگیری
+            </th>
+            <th>
+                وجه
+            </th>
+            @*<th>
+                درج کننده
+            </th>
+            <th>
+                ارسال کننده
+            </th>*@
+            <th>
+                تاریخ ساخت
+            </th>
+            <th>
+                تاریخ ارسال
+            </th>
+            <th>
+                ارسال با اتوبوس
+            </th>
+            <th>
+                پایان
+            </th>
+            <th>
+                شماره فاکتور
+            </th>
+            <th>
+                وضعیت ارسال مرسوله
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codefollowup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Money)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.IduserCreator)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iduserpost)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datecreate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datepost)
+                </td>
+                <td>
+                    @if (item.Isbus.Value)
+                    {
+                        <span>فعال</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+                    @*@Html.DisplayFor(modelItem => item.Isbus)*@
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Isfinesh)*@
+
+                    @if (item.Isfinesh.Value)
+                    {
+                        <span>فعال</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdfactorNavigation.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdfactorposttypeNavigation.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">ویرایش</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">جزئیات</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

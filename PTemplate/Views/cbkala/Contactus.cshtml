@@ -1,0 +1,73 @@
+﻿@using PTemplate.Data;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+
+@{
+    ViewData["Title"] = "تماس با ما";
+    Layout = "~/Views/cbkala/Shared/_Layout.cshtml";
+    ViewData["externalHomeUrl"] = "/cbkala/";
+    ViewData["HomeUrl"] = "/";
+}
+
+
+@{
+
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+    var ad = appA.Addresssystems.FirstOrDefaultAsync();
+
+}
+
+<div id="container">
+    <div class="container">
+
+        <div class="row">
+
+            <!--top Part Start-->
+            <div class="col-sm-12">
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <h1 class="title"> @ViewData["Title"]</h1>
+                        <p>
+                            برای برقراری تماس با ما میتوانید از طریق اطلاعات زیر اقدام فرمایید.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <!--top Part End -->
+            <!--Body Part Start-->
+            <div id="content" class="col-sm-12">
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+
+
+                        <h2 class="subtitle">اطلاعات تماس</h2>
+                        <ul id="contact-list">
+                            <li class="address"><i class="fa fa-bank"></i>شرکت : @ad.Result.Namemanger</li>
+                            <li class="address"><i class="fa fa-bank"></i>اسم فروشگاه : @ad.Result.Name</li>
+                            <li class="address"><i class="fa fa-map-marker"></i>استان : @ad.Result.Province</li>
+                            <li class="address"><i class="fa fa-map-marker"></i>شهر : @ad.Result.City</li>
+                            <li class="address"><i class="fa fa-map"></i>ادرس : @ad.Result.Address</li>
+                            <li class="mobile"><i class="fa fa-phone"></i>تلفن : @ad.Result.Tell</li>
+                            <li class="email"><i class="fa fa-envelope"></i>ایمیل : @ad.Result.Email</li>
+                            <li class="fax"><i class="fa fa-fax"></i>فکس : @ad.Result.Fax</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+            <!--Body Part End -->
+        </div>
+    </div>
+</div>

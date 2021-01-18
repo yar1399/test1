@@ -1,0 +1,89 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Productsubmenu>
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "تخصیح کلمات جستجو";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>تخصیح کلمات جستجو</h2>
+
+<p>
+    <a harf="~/Admin/Productsubmenus/Create">ساخت کلمه جدید</a>
+</p>
+
+<div class="form-group">
+    <form name="form1" asp-controller="Products" asp-action="Index">
+        <label class="control-label">منو ها</label>
+        <select class="form-control"
+                name="ProductsBase"
+                id="ProductsBase"
+                asp-items="@ViewBag.Idmenu"
+                onchange="change">
+            <option value="0">یک گزینه انتخاب کنید</option>
+            <option value="0">همه گزینه ها</option>
+        </select>
+        <a href="~/Admin/Productsubmenus/index?Idmenu=0&paging=1" class="btn btn-action">همه لیست</a>
+        @section scripts {
+            <script>
+                $("#ProductsBase").on("change", function () {
+                    var select = document.getElementById("ProductsBase");
+
+                    var option = select.options[select.selectedIndex];
+
+                    if (option.value != "Please select") {
+
+                        document.form1.action = "/Admin/Productsubmenus/index?Idmenu=" + option.value + "&paging=1";
+                        document.form1.submit();
+
+                    }
+                });
+            </script>
+        }
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                نام
+            </th>
+            <th>
+                زیر گروه
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdmenuNavigation.Name)
+                </td>
+                <td>
+                    <a harf="~/Admin/Productsubmenus/Edit/@item.Id">ویرایش</a> |
+                    <a harf="~/Admin/Productsubmenus/Details/@item.Id">جزئیات</a> |
+                    <a harf="~/Admin/Productsubmenus/Delete/@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<a href="~/Admin/Productsubmenus?Idmenu=0&paging=@ViewData["FirstRowOnPage"].ToString()" class="btn btn-default">ابتدا</a>
+@for (var p = 1; p <= int.Parse(ViewData["PageCount"].ToString()); p++)
+{
+
+    <a href="~/Admin/Productsubmenus?Idmenu=0&paging=@p" class="btn btn-default">@p</a>
+}
+<a href="~/Admin/Productsubmenus?Idmenu=0&paging=@ViewData["PageCount"].ToString()" class="btn btn-default">انتها</a>
+

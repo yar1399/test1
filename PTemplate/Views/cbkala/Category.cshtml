@@ -1,0 +1,274 @@
+﻿@model PTemplate.Models.DataViewModel.catagoryProsuryViewModel
+
+@{
+    ViewData["Title"] = "دسته بندی";
+    Layout = "~/Views/cbkala/Shared/_Layout.cshtml";
+    ViewData["externalHomeUrl"] = "/cbkala/";
+    ViewData["HomeUrl"] = "/";
+}
+
+<!-------------------- Product List Start ------------------------------>
+
+
+<div id="container">
+    <div class="container">
+
+        <div class="row">
+            <!--Left Part Start -->
+            <aside id="column-left" class="col-sm-3 hidden-xs">
+                <h3 class="subtitle">دسته ها</h3>
+                <div class="box-category">
+                    <ul id="cat_accordion">
+                        <li><a class="active" href="@ViewData["externalHomeUrl"]Category?count=12&group=0&menu=0&maxmoney=@ViewData["maxmoney"]&minmoney=@ViewData["minmoney"]&isactiveproduct=@ViewData["isactiveproduct"]">همه محصولات</a></li>
+
+                        @foreach (var i in Model.menugroups)
+                        {
+
+
+                            <li>
+                                <a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=@i.Id&menu=0&maxmoney=@ViewData["maxmoney"]&minmoney=@ViewData["minmoney"]&isactiveproduct=@ViewData["isactiveproduct"]">@i.Name</a>
+                                <span class="down"></span>
+                                <ul>
+                                    @foreach (var j in i.Menus)
+                                    {
+                                        <li><a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=0&menu=@j.Id&maxmoney=@ViewData["maxmoney"]&minmoney=@ViewData["minmoney"]&isactiveproduct=@ViewData["isactiveproduct"]">@j.Name</a></li>
+
+                                    }
+
+                                </ul>
+                            </li>
+                        }
+
+                     
+                    </ul>
+                </div>
+
+            </aside>
+            <!--Left Part End -->
+            <!--Middle Part Start-->
+            <div id="content" class="col-sm-9">
+                <h1 class="title">همه محصولات</h1>
+
+                <div class="product-filter">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-5">
+                            <div class="btn-group">
+                                <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="List"><i class="fa fa-th-list"></i></button>
+                                <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="Grid"><i class="fa fa-th"></i></button>
+
+
+                               
+                            </div>
+                            @*<a href="compare.html" id="compare-total">محصولات مقایسه (0)</a>*@
+                        </div>
+                        <div class="col-sm-1 text-right">
+                            <label class="control-label nowrap p-l-15
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   " for="input-sort">مرتب سازی : </label>
+                        </div>
+                        <form name="form4" asp-controller="Products" asp-action="Index">
+                            <div class="col-md-3 col-sm-2 text-right">
+                                @if (ViewData["minmoney"].ToString() == "1")
+                                {
+                                    <span>
+                                        <a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=0&menu= @ViewData["menu"]&maxmoney=@ViewData["maxmoney"]&minmoney=2&isactiveproduct=@ViewData["isactiveproduct"]&name=@ViewData["name"]" class="btn btn-default" data-toggle="tooltip" title=" ارزان ترین">
+                                            ارزان ترین
+                                        </a>
+                                    </span>
+
+                                }
+                                else
+                                {
+
+                                    <span>
+                                        <a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=0&menu= @ViewData["menu"]&maxmoney=2&minmoney=1&isactiveproduct=@ViewData["isactiveproduct"]&name=@ViewData["name"]" class="btn " data-toggle="tooltip" title=" ارزان ترین">
+                                            ارزان ترین
+                                        </a>
+
+
+                                    </span>
+                                }
+
+
+                                @if (ViewData["maxmoney"].ToString() == "1")
+                                {
+                                    <span>
+                                        <a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=0&menu= @ViewData["menu"]&maxmoney=2&minmoney=@ViewData["minmoney"]&isactiveproduct=@ViewData["isactiveproduct"]&name=@ViewData["name"]" class="btn btn-default" data-toggle="tooltip" title="گرانترین ها">
+                                            گرانترین ها
+                                        </a>
+                                    </span>
+
+                                }
+                                else
+                                {
+
+                                    <span>
+                                        <a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=0&menu= @ViewData["menu"]&maxmoney=1&minmoney=2&isactiveproduct=@ViewData["isactiveproduct"]&name=@ViewData["name"]" class="btn " data-toggle="tooltip" title="گرانترین ها">
+                                            گرانترین ها
+                                        </a>
+
+
+                                    </span>
+                                }
+
+
+                              
+                            </div>
+                           
+                            <div class="col-md-1"></div>
+                            <div class="col-sm-1 text-right">
+                                @*<label class="control-label" for="input-limit">نمایش :</label>*@
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                @if (ViewData["isactiveproduct"].ToString() == "1")
+                                {
+                                    <span>
+                                        <a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=0&menu= @ViewData["menu"]&maxmoney=@ViewData["maxmoney"]&minmoney=@ViewData["minmoney"]&isactiveproduct=2&name=@ViewData["name"]" class="btn btn-default" data-toggle="tooltip" title=" فقط موجود ها">
+                                            فقط موجودها
+                                        </a>
+                                    </span>
+
+                                }
+                                else
+                                {
+
+                                    <span>
+                                        <a href="@ViewData["externalHomeUrl"]Category?page=1&count=12&group=0&menu= @ViewData["menu"]&maxmoney=@ViewData["maxmoney"]&minmoney=@ViewData["minmoney"]&isactiveproduct=1&name=@ViewData["name"]" class="btn " data-toggle="tooltip" title="فقط موجود ها">
+                                            فقط موجودها
+                                        </a>
+
+
+                                    </span>
+                                }
+                            </div>
+                            @section Scripts {
+                                <script type="text/javascript">
+
+                                    $("#inputnumber123").change(function () {
+                                        alert("Handler for .change() called.");
+                                    });
+
+                                    $('#inputnumber123').on('change', function () {
+
+                                        var select = document.getElementById("inputnumber123");
+
+                                        var option = select.options[select.selectedIndex];
+
+                                        //if (option.value != "0") {
+
+                                        document.form1.action = "/Admin/Factor1/index?Idmenu=" + option.value + "&paging=1";
+                                        document.form1.submit();
+                                     
+                                        //}
+                                    });
+
+
+                                </script>
+                            }
+                        </form>
+
+                    </div>
+                </div>
+                <br />
+                <div class="row products-category">
+
+                    @foreach (var i in Model.products)
+                    {
+                        <div class="product-layout product-list col-xs-12">
+                            <div class="product-thumb">
+                                <div class="image"><a href="/cbkala/Product/@i.idproduct">
+                                    <img src="~/uploads/product/@i.pathdata" alt="@i.title" title="@i.title" class="img-responsive" /></a></div>
+                                <div>
+                                    <div class="caption">
+                                        <h4><a href="/cbkala/Product/@i.idproduct">@i.title</a></h4>
+                                        <p class="description"> @i.productdescription</p>
+                                        <p class="price">
+
+                                            @if (@i.mojudi <= 0)
+                                            {
+                                                <span class="text-danger">موجود نیست</span>
+                                            }
+                                            else
+                                            {
+
+                                                <span class="price-new">@i.price ریال</span>
+                                                @if (@i.mojudi <= 9)
+                                                {
+                                                    <span class="text-danger">تعداد در انبار @(i.mojudi)  وجود دارد</span>
+                                                }
+                                                <!--<span class="price-old">98000 تومان</span> -->
+                                                <span class="saving">@i.mojudi</span>
+                                            }
+
+                                            <span class="price-tax">@i.productdescription</span>
+                                        </p>
+                                        <div class="rating dont-show"> 
+                                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i>
+                                               <i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack">
+                                               <i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i>
+                                               <i class="fa fa-star-o fa-stack-2x"></i></span> 
+                                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i>
+                                               <i class="fa fa-star-o fa-stack-2x"></i></span> 
+                                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> 
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                        <a class="btn-primary" href="/cbkala/Product/@i.idproduct"><span>افزودن به سبد</span></a>
+                                        @*<div class="add-to-links">
+                                <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i> <span>افزودن به علاقه مندی ها</span></button>
+                                <button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i> <span>مقایسه این محصول</span></button>
+                                         </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                  
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-12 text-left">
+                        
+                        <ul class="pagination">
+                            <li>  <a href="~/cbkala/Category?page=1&count=12&group=0&menu=@ViewData["menu"]" class="btn btn-default">ابتدا</a></li>
+                            @for (var p = 1; p <= int.Parse(ViewData["PageCount"].ToString()); p++)
+                            {
+                                if (p == int.Parse(ViewData["PageCount"].ToString()))
+                                {
+                                    <li href="~/cbkala/Category?page=@p&count=20&group=0&menu=@ViewData["menu"]" class="active"><span>@p</span></li>
+                                }
+                                else
+                                {
+                                    <li><a href="~/cbkala/Category?page=@p&count=20&group=0&menu=@ViewData["menu"]">@p</a></li>
+                                }
+                                @*<a href="~/Admin/Products?Idmenu=0&paging=@p" class="btn btn-default">@p</a>*@
+                            }
+
+
+                        <li> <a href="~/cbkala/Category?page=@ViewData["PageCount"]&count=12&group=0&menu=@ViewData["menu"]" class="btn btn-default">انتها</a></li>
+                        </ul>
+                    </div>
+                   
+                 
+
+                </div>
+            </div>
+            <!--Middle Part End -->
+        </div>
+    </div>
+</div>
+
+
+<!-------------------- Product List End ------------------------------>

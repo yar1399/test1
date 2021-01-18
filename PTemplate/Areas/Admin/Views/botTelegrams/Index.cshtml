@@ -1,0 +1,87 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.BotTelegram>
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "کانال تلگرام";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ادرس و اطلاعات کانال</h2>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               نام کانال
+            </th>
+            <th>
+             توکن
+            </th>
+            <th>
+             فعال
+            </th>
+            <th>
+             ارسال اتوماتیک
+            </th>
+            <th>
+              استفاده از متن پیش ساخته
+            </th>
+            <th>
+              ارسال اتوماتیک پست
+            </th>
+            <th>
+              ارسال اتوماتیک محصول
+            </th>
+            <th>
+              توضیح هات
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Namechanale)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Token)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isactive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isactivesendauto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isactivediscription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isactivepost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isactiveproduct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a href="~/Admin/botTelegrams/Edit/@item.Id">ویرایش</a> |
+                    <a href="~/Admin/botTelegrams/Details/@item.Id">جزئیات</a> |
+                    @*<a asp-action="Delete" asp-route-id="@item.id">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

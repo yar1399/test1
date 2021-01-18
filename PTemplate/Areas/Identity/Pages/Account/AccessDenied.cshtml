@@ -1,0 +1,43 @@
+﻿@page
+@model AccessDeniedModel
+
+@{
+    ViewData["Title"] = "سطح دسترسی";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "/";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+
+@section sitmapplaceholder{
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="fa " aria-hidden="true"></i>سطح دسترسی </a></li>
+
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div id="container">*@
+@*<div class="container panel panel-default p-b-20">*@
+
+
+<div class="col-12 col-xl-8  p-b-20">
+    <div class="contact-content-area bg-white mb-30 p-30 box-shadow">
+
+        <header class="mag-posts-content mt-30 mb-30 p-30 box-shadow col-2-page text-right">
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+            <p class="text-danger">شما به این منبع دسترسی ندارید.</p>
+        </header>
+    </div>
+</div>

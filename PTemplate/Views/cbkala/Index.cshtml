@@ -1,0 +1,334 @@
+﻿@model PTemplate.Models.DataViewModel.StoryViewModel;
+
+@{
+    ViewData["Title"] = "صفحه نخست";
+    Layout = "~/Views/cbkala/Shared/_Layout.cshtml";
+    ViewData["externalHomeUrl"] = "/cbkala/";
+    ViewData["HomeUrl"] = "/";
+}
+
+
+
+
+
+
+
+@section Factor {
+
+
+
+}
+
+
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--Middle Part Start-->
+            <div id="content" class="col-xs-12">
+
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="marketshop-banner">
+                            <div class="row">
+
+                                @{
+                                    @if (Model.biner != null)
+                                    {
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                                            <a href="/cbkala/Product/@Model.biner.idproduct">
+                                            <img title="@Model.biner.title" alt="sample-banner1" src="~/uploads/product/@Model.biner.pathdata">
+                                                 </a>
+                                            </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                                            <a href="#">
+                                                <img title="sample-banner1" alt="sample-banner1" src="/cbkala/image/banner/small_banner.jpg">
+                                            </a>
+                                          </div>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <!-- Slideshow Start-->
+                        <div class="slideshow single-slider owl-carousel">
+                            @if (Model.Sliders != null)
+                            {
+                                if (Model.Sliders.Count >= 1)
+                                {
+                                    @foreach (var i in Model.Sliders)
+                                    {
+                                        <div class="item">
+                                            <a href="/cbkala/Product/@i.idproduct">
+                                                <img class="img-responsive" src="~/uploads/product/@i.pathdata" alt="@i.title" />
+                                            </a>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="item"> <a href="#"><img class="img-responsive" src="/cbkala/image/slider/banner-1-750x400.jpg" alt="banner 3" /></a></div>
+                                    <div class="item"> <a href="#"><img class="img-responsive" src="/cbkala/image/slider/banner-2-750x400.jpg" alt="banner 3" /></a></div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="item"> <a href="#"><img class="img-responsive" src="/cbkala/image/slider/banner-3-750x400.jpg" alt="banner 3" /></a></div>
+                                <div class="item"> <a href="#"><img class="img-responsive" src="/cbkala/image/slider/banner-2-750x400.jpg" alt="banner 2" /></a></div>
+                            }
+
+
+
+                        </div>
+                        <!-- Slideshow End-->
+                    </div>
+                </div>
+
+                <!----------------------------------------------------------------------------->
+                <!-- Start پیشنهادهای ویژه-->
+
+                <div class="col-sm-12 p-l-0 p-r-0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">پیشنهادهای ویژه</h3>
+                        </div>
+                        <div class="panel-body">
+                            @*<h3 class="subtitle">پیشنهادهای ویژه</h3>*@
+                            <div class="owl-carousel product_carousel">
+                                @foreach (var i in Model.lastproducts)
+                                {
+                                    <div class="product-thumb clearfix">
+                                        <div class="image"><a href="/cbkala/Product/@i.idproduct"><img src="~/uploads/product/@i.pathdata" alt="@i.title" title="@i.title" class="img-responsive" /></a></div>
+                                        <div class="caption">
+                                            <h4><a href="/cbkala/Product/@i.idproduct">@i.title</a></h4>
+                                            <p class="price"> @i.price ریال </p>
+                                            @*<div class="rating">
+                                                <span class="fa fa-stack">
+                                                    <i class="fa fa-star fa-stack-2x"></i>
+                                                    <i class="fa fa-star-o fa-stack-2x"></i>
+                                                </span> <span class="fa fa-stack">
+                                                    <i class="fa fa-star fa-stack-2x"></i>
+                                                    <i class="fa fa-star-o fa-stack-2x"></i>
+                                                </span> <span class="fa fa-stack">
+                                                    <i class="fa fa-star fa-stack-2x"></i>
+                                                    <i class="fa fa-star-o fa-stack-2x"></i>
+                                                </span> <span class="fa fa-stack">
+                                                    <i class="fa fa-star fa-stack-2x"></i>
+                                                    <i class="fa fa-star-o fa-stack-2x"></i>
+                                                </span>
+                                                <span class="fa fa-stack">
+                                                    <i class="fa fa-star-o fa-stack-2x"></i>
+                                                </span>
+                                            </div>*@
+                                        </div>
+                                        <div class="button-group">
+                                            @*<button class="btn-primary" type="button" >*@
+                                            <a class="btn btn-primary btn-lg" href="/cbkala/Product/@i.idproduct">
+                                                <span>افزودن به سبد</span>
+                                            </a>
+
+                                            @*</button>*@
+                                            <div class="add-to-links">
+                                                @*<button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i></button>*@
+                                                @*<button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i></button>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Featured محصولات End-->
+                <!-------------------- Product List Start ------------------------------>
+
+                <div id="container">
+                    <div class="container">
+
+                        <div class="row">
+                            <!--Left Part Start -->
+                            <aside id="column-left" class="col-sm-3 p-r-0 hidden-xs">
+                                <div class="col-sm-12 p-r-0 p-l-0">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="subtitle">دسته ها</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="box-category">
+                                                <ul id="cat_accordion">
+                                                    <li><a class="active" href="@ViewData["externalHomeUrl"]Category?count=12&group=0&menu=0">همه محصولات</a></li>
+
+                                                    @foreach (var i in Model.menus)
+                                                    {
+
+                                                        <li>
+                                                            <a href="@ViewData["externalHomeUrl"]Category?count=12&group=@i.Id&menu=0">@i.Name</a>
+                                                            <span class="down"></span>
+                                                            <ul>
+                                                                @foreach (var j in i.Menus)
+                                                                {
+                                                                    <li><a href="@ViewData["externalHomeUrl"]Category?count=12&group=0&menu=@j.Id">@j.Name</a></li>
+
+                                                                }
+
+                                                            </ul>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aside>
+                            <!--Left Part End -->
+                            <!--Middle Part Start-->
+                            <div id="content" class="col-sm-9 m-r--30">
+                                <h1 class="title">همه محصولات</h1>
+
+                                <div class="product-filter">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-5">
+                                            <div class="btn-group">
+                                                <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="List"><i class="fa fa-th-list"></i></button>
+                                                <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="Grid"><i class="fa fa-th"></i></button>
+                                            </div>
+                                            @*<a href="compare.html" id="compare-total">محصولات مقایسه (0)</a>*@
+                                        </div>
+                                        @*<div class="col-sm-1 text-right">
+                                                <label class="control-label" for="input-sort">مرتب سازی :</label>
+                                            </div>*@
+                                        @*<form name="form4" asp-controller="Products" asp-action="Index">
+                                         $( "#inputnumber123" ).change(function() {
+                                              alert( "Handler for .change() called." );
+                                            });
+                                  </form>*@
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="row products-category">
+                                    @foreach (var i in Model.products)
+                                    {
+                                        <div class="product-layout product-list col-xs-12">
+                                            <div class="product-thumb">
+                                                <div class="image"><a href="/cbkala/Product/@i.idproduct"><img src="~/uploads/product/@i.pathdata" alt="@i.title" title="@i.title" class="img-responsive" /></a></div>
+                                                <div>
+                                                    <div class="caption">
+                                                        <h4><a href="/cbkala/Product/@i.idproduct">@i.title</a></h4>
+                                                        <p class="description"> @i.productdescription</p>
+                                                        <p class="price">
+                                                            @if (@i.mojudi <= 0)
+                                                            {
+                                                                <span class="text-danger">موجود نیست</span>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <span class="price-new">@i.price ریال</span>
+                                                                @if (@i.mojudi <= 9)
+                                                                {
+                                                                    <span class="text-danger">تعداد در انبار @(i.mojudi)  وجود دارد</span>
+                                                                }
+                                                                <!--<span class="price-old">98000 تومان</span> -->
+                                                                <span class="saving">@i.mojudi</span>
+                                                            }
+
+                                                            <span class="price-tax">@i.productdescription</span>
+                                                        </p>
+                                                        <div class="rating dont-show">
+                                                            <span class="fa fa-stack">
+                                                                111
+                                                                <i class="fa fa-star fa-stack-2x"></i>
+                                                                <i class="fa fa-star-o fa-stack-2x"></i>
+                                                            </span> <span class="fa fa-stack">
+                                                                <i class="fa fa-star fa-stack-2x"></i>
+                                                                <i class="fa fa-star-o fa-stack-2x"></i>
+                                                            </span>
+                                                            <span class="fa fa-stack">
+                                                                211
+                                                                <i class="fa fa-star fa-stack-2x"></i>
+                                                                <i class="fa fa-star-o fa-stack-2x"></i>
+                                                            </span>
+                                                            <span class="fa fa-stack">
+                                                                311
+                                                                <i class="fa fa-star fa-stack-2x"></i>
+                                                                <i class="fa fa-star-o fa-stack-2x"></i>
+                                                            </span>
+                                                            <span class="fa fa-stack">
+                                                                111
+                                                                <i class="fa fa-star-o fa-stack-2x"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="button-group">
+                                                        @*<button class="btn-primary" type="button" >*@
+                                                        <a class="btn btn-primary btn-lg" href="/cbkala/Product/@i.idproduct">
+                                                            <span>افزودن به سبد خرید</span>
+                                                        </a>
+                                                        @*</button>*@
+                                                        <div class="add-to-links">
+                                                            @*@if (@i.mojudi <= 0)
+                                                            {
+                                                                <span class="text-danger">موجود نیست</span>
+                                                            }
+                                                            else*@ 
+                                                            @*<button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i> <span>افزودن به علاقه مندی ها</span></button>
+                                                                <button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i> <span>مقایسه این محصول</span></button>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 text-left">
+                                        <a href="~/cbkala/Category?count=12&group=1&menu=0">دیدن موارد بیشتر</a>
+                                    </div>
+                                    <div class="col-sm-6 text-right"></div>
+                                </div>
+                            </div>
+                            <!--Middle Part End -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-------------------- Product List End ------------------------------>
+                <!-- برند Logo Carousel Start-->
+                @*<div id="carousel" class="owl-carousel nxt">
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/adata.jpg" alt="adata" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/amd.jpg" alt="amd" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/asus.jpg" alt="asus" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/gigabyte.jpg" alt="gigabyte" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/intel.jpg" alt="intel" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/kingmax.jpg" alt="kingmax" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/kingstone.jpg" alt="kingstone" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/lg.jpg" alt="lg" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/msi.jpg" alt="msi" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/nvidia.jpg" alt="nvidia" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/sapphire.jpg" alt="sapphire" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/siliconpower.jpg" alt="siliconpower" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/sumsung.jpg" alt="sumsung" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/western_digital.jpg" alt="western_digital" class="img-responsive" /></a> </div>
+                        <div class="item text-center"> <a href="#"><img src="/cbkala/image/brands/xfx.jpg" alt="xfx" class="img-responsive" /></a> </div>
+                    </div>*@
+                <!-- برند Logo Carousel End -->
+            </div>
+            <!--Middle Part End-->
+        </div>
+    </div>
+</div>

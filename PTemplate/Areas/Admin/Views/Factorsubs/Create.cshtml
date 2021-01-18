@@ -1,0 +1,58 @@
+﻿@model PTemplate.Data.DataBase.Factorsub
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>Factorsub</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="~/Admin/Factorsubs/Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Idproduct" class="control-label"></label>
+                <select asp-for="Idproduct" class ="form-control" asp-items="ViewBag.Idproduct"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idfactor" class="control-label"></label>
+                <select asp-for="Idfactor" class ="form-control" asp-items="ViewBag.Idfactor"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idcolor" class="control-label"></label>
+                <select asp-for="Idcolor" class ="form-control" asp-items="ViewBag.Idcolor"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Count" class="control-label"></label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Money" class="control-label"></label>
+                <input asp-for="Money" class="form-control" />
+                <span asp-validation-for="Money" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Offpercent" class="control-label"></label>
+                <input asp-for="Offpercent" class="form-control" />
+                <span asp-validation-for="Offpercent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datecreate" class="control-label"></label>
+                <input asp-for="Datecreate" class="form-control" />
+                <span asp-validation-for="Datecreate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a harf="~/Admin/Factorsubs/Index">برگشت</a>
+</div>
+

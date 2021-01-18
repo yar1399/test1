@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Color>
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="~/Admin/Colors/Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                نام
+            </th>
+            <th>
+                توضیح
+            </th>
+            <th>
+                وزن  
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (item.Description.Length >= 50)
+                    {
+                        @item.Description.Remove(49)
+                        <span>...</span>
+                          
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Description)
+                 }
+                 
+                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    <a  href="~/Admin/Colors/Edit/@item.Id">ویرایش </a> |
+                    <a  href="~/Admin/Colors/Details/@item.Id">جزئیات..</a> |
+                    <a  href="~/Admin/Colors/Delete/@item.Id">حذف .</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

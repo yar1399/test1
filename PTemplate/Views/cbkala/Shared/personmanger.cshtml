@@ -1,0 +1,72 @@
+﻿
+@{
+   // ViewData["Title"] = "personmanger";
+    Layout = "~/Views/cbkala/Shared/_Layout.cshtml";
+
+}
+
+    
+    <div id="container">
+        <div class="container">
+
+            <div class="row">
+                <!--Middle Part Start-->
+                <div id="content" class="col-sm-12">
+                    <h1 class="title">به صفحه کاربری خود، خوش آمدید</h1>
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><i class="fa fa-user"></i> منوی کاربری</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <fieldset id="account">
+                                        <div class="pull-right">                                              
+                                            <div class="box-category">
+                                                <ul id="cat_accordion">
+                                                    <li><a href="/Identity/Account/Manage/ChangePassword">تغییر رمز</a></li>
+                                                    <li><a href="/addresses/Index">آدرس</a></li>
+                                                    <li><a href="/cbkala/Cart">سبد خرید</a></li>
+                                                    <li><a href="/Factor1">آرشیو سبد خرید</a></li>
+                                                    <li><a href="/Identity/Account/Manage">پروفایل</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+
+                                
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa @ViewData["title-icon"]">&nbsp;</i>@ViewData["Title"]</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            @RenderBody()
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Middle Part End -->
+            </div>
+        </div>
+    </div>    
+    
+<!----------------------------------------------------------------------------->
+
+
+
+
+
+@RenderSection("Scripts", required: false)

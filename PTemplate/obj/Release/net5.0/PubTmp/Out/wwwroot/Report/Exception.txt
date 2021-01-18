@@ -1,0 +1,42 @@
+----------------------------
+[Customer Explanation]
+
+
+
+----------------------------
+[General Info]
+
+Application: Stimulsoft Reports
+Framework:   v4.0.30319
+Version:     Version: 2019.2.1 from 14 February 2019
+MachineName: DESKTOP-5BLD5Q2
+OSVersion:   Microsoft Windows NT 6.2.9200.0
+UserName:    RezaJamali
+
+----------------------------
+[Exception Info]
+Message:     Could not find a part of the path 'C:\Users\RezaJamali\Desktop\Base Hamed\PTemplate\Report\address.mrt'.
+
+Source:      mscorlib
+
+StackTrace:
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at Stimulsoft.Report.StiReport.Save(String path)
+   at Stimulsoft.Client.Designer.StiCloudActions.Native.MainMenu.InvokeInternalReportSave(StiCloudDesignerControl designer)
+
+----------------------------
+[Assemblies]
+mscorlib, Version = 4.0.0.0
+PresentationCore, Version = 4.0.0.0
+PresentationFramework, Version = 4.0.0.0
+Stimulsoft.Accounts.Wpf, Version = 2019.2.1.0
+Stimulsoft.Base, Version = 2019.2.1.0
+Stimulsoft.Client.Designer, Version = 2019.2.1.0
+Stimulsoft.Report, Version = 2019.2.1.0
+Stimulsoft.Report.Import, Version = 2019.2.1.0
+Stimulsoft.Report.Wpf, Version = 2019.2.1.0
+System, Version = 4.0.0.0
+System.Core, Version = 4.0.0.0
+System.Data, Version = 4.0.0.0

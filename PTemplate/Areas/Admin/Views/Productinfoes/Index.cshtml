@@ -1,0 +1,116 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Productinfo>
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "اطلاعات محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>اطلاعات محصول</h2>
+
+<p>
+    <a asp-route-id="@ViewData["idproduct"]" asp-action="Create">ساخت</a>
+</p>
+
+@using PTemplate.Models
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Product)ViewData["Product"];
+
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+
+        </dt>
+        <dd>
+
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @if (b.Isactive.Value)
+            {
+                <span>فعال</span>
+            }
+            else
+            {
+                <span>غیر فعال</span>
+            }
+
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                توضیح هات
+            </th>
+            <th>
+                تاریخ
+            </th>
+            <th>
+                دسته
+            </th>
+            <th>
+                محصول
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @PTemplate.Models.PersianDate.ToPersianDate(item.Datecreate.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdproductmenuinfoNavigation.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdproductNavigation.Title)
+                </td>
+                <td>
+
+                    <a asp-action="Edit" asp-route-id="@item.Id">ویرایش</a> |
+
+                    <a asp-action="Details" asp-route-id="@item.Id">جزئیات</a> |
+
+                    <a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

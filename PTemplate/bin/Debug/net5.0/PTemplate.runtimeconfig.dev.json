@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\YAR Soft\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\YAR Soft\\.nuget\\packages"
+    ]
+  }
+}

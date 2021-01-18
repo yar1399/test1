@@ -1,0 +1,131 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Product>
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "لیست محصولات";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>محصولات</h2>
+
+<p>
+     <a href="~/Admin/Products/Create">محصول جدید</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                فعال/غیرفعال
+            </th>
+
+            <th>
+                گروه
+            </th>
+            <th>
+                عنوان پست
+            </th>
+           
+            <th>
+                قیمت
+            </th>
+            <th>
+                تاریخ درج
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <div class="form-group">
+        <form name="form1" asp-controller="Products" asp-action="Index">
+            <label class="control-label"> دسته کالا</label>
+            <select class="form-control"
+                    name="ProductsBase"
+                    id="ProductsBase"
+                    asp-items="@ViewBag.Idmenu"
+                    onchange="change">
+                <option>یک گزینه را انتخاب کنید</option>
+            </select>
+            <a href="~/Admin/Products/index?Idmenu=0&paging=1" class="btn btn-action">همه لیست</a>
+            @section scripts {
+                <script>
+                    $("#ProductsBase").on("change", function () {
+
+                        var select = document.getElementById("ProductsBase");
+                      
+                        var option = select.options[select.selectedIndex];
+
+                        if (option.value != "Please select")
+                        {  
+
+                            document.form1.action = "/Admin/Products/index?Idmenu=" + option.value + "&paging=1";
+                            document.form1.submit();
+
+                        }
+
+                    });
+                </script>
+            }
+        </form>
+    </div>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            
+            <td>
+                @if (item.Isactive.Value)
+                {
+                    <span>فعال</span>
+                    <img src="~/images/icons8-green.png" />
+                }
+                else
+                {
+                    <span>غیر فعال</span>
+                    <img src="~/images/icons8-silver.png" />
+                }
+
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.IdmenuNavigation.Name)
+            </td>
+            <td>
+                <a href="/cbkala/Product/@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @PersianDate.ToPersianDateString((DateTime)item.Datecreate)
+                @*@Html.DisplayFor(modelItem => item.Datecreate)*@
+            </td>
+            <td>
+                <a href="~/Admin/Products/Edit/@item.Id"> بروز رسانی </a> |
+                <a href="~/Admin/Products/Details/@item.Id"> جزییات </a> |
+                <a href="~/Admin/Products/Delete/@item.Id"> حذف</a> ||
+                <a href="~/Admin/Productcolors/Index/@item.Id">رنگ و قیمت </a> ||
+              
+                <a href="~/Admin/Products/ProductDataIndex/@item.Id"> محتوا </a>  ||
+                <a href="~/Admin/Productinfoes/Index/@item.Id">اطلاعات کالا  </a> ||
+                <a href="~/Admin/Products/bot/@item.Id">ارسال تلگرام</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a href="~/Admin/Products?Idmenu=0&paging=@ViewData["FirstRowOnPage"].ToString()" class="btn btn-default">ابتدا</a>
+@for (var p = 1; p <= int.Parse( ViewData["PageCount"].ToString()); p++)
+{
+
+    <a href="~/Admin/Products?Idmenu=0&paging=@p" class="btn btn-default">@p</a>
+}
+<a href="~/Admin/Products?Idmenu=0&paging=@ViewData["PageCount"].ToString()" class="btn btn-default">انتها</a>

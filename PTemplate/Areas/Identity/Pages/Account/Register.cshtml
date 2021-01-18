@@ -1,0 +1,64 @@
+﻿@page
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "ساخت حساب کاربری";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "/";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+@*<div id="container">*@
+
+@*<div class="container panel panel-default ">*@
+
+@section sitmapplaceholder{
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="fa " aria-hidden="true"></i> ثبت نام </a></li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="col-12 col-xl-8 p-b-20">
+    <div class="contact-content-area bg-white mb-30 p-30 box-shadow">
+
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>با پر کردن این فرم یک حساب کاربری ایجاد کنید. </h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Email">ایمیل</label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password">گذرواژه</label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword">تکرار گذرواژه</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">ثبت نام</button>
+        </form>
+
+
+    </div>
+</div>
+@*</div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

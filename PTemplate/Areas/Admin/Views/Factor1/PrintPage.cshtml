@@ -1,0 +1,28 @@
+﻿
+
+@using Stimulsoft.Report.Mvc
+
+
+
+
+@{
+    ViewData["Title"] = "چاپ";
+  //  Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+@Html.StiNetCoreViewer(new StiNetCoreViewerOptions()
+{
+
+    Actions =
+
+    {
+         
+        GetReport = "Print",
+
+        ViewerEvent = "ViewerEvent"
+
+    }
+
+})

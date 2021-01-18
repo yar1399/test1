@@ -1,0 +1,33 @@
+﻿
+@{
+    //ViewData["Title"] = "_singleui";
+    Layout = "~/Views/cbkala/Shared/_Layout.cshtml";
+}
+
+<div id="container">
+    <div class="container">
+
+
+        <!--Middle Part Start-->
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa @ViewData["title-icon"]">&nbsp;</i>@ViewData["Title"]</h4>
+                </div>
+                <div class="panel-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+
+
+
+        <!--Middle Part End -->
+
+    </div>
+</div>
+
+@RenderSection("Scripts", required: false)
+

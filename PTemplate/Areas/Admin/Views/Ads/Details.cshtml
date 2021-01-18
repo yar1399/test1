@@ -1,0 +1,86 @@
+﻿@model PTemplate.Data.DataBase.Ad
+
+
+
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Models
+
+
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+    @{
+        ViewData["Title"] = "Details";
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
+
+    <h2>Details</h2>
+
+    <div>
+        <h4>Ad</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                مسیر
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Path)
+                <br />
+                <img src="@Model.Path" width="200" height="150" />
+            </dd>
+
+            <dt>
+                لینک
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Link)
+                
+            </dd>
+
+            <dt>
+                فعال
+            </dt>
+            <dd>
+                @if (Model.Isactive != null)
+                    @if ((Boolean)Model.Isactive)
+                    {
+                        <span>فعال</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+            </dd>
+            <dt>
+                تاریخ ساخت
+            </dt>
+            <dd>
+                <span> @PersianDate.ToPersianDateString((DateTime)Model.Datecreate)</span>
+                @*@Html.DisplayFor(model => model.Datecreate)*@
+            </dd>
+            <dt>
+                تاریخ شروع
+            </dt>
+            <dd>
+                <span> @PersianDate.ToPersianDateString((DateTime)Model.Datestart)</span>
+                @*@Html.DisplayFor(model => model.Datestart)*@
+            </dd>
+            <dt>
+                تاریخ پایان
+            </dt>
+            <dd>
+                <span> @PersianDate.ToPersianDateString((DateTime)Model.Dateend)</span>
+                @*@Html.DisplayFor(model => model.Dateend)*@
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">ویرایش</a> |
+        <a asp-action="Index">برگشت</a>
+    </div>

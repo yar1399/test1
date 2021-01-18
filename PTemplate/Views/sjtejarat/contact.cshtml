@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewData["Title"] = "ارتباط با ما";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+    var address = appA.Addresssystems.FirstOrDefault();
+
+    <link href="~/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="~/leaflet/leaflet.js"></script>
+}
+
+
+
+@section Scripts
+{
+    <script>
+        var lat=0;
+        var lng=0;
+
+        var marker25;
+        // Creating map options
+        var mapOptions = {
+            center: [17.385044, 78.486671],
+            zoom: 40
+        }
+
+        // Creating a map object
+        var map = new L.map('map', mapOptions);
+
+        // Creating a Layer object
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+
+        // Adding layer to the map
+        map.addLayer(layer);
+
+        // Icon options
+        var iconOptions = {
+
+            iconUrl: 'https://s16.picofile.com/file/8420870192/logo.png',
+            iconSize: [50, 50]
+        }
+
+
+        // Creating a custom icon
+        var customIcon = L.icon(iconOptions);
+
+        // Creating Marker Options
+        var markerOptions = {
+            title: "MyLocation",
+            clickable: true,
+            draggable: true,
+            icon: customIcon,
+            zoom: 40
+        }
+        // Creating a Marker
+        var marker = L.marker([@address.Lat, @address.Lng], markerOptions);
+
+        // Adding popup to the marker
+        marker.bindPopup('@address.Name').openPopup();
+
+
+        // Adding marker to the map
+        marker.addTo(map);
+
+
+
+    </script>
+}
+
+@*@section posttitle{
+
+        <h1 class="text-white"> ارتباط با ما : @adress.Name </h1>
+
+    }*@
+
+@section sitmapplaceholder{
+
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]contact"><i class="fa " aria-hidden="true"></i> ارتباط با ما</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="container m-b-30">
+    <div class="row">
+        <div class="box-default">
+            <header class="title_subpages">
+                <span>تماس با ما</span>
+            </header>
+            <br>
+            <div class="body_subpage">
+
+                <div class="container ">
+                    <div class="row">
+
+                        <div class="col-md-6 ">
+
+                            <div class="contact-us">
+                                <address>
+                                    <a href="mailto:webmaster@example.com">@address.Namemanger</a>.<br>
+                                    استان :@address.Province<br>
+                                    شهر :@address.City<br>
+                                    <div><menu-icon class="bi bi-building"></menu-icon>@address.Address</div>
+                                    <div><menu-icon class="bi bi-phone-vibrate"></menu-icon>@address.Tell</div>
+                                    کد پستی :@address.Postalcode<br>
+                                </address>
+
+                                <div>
+                                    <menu-icon class="bi bi-clock"></menu-icon>
+                                    @address.Time
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 ">
+                            <div id="map" style="width:600px; height:400px"></div>
+
+                            <iframe width="100%"
+                                    height="400"
+                                    frameborder="0"
+                                    scrolling="yes"
+                                    marginheight="0"
+                                    marginwidth="0"
+                                    src="https://maps.google.com/maps?q=+@Html.Raw(address.Lat),@Html.Raw(address.Lng)&hl=es&z=14&amp;output=embed">
+                            </iframe>
+
+                        </div>
+
+                        </div>
+                    </div>
+
+                <div class="container">
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-md-6 col-md-offset-3">
+
+                            <p class="title_subpages">
+
+
+                                @{ WriteLiteral(address.Text); }
+
+
+
+                            </p>
+                            <form>
+
+                                <div class="form-group">
+
+                                    <input type="text" class="form-control" id="name" placeholder="نام و نام خانوادگی شما">
+
+                                </div>
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="آدرس ایمیل">
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="متن پیغام شما"></textarea>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary btn-blue">ارسال پیام</button>
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>

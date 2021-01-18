@@ -1,0 +1,170 @@
+﻿
+
+@using PTemplate.Models.Statestics;
+@using PTemplate.Data;
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>نامرنگ</title>
+   
+    <!-- Bootstrap -->
+    <link href="~/Namrang/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Namrang/css/owl.carousel.css" rel="stylesheet">
+    <link href="~/Namrang/css/style.css" rel="stylesheet">
+
+</head>
+
+<body id="first">
+    <div class="container-fluid top-menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="logo">
+                        <h1><a href="#">نامرنگ</a></h1>
+                        <div>
+                            ببینید اسم خودتان چه رنگی است یا اسم فرزندتان چه رنگی میتواند باشد!
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!---------------- Esmam Che Rangi Misheh? -------------->
+    <div class="container-fluid p-t-20 bgcolor-magenta " id="first-form">
+        <div class="container">
+            <div class="content-title">
+                <h3 class="h3-title color-white">امار</h3>
+            </div>
+            @{
+            /*    DateTime dt = DateTime.Now.Date;
+
+
+                ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+                var q = appA.tbl_Statestics.Where(a => a.Day == dt.Date).SingleOrDefault();
+
+              var tbuser = appA.tbl_StUsers.Where(a => a.StID == q.ID).ToList();
+              int today = appA.tbl_StatesticsDetils.Where(a => string.IsNullOrEmpty(a.Reffer)==true && a.Date.Date == dt.Date).ToList().Count();
+              int yesterday = appA.tbl_StatesticsDetils.Where(a => string.IsNullOrEmpty(a.Reffer)==true && a.Date.Date == dt.Date.AddDays(-1)).ToList().Count();
+       
+            int yestertwo = appA.tbl_StatesticsDetils.Where(a => string.IsNullOrEmpty(a.Reffer)==true && a.Date.Date == dt.Date.AddDays(-2)).ToList().Count();*/
+                StClassStruct stclassstruct=  StGet.GetStatestisc();
+            }
+            <div class="clearfix"></div>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد کاربران انلاین &nbsp;:&nbsp;  <span>@stOnlion.GetOnlion()</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد کاربران امروز &nbsp;:&nbsp;  <span>@stclassstruct.TodayIP</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد بازدید امروز &nbsp;:&nbsp;  <span>@stclassstruct.Today</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد بازدید دیروز &nbsp;:&nbsp;  <span>@stclassstruct.Yesterday </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد بازدید این ماه &nbsp;:&nbsp;  <span>@stclassstruct.Month </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد بازدید ماه قبل  &nbsp;:&nbsp;  <span>@stclassstruct.LastMonth </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد بازدید سال  &nbsp;:&nbsp;  <span>@stclassstruct.Year </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        تعداد بازدید کل  &nbsp;:&nbsp;  <span>@stclassstruct.Total </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        ----
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        ----
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        ----
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        ----
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        IP  &nbsp;:&nbsp; تعداد کاربران امروز &nbsp;:&nbsp;  <span> @stclassstruct.TodayIP</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        IP  &nbsp;:&nbsp; تعداد کاربران دیروز &nbsp;:&nbsp;  <span> @stclassstruct.YesterdayIP </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        IP  &nbsp;:&nbsp; تعداد کاربران این ماه  &nbsp;:&nbsp;<span> @stclassstruct.MonthIP </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        IP  &nbsp;:&nbsp; تعداد کاربران ماه قبل  &nbsp;:&nbsp;<span> @stclassstruct.LastMonthIP </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        IP&nbsp;:&nbsp; تعداد کاربران سال &nbsp; :&nbsp;  <span> @stclassstruct.YearIP </span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+                        IP&nbsp;:&nbsp;تعداد کاربران کل  &nbsp;:&nbsp;<span> @stclassstruct.TotalIP </span>
+                    </div>
+
+                    <div id="responnamerang" class="col-md-6 col-lg-6 color-white wow fadeInLeft">
+                        <p class="text-justify">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------>
+    <!--------------- ویژگی های شخصیتی این رنگ چی میشه؟ --------------->
+   
+
+    <!------------------------------>
+
+    <div class="container-fluid footer">
+        <div class="col-md-12">
+            <div>
+                <a href="http://www.yarsoft.ir" target="_blank">
+                    <img src="~/Namrang/images/yar_logo.png" />
+                </a>
+            </div>
+
+            <div class="btn-simulate">
+                <a href="https://www.instagram.com/yarsoft_ir/" target="_blank">
+
+                    <span class="bold">yarsoft_ir</span>
+                    <span class=" icn"></span>
+                </a>
+
+
+            </div>
+
+        </div>
+        <p>
+            این پروژه توسط
+
+            <a href="http://www.yarsoft.ir" target="_blank">
+                شرکت نرم افزاری یاران صفر و یک جهان گستر (یار)
+            </a>
+
+            پیاده سازی شده
+            <br />
+            و به شما عزیزان تقدیم می گردد.
+        </p>
+
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/Namrang/js/jquery.min.js"></script>
+    <script src="~/Namrang/js/owl.carousel.js"></script>
+    <script src="~/Namrang/js/style.js"></script>
+    <script src="~/Namrang/js/bootstrap.min.js"></script>
+</body>
+</html>

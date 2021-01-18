@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>نامرنگ</title>
+
+    <!-- Bootstrap -->
+    <link href="Namrang/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Namrang/css/owl.carousel.css" rel="stylesheet">
+    <link href="Namrang/css/style.css" rel="stylesheet">
+
+</head>
+
+<body id="first">
+    <div class="container-fluid top-menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="logo">
+                        <h1><a href="#">نامرنگ</a></h1>
+                        <div>
+                            ببینید اسم خودتان چه رنگی است یا اسم فرزندتان چه رنگی میتواند باشد!
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!---------------- Esmam Che Rangi Misheh? -------------->
+    <div class="container-fluid p-t-20 bgcolor-magenta " id="first-form">
+        <div class="container">
+            <div class="content-title">
+                <h3 class="h3-title color-white">اسمم چه رنگی میشه؟</h3>
+            </div>
+            <div class="clearfix"></div>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+
+                        <input class="input-style" type="text" id="name" value="" placeholder="نام" >
+                        <input class="input-style" type="text" id="family" value="" placeholder="نام خانوادگی">
+                        <button id="btn1" onclick="startTask()">ببین چه رنگی میشه <span class="lnr lnr-arrow-left"></span></button>
+                        <img id="loader1" src="~/Namrang/images/loader.svg" style="display:none" />
+
+                        <div class="clearfix"></div>
+                        <div class="row product-info text-center" style="color:white;" id="messageBase"></div>
+                        <script>
+
+                            function startTask() {
+
+                                var name = $('#name').val();
+                                var fameli = $('#family').val();
+
+
+                                if (name === "") {
+                                    document.getElementById("responnamerang").innerHTML = '  <p  class="text-justify">                            روان‌شناسان می‌گویند همه ما به نحوی تحت‌تاثیر رنگ‌ها هستیم و به عبارت دیگر (خود) واقعی‌مان را با این رنگ‌ها نشان می‌دهیم. برای اسم هر فرد رنگ مخصوصی وجود دارد که می‌تواند بر زندگی او تاثیر بگذارد. جالب است نه؟! این‌که شما بدانید برای اسم‌تان رنگ مخصوصی وجود دارد و می‌توانید راز شخصیتی خود را از لابه‌لای آن دریابید! باید بسیار جالب و هیجان‌انگیز باشد... (برگرفته از خبر گزاری ایسنا).</p>';
+                                    document.getElementById("messageBase").innerHTML = '';
+                                    alert(' لطفا نام را وارد کنید ');
+                                    return;
+                                }
+
+                                if (fameli === "") {
+                                    document.getElementById("responnamerang").innerHTML = '  <p  class="text-justify">                            روان‌شناسان می‌گویند همه ما به نحوی تحت‌تاثیر رنگ‌ها هستیم و به عبارت دیگر (خود) واقعی‌مان را با این رنگ‌ها نشان می‌دهیم. برای اسم هر فرد رنگ مخصوصی وجود دارد که می‌تواند بر زندگی او تاثیر بگذارد. جالب است نه؟! این‌که شما بدانید برای اسم‌تان رنگ مخصوصی وجود دارد و می‌توانید راز شخصیتی خود را از لابه‌لای آن دریابید! باید بسیار جالب و هیجان‌انگیز باشد... (برگرفته از خبر گزاری ایسنا).</p>';
+                                    document.getElementById("messageBase").innerHTML = '';
+                                    alert('لطفا نام خانوادگی را وارد نمائید ');
+                                    return;
+                                }
+                                document.getElementById("btn1").style.display = "none";
+
+                                document.getElementById("loader1").style.display = "inline-block";
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Namrang/yourColor?name=' + name + '&fameli=' + fameli,
+                                    contentType: "application/json",
+                                    success: function (result) {
+
+                                        document.getElementById("btn1").style.display = "inline-block";
+                                        document.getElementById("loader1").style.display = "none";
+                                        if (result.ts.length == 1) {
+                                            if (result.ts[0].colorname === "NO-2") {
+                                                document.getElementById("responnamerang").innerHTML = '  <p  class="text-justify">                            روان‌شناسان می‌گویند همه ما به نحوی تحت‌تاثیر رنگ‌ها هستیم و به عبارت دیگر (خود) واقعی‌مان را با این رنگ‌ها نشان می‌دهیم. برای اسم هر فرد رنگ مخصوصی وجود دارد که می‌تواند بر زندگی او تاثیر بگذارد. جالب است نه؟! این‌که شما بدانید برای اسم‌تان رنگ مخصوصی وجود دارد و می‌توانید راز شخصیتی خود را از لابه‌لای آن دریابید! باید بسیار جالب و هیجان‌انگیز باشد... (برگرفته از خبر گزاری ایسنا).</p>';
+                                                document.getElementById("messageBase").innerHTML = ' <span class=" text-lg-center">' + result.ts[0].description + '</span>'
+
+                                            } else if (result.ts[0].colorname === "NO") {
+                                                document.getElementById("responnamerang").innerHTML = '  <p  class="text-justify">                            روان‌شناسان می‌گویند همه ما به نحوی تحت‌تاثیر رنگ‌ها هستیم و به عبارت دیگر (خود) واقعی‌مان را با این رنگ‌ها نشان می‌دهیم. برای اسم هر فرد رنگ مخصوصی وجود دارد که می‌تواند بر زندگی او تاثیر بگذارد. جالب است نه؟! این‌که شما بدانید برای اسم‌تان رنگ مخصوصی وجود دارد و می‌توانید راز شخصیتی خود را از لابه‌لای آن دریابید! باید بسیار جالب و هیجان‌انگیز باشد... (برگرفته از خبر گزاری ایسنا).</p>';
+                                                document.getElementById("messageBase").innerHTML = ' <span class=" text-lg-center">' + result.ts[0].description + '</span>'
+
+                                            } else {
+
+                                                document.getElementById("messageBase").innerHTML = '';
+
+                                                document.getElementById("responnamerang").innerHTML = '  <p  class="text-justify"><span style="color:' + result.ts[0].color + '">' + result.ts[0].colorname + ':&nbsp;</span>' + result.ts[0].description + '</p>'
+                                            }
+
+                                        }
+
+
+
+
+                                    }
+                                    , error: function (xhr, status, error) {
+                                        document.getElementById("btn1").style.display = "inline-block";
+                                        document.getElementById("loader1").style.display = "none";
+                                    }
+                                });
+
+                            }
+
+
+                        </script>
+
+
+                    </div>
+                    <div id="responnamerang" class="col-md-6 col-lg-6 color-white wow fadeInLeft">
+                        <p  class="text-justify">
+                            روان‌شناسان می‌گویند همه ما به نحوی تحت‌تاثیر رنگ‌ها هستیم و به عبارت دیگر (خود) واقعی‌مان را با این رنگ‌ها نشان می‌دهیم. برای اسم هر فرد رنگ مخصوصی وجود دارد که می‌تواند بر زندگی او تاثیر بگذارد. جالب است نه؟! این‌که شما بدانید برای اسم‌تان رنگ مخصوصی وجود دارد و می‌توانید راز شخصیتی خود را از لابه‌لای آن دریابید! باید بسیار جالب و هیجان‌انگیز باشد... (برگرفته از خبر گزاری ایسنا).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------>
+    <!--------------- ویژگی های شخصیتی این رنگ چی میشه؟ --------------->
+    <div class="container-fluid p-t-20 bgcolor-white" id="second-form">
+        <div class="container">
+            <div class="content-title">
+                <h3 class="h3-title color-magenta">ویژگی های شخصیتی این رنگ چی میشه؟</h3>
+            </div>
+            <div class="clearfix"></div>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+
+
+                        <select class="input-style extra-select-style" id="color" placeholder="انتخاب رنگ">
+                            <option value="0">چه رنگی مد نظرتونه؟</option>
+                            <option value="1">قرمز</option>
+                            <option value="2">نارنجی</option>
+                            <option value="3">زرد</option>
+                            <option value="4">سبز</option>
+                            <option value="5">آبی</option>
+                            <option value="6">نیلی</option>
+                            <option value="7">بنفش</option>
+                            <option value="8">صورتی</option>
+                            <option value="9">طلایی</option>
+                        </select>
+
+
+                        <button id="btn2" onclick="startTaskrang()">  ببین چی میشه  <span class="lnr lnr-arrow-left"></span></button>
+
+                  
+
+                        <img id="loader2" src="~/Namrang/images/loader.svg" style="display:none" />
+                        <div class="clearfix"></div>
+
+                        <div class="row product-info text-center" id="messageBasecolor"></div>
+
+                        <script>
+                           
+
+                            function startTaskrang() {
+
+                           
+
+                                var select = document.getElementById("color");
+                                var options = select.options[select.selectedIndex];
+                                var idcolor = options.value;
+
+                                if (idcolor == null) {
+                                    document.getElementById("messageBasecolor").innerHTML = '';
+                                    document.getElementById("colordiscription").innerHTML = ''; 
+                                    alert(' لطفا رنگ را انتخاب کنید ');
+                                    return;
+                                }
+
+                                if (idcolor == 0) {
+                                    document.getElementById("messageBasecolor").innerHTML = '';
+                                    document.getElementById("colordiscription").innerHTML = ''; 
+                                    alert(' لطفا رنگ را انتخاب کنید ');
+                                    return;
+                                }
+                                document.getElementById("btn2").style.visibility = "none";
+                                document.getElementById("loader2").style.visibility = "inline-block";
+
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Namrang/yourDescriptionColor?id=' + idcolor,
+                                    contentType: "application/json",
+                                    success: function (result) {
+                                        document.getElementById("btn2").style.display = "inline-block";
+                                        document.getElementById("loader2").style.visibility = "none";
+                                        if (result.ts.length == 1) {
+                                            if (result.ts[0].name === "NO-2") {
+                                                document.getElementById("colordiscription").innerHTML = '  <p  class="text-justify"> موردی را جستجو کنید </p>';
+                                                document.getElementById("messageBasecolor").innerHTML = ' <span class="text-danger text-lg-center">' + result.ts[0].description + '</span>';
+
+                                            } else if (result.ts[0].name === "NO") {
+
+                                                document.getElementById("messageBasecolor").innerHTML = ' <span class="text-danger text-lg-center">' + result.ts[0].description + '</span>';
+                                                document.getElementById("colordiscription").innerHTML = '  <p  class="text-justify"> موردی را جستجو کنید </p>';
+                                            } else {
+                                                document.getElementById("messageBasecolor").innerHTML = '';
+                                                document.getElementById("colordiscription").innerHTML = '  <p  class="text-justify"><span style="color:' + result.ts[0].color + '">' + result.ts[0].name + ':&nbsp;</span>' + result.ts[0].description + '</p>';
+                                            }
+
+                                        }
+
+
+                                    },
+                                    error: function (xhr, status, error) {
+                                        document.getElementById("loader2").style.visibility = "none";
+                                        document.getElementById("btn2").style.display = "inline-block";
+                                    }
+                                });
+
+                            }
+
+                        </script>
+
+
+
+                    </div>
+                    <div id="colordiscription" class="col-md-6 col-lg-6  wow fadeInLeft">
+                        <p class="text-justify">
+                            <!--------نتیجه اینجا نوشته میشه------>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------------برای فرزندم چه اسمی انتخاب کنم که رنگ دلخواهم بشه؟ -------------->
+    <div class="container-fluid slided">
+        <div class="container">
+            <div class="content-title">
+                <h3 class="h3-title color-white">یعنی برای فرزندم چه اسمی بذارم که رنگش همونی بشه که دلم میخواد؟</h3>
+            </div>
+            <div class="clearfix"></div>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 wow fadeInRight">
+
+                        <input class="input-style" type="text" id="familybaby" value="" placeholder="نام خانوادگی فرزند شما">
+                        <select class="input-style extra-select-style" id="colorbaby" placeholder="انتخاب رنگ">
+                            <option value="0">چه رنگی مد نظرتونه؟</option>
+                            <option value="1">قرمز</option>
+                            <option value="2">نارنجی</option>
+                            <option value="3">زرد</option>
+                            <option value="4">سبز</option>
+                            <option value="5">آبی</option>
+                            <option value="6">نیلی</option>
+                            <option value="7">بنفش</option>
+                            <option value="8">صورتی</option>
+                            <option value="9">طلایی</option>
+                        </select>
+                        <div class="container-fluid container-radio">
+                            <label class="radio-inline">
+                                <input type="radio" id="gender" name="optradio" value="0" checked="checked" title="دختر" />دختر
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio" value="1" title="پسر" />پسر
+                            </label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <button id="btn3" onclick="startTaskbaby();">ببین چه اسم هایی این رنگی میشه <span class="lnr lnr-arrow-left"></span></button>
+
+                        <img id="loader3" src="~/Namrang/images/loader.svg" style="display:none" />
+                        <div class="clearfix"></div>
+
+                        <div class="row product-info text-center " style="color:white;" id="messageBasebaby"></div>
+                        <script>
+
+                            function startTaskbaby() {
+
+
+                                var fameli = $('#familybaby').val();
+                               
+                                var  gen =$('input[name="optradio"]:checked').val();
+
+                               
+
+                                var select = document.getElementById("colorbaby");
+                                var options = select.options[select.selectedIndex];
+                                var idcolor = options.value;
+
+                                if (fameli === "") {
+                                    document.getElementById("name-result").style.display = "none";
+                                    document.getElementById("messageBasebaby").innerHTML = '';
+                                    document.getElementById("basebaby").innerHTML = '';
+                                    alert(' لطفا نام خانوادگی را انتخاب کنید ');
+                                    return;
+                                }
+
+                                if (idcolor == null) {
+                                    document.getElementById("name-result").style.display = "none";
+                                    document.getElementById("messageBasebaby").innerHTML = '';
+                                    document.getElementById("basebaby").innerHTML = '';
+                                    alert(' لطفا رنگ را انتخاب کنید ');
+                                    return;
+                                }
+
+                                if (idcolor == 0) {
+                                    document.getElementById("name-result").style.display = "none";
+                                    alert(' لطفا رنگ را انتخاب کنید ');
+                                    return;
+                                }
+
+
+
+                                document.getElementById("btn3").style.display = "none";
+                                document.getElementById("loader3").style.display = "inline-block";
+
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Namrang/yournamebaby?fameli=' + fameli + '&color=' + idcolor + '&gender=' + gen,
+                                    contentType: "application/json",
+                                    success: function (result) {
+                                        document.getElementById("btn3").style.display = "inline-block";
+                                        document.getElementById("loader3").style.display = "none";
+                                        if (result.ts.length >= 1) {
+                                            document.getElementById("name-result").style.display = "none";
+                                            if (result.ts[0].name === "NO-2") {
+                                                document.getElementById("basebaby").innerHTML = 'موردی یافت نکردم.';
+                                                document.getElementById("messageBasebaby").innerHTML = '<span class=" text-lg-center" >' + result.ts[0].meaning + '</span>'
+
+                                            } else if (result.ts[0].name === "NO") {
+                                                document.getElementById("basebaby").innerHTML = 'موردی یافت نکردم.';
+                                                document.getElementById("messageBasebaby").innerHTML = '<span class=" text-lg-center">' + result.ts[0].meaning + '</span>'
+
+                                            } else {
+
+                                                document.getElementById("name-result").style.display = "inline-block";
+                                                var text12 = '';
+
+                                                for (i = 0; i < result.ts.length; i++) {
+                                                    text12 += '<div class="col-md-4">' +
+                                                        '<p>' +
+                                                        '<span class="icon lnr lnr-checkmark-circle" style="color:' + result.ts[0].color + '"></span>' +
+                                                        ' <span class="name-list-item">' + result.ts[i].name + '</span>' +
+                                                        ' <span> - </span>' +
+                                                        ' <span>' +
+
+                                                        result.ts[i].meaning +
+
+                                                        '  </span' +
+                                                        ' </p> </div>';
+
+
+
+
+                                                }
+                                                document.getElementById("messageBasebaby").innerHTML = '';
+                                                document.getElementById("basebaby").innerHTML = text12;
+                                            }
+
+                                        }
+
+
+
+                                    }, error: function (xhr, status, error) {
+                                        document.getElementById("loader3").style.display = "none";
+                                        document.getElementById("name-result").style.display = "none";
+                                        document.getElementById("btn3").style.display = "inline-block";
+                                    }
+                                });
+
+                            }
+
+                        </script>
+
+
+                    </div>
+                    <div class="col-md-6 col-lg-6 color-white wow fadeInLeft">
+                        <p class="text-justify"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--------------  لیست نام ها ---------------->
+    <div id="name-result" class="container p-t-20 " style="display:none;">
+        <div class="col-md-12">
+            <h3 class="h3-title">
+                لیست نام ها 
+            </h3>
+        </div>
+        <div id="basebaby" class="container row" >
+            موردی نیست
+        </div>
+
+       
+    </div>
+
+    <!------------------------------>
+
+    <div class="container-fluid footer">
+        <div class="col-md-12">
+            <div>
+                <a href="http://www.yarsoft.ir" target="_blank">
+                    <img src="~/Namrang/images/yar_logo.png" />
+                </a>
+            </div>
+
+            <div class="btn-simulate">
+                <a href="https://www.instagram.com/yarsoft_ir/" target="_blank">
+
+                    <span class="bold">yarsoft_ir</span>
+                    <span class=" icn"></span>
+                </a>
+
+
+            </div>
+
+        </div>
+        <p>
+            این پروژه توسط
+
+            <a href="http://www.yarsoft.ir" target="_blank">
+                شرکت نرم افزاری یاران صفر و یک جهان گستر (یار)
+            </a>
+
+            پیاده سازی شده
+            <br />
+            و به شما عزیزان تقدیم می گردد.
+        </p>
+
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="Namrang/js/jquery.min.js"></script>
+    <script src="Namrang/js/owl.carousel.js"></script>
+    <script src="Namrang/js/style.js"></script>
+    <script src="Namrang/js/bootstrap.min.js"></script>
+</body>
+</html>

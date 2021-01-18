@@ -1,0 +1,60 @@
+﻿@model PTemplate.Data.DataBase.Socialweb
+@using Microsoft.AspNetCore.Identity
+
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ویرایش شبکه";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ویرایش</h2>
+
+<h4>شبکه اجتماعی</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+             شبکه
+                <select asp-for="Idsocial" class="form-control" asp-items="ViewBag.Idsocial"></select>
+                <span asp-validation-for="Idsocial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              ادرس
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                فعال
+                @Html.CheckBox("Isactive", Model.Isactive)
+            </div>
+            <div class="form-group">
+               توضیح
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">برگشت</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

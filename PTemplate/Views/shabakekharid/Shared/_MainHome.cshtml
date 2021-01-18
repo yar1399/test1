@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/dadras/Shared/_Layout.cshtml";
+    ViewData["homeUrl"] = "";
+    ViewData["externalHomeUrl"] = "/dadras/";
+}
+
+
+<!---------------------------Start Home Body------------------------------------->
+    <section class="mag-posts-area d-flex flex-wrap">
+
+
+
+            @RenderBody()
+            @RenderSection("Scripts", required: false)
+
+        <!-- >>>>>>>>>>>>>>>>>>>>
+     Post Right Sidebar Area
+    <<<<<<<<<<<<<<<<<<<<< -->
+        <!--------------------------End Home Body -------------------------------------->
+
+        <div class="post-sidebar-area right-sidebar mt-30 mb-30 bg-white box-shadow">
+
+            <!-- Sidebar Widget -->
+            <div class="single-sidebar-widget p-30">
+
+                <!-- Section Title -->
+                <div class="section-heading">
+                    <h5>ما در رسانه های دیگر</h5>
+                </div>
+
+                <!-- Social Followers Info -->
+                <div class="social-followers-info">
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/mandadras/" class="instagram-following"><i class="fa fa-instagram"></i><span>ما در اینستاگرام</span></a>
+                    <!-- Telegram -->
+                    <a href="https://t.me/mandadras" class="telegram-following"><i class="fa fa-telegram"></i><span>ما در تلگرام</span></a>
+                    <!-- Aparat -->
+                    <a href="https://www.aparat.com/Maryam.Dadras" class="aparat-following"><img class="icon" src="~/dadras/img/core-img/aparat_48.png"><span>ما در آپارات</span></a>
+                    <!-- Namasha
+                     <a href="#" class="namasha-following"><img class="icon" src="~/dadras/img/core-img/namasha_32.png"><span>ما در نماشا</span></a>
+                      Tamasha
+                     <a href="#" class="tamasha-following"><img class="icon" src="~/dadras/img/core-img/tamasha_24.png"><span>ما در تماشا</span></a>
+                -->
+
+                </div>
+
+            </div>
+
+            <!-- Sidebar Widget -->
+            <div class="single-sidebar-widget p-30">
+                <!-- Section Title -->
+                <div class="section-heading">
+                    <h5>آرشیو تکیه ای از دانایی</h5>
+                </div>
+
+                <!-- Catagory Widget -->
+
+
+                <ul class="catagory-widgets rtl">
+                    <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=11&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> کوچینگ</span> @*<span>0</span>*@</a></li>
+                    <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=7&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> سواد زندگی</span> @*<span>0</span>*@</a></li>
+                    <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=8&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> روابط زناشویی</span> @*<span>0</span>*@</a></li>
+                    <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=9&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> تغییر و تحول فردی</span> @*<span>0</span>*@</a></li>
+                    <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=10&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> مهندسی متقاعد سازی</span> @*<span>0</span>*@</a></li>
+                    <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=12&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> جذابیت</span> @*<span>0</span>*@</a></li>
+
+
+                </ul>
+            </div>
+
+        </div>
+        <!-- ##### Slider Area End ##### -->
+    </section>

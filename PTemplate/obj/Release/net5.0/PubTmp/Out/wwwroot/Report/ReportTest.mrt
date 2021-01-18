@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <MSSQL Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>MSSQL</Alias>
+        <ConnectionStringEncrypted>9NjLyU9SEwXiW9XJyR0lEsRw3UhhURGMaV/V8E555F6LVH+CT10BjOF8oZlqAOBPkHBTAslMWZntFf3c+3ThL4NY24jGWas16VttvepsoCrR2s+txQnDyGFBhMzkDOVjwmD3iFtMS4DiTfHcY1ykj/NYm89GVfuZaEz9nWMF9i+EPvWMYgnTgWdETYRjLK1jwxStYE5t+8g=</ConnectionStringEncrypted>
+        <Name>MSSQL</Name>
+      </MSSQL>
+    </Databases>
+    <DataSources isList="true" count="3">
+      <dt Ref="3" type="Stimulsoft.Report.Dictionary.StiDataViewSource" isKey="true">
+        <Alias>dt</Alias>
+        <Columns isList="true" count="1">
+          <value>Id,System.Nullable`1[System.Int64]</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>dt</Name>
+        <NameInSource>dt</NameInSource>
+      </dt>
+      <store_product Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>store.product</Alias>
+        <Columns isList="true" count="9">
+          <value>id,System.Int64</value>
+          <value>idmenu,System.Int64</value>
+          <value>price,System.Decimal</value>
+          <value>datecreate,System.DateTime</value>
+          <value>isactive,System.Boolean</value>
+          <value>description,System.String</value>
+          <value>moneypost,System.Decimal</value>
+          <value>title,System.String</value>
+          <value>text,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>store.product</Name>
+        <NameInSource>MSSQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from store.product</SqlCommand>
+      </store_product>
+      <store_factorGetId Ref="5" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>store.factorGetId</Alias>
+        <Columns isList="true" count="12">
+          <value>id,System.Guid</value>
+          <value>iduser,System.String</value>
+          <value>UserName,System.String</value>
+          <value>factorstate,System.String</value>
+          <value>isactive,System.Boolean</value>
+          <value>datecreate,System.DateTime</value>
+          <value>datechangestate,System.DateTime</value>
+          <value>address,System.String</value>
+          <value>authority,System.String</value>
+          <value>productpaytype,System.String</value>
+          <value>refid,System.String</value>
+          <value>productposttype,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>store.factorGetId</Name>
+        <NameInSource>MSSQL</NameInSource>
+        <Parameters isList="true" count="1">
+          <value>_x0040_id,,14,0</value>
+        </Parameters>
+        <SqlCommand>store.factorGetId</SqlCommand>
+        <Type>StoredProcedure</Type>
+      </store_factorGetId>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>534074d70864465ca7568c04f58d2021</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="6" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <Datastore_factorGetId Ref="7" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,0.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <DataSourceName>store_factorGetId</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>Datastore_factorGetId</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Sort isList="true" count="0" />
+        </Datastore_factorGetId>
+        <Tablestore_factorGetId Ref="8" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,2,19,2.4</ClientRectangle>
+          <ColumnCount>12</ColumnCount>
+          <Components isList="true" count="36">
+            <Tablestore_factorGetId_Cell1 Ref="9" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>0</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell1</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>id</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell1>
+            <Tablestore_factorGetId_Cell2 Ref="10" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>1.6,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>1</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell2</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>iduser</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell2>
+            <Tablestore_factorGetId_Cell3 Ref="11" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.2,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>2</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell3</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>UserName</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell3>
+            <Tablestore_factorGetId_Cell4 Ref="12" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>4.8,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>3</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell4</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>factorstate</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell4>
+            <Tablestore_factorGetId_Cell5 Ref="13" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.4,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>4</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell5</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>isactive</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell5>
+            <Tablestore_factorGetId_Cell6 Ref="14" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>8,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>5</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell6</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>datecreate</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell6>
+            <Tablestore_factorGetId_Cell7 Ref="15" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>9.6,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>6</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell7</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>datechangestate</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell7>
+            <Tablestore_factorGetId_Cell8 Ref="16" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>11.2,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>7</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell8</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>address</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell8>
+            <Tablestore_factorGetId_Cell9 Ref="17" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>12.8,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>8</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell9</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>authority</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell9>
+            <Tablestore_factorGetId_Cell10 Ref="18" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>14.4,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>9</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell10</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>productpaytype</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell10>
+            <Tablestore_factorGetId_Cell11 Ref="19" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>16,0,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>10</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell11</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>refid</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell11>
+            <Tablestore_factorGetId_Cell12 Ref="20" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>17.6,0,1.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>11</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell12</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>productposttype</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell12>
+            <Tablestore_factorGetId_Cell13 Ref="21" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>12</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell13</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.id}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell13>
+            <Tablestore_factorGetId_Cell14 Ref="22" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>1.6,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>13</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell14</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.iduser}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell14>
+            <Tablestore_factorGetId_Cell15 Ref="23" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.2,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>14</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell15</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.UserName}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell15>
+            <Tablestore_factorGetId_Cell16 Ref="24" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>4.8,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>15</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell16</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.factorstate}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell16>
+            <Tablestore_factorGetId_Cell17 Ref="25" type="Stimulsoft.Report.Components.Table.StiTableCellCheckBox" isKey="true">
+              <Brush>White</Brush>
+              <Checked>{store_factorGetId.isactive}</Checked>
+              <ClientRectangle>6.4,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <ContourColor>Black</ContourColor>
+              <ID>16</ID>
+              <JoinCells isList="true" count="0" />
+              <Name>Tablestore_factorGetId_Cell17</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell17>
+            <Tablestore_factorGetId_Cell18 Ref="26" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>8,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>17</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell18</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.datecreate}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell18>
+            <Tablestore_factorGetId_Cell19 Ref="27" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>9.6,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>18</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell19</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.datechangestate}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell19>
+            <Tablestore_factorGetId_Cell20 Ref="28" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>11.2,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>19</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell20</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.address}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell20>
+            <Tablestore_factorGetId_Cell21 Ref="29" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>12.8,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>20</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell21</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.authority}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell21>
+            <Tablestore_factorGetId_Cell22 Ref="30" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>14.4,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>21</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell22</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.productpaytype}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell22>
+            <Tablestore_factorGetId_Cell23 Ref="31" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>16,0.8,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>22</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell23</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.refid}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell23>
+            <Tablestore_factorGetId_Cell24 Ref="32" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>17.6,0.8,1.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>23</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell24</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{store_factorGetId.productposttype}</Text>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell24>
+            <Tablestore_factorGetId_Cell25 Ref="33" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>24</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell25</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell25>
+            <Tablestore_factorGetId_Cell26 Ref="34" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>1.6,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>25</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell26</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell26>
+            <Tablestore_factorGetId_Cell27 Ref="35" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.2,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>26</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell27</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell27>
+            <Tablestore_factorGetId_Cell28 Ref="36" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>4.8,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>27</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell28</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell28>
+            <Tablestore_factorGetId_Cell29 Ref="37" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6.4,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>28</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell29</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell29>
+            <Tablestore_factorGetId_Cell30 Ref="38" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>8,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>29</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell30</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell30>
+            <Tablestore_factorGetId_Cell31 Ref="39" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>9.6,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>30</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell31</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell31>
+            <Tablestore_factorGetId_Cell32 Ref="40" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>11.2,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>31</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell32</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell32>
+            <Tablestore_factorGetId_Cell33 Ref="41" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>12.8,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>32</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell33</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell33>
+            <Tablestore_factorGetId_Cell34 Ref="42" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>14.4,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>33</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell34</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell34>
+            <Tablestore_factorGetId_Cell35 Ref="43" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>16,1.6,1.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>34</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell35</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell35>
+            <Tablestore_factorGetId_Cell36 Ref="44" type="TableCell" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>17.6,1.6,1.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>35</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Tablestore_factorGetId_Cell36</Name>
+              <Page isRef="6" />
+              <Parent isRef="8" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Tablestore_factorGetId_Cell36>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataSourceName>store_factorGetId</DataSourceName>
+          <Filters isList="true" count="0" />
+          <FooterRowsCount>1</FooterRowsCount>
+          <HeaderRowsCount>1</HeaderRowsCount>
+          <MinHeight>0.60000000000000009</MinHeight>
+          <Name>Tablestore_factorGetId</Name>
+          <NumberID>36</NumberID>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <RowCount>3</RowCount>
+          <Sort isList="true" count="0" />
+        </Tablestore_factorGetId>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>4f2f9ad8cf504fd3b44acae92d479864</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>6/3/2020 10:10:58 PM</ReportChanged>
+  <ReportCreated>6/3/2020 8:09:21 PM</ReportCreated>
+  <ReportFile>E:\BaseT\Base Hamed\PTemplate\wwwroot\Report\ReportTest.mrt</ReportFile>
+  <ReportGuid>7a3a839e70bb4f2e8156c302b0a3d085</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2019.2.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

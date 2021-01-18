@@ -1,0 +1,270 @@
+﻿
+@model PTemplate.Models.DataViewModel.MainViewModel
+@namespace PTemplate.Areas.Admin.Data
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+<div class="full">
+    <div class="col-md-3 top-nav">
+        <img class="img-responsive" alt="" style="width: 70%;margin: 0 auto;" src="~/Bita/images/logo.png">
+        <div class="logo">
+            <h1>سرفصل مطالب</h1>
+        </div>
+        <div class="top-menu">
+            <span class="menu"> </span>
+
+            <ul class="cl-effect-16">
+
+                @if (Model.menugroup != null)
+                {
+                    foreach (var i in Model.menugroup)
+                    {
+                        <li><a href="/Home/index?idmenu= @ViewData["idmenu"]&paging= @ViewData["paging"]">@i.Name</a></li>
+                    }
+                }
+                else
+                {
+                    <li><a href="">دسته بندی انجام نشده است</a></li>
+                }
+              
+            </ul>
+            <!-- script-for-nav -->
+            <script>
+                $("span.menu").click(function () {
+                    $(".top-menu ul").slideToggle(300, function () {
+                        // Animation complete.
+                    });
+                });
+            </script>
+            <!-- script-for-nav -->
+             
+            <ul class="side-icons">
+                <li><a class="fb" href="#"></a></li>
+                <li><a class="twitt" href="#"></a></li>
+                <li><a class="goog" href="#"></a></li>
+                <li><a class="drib" href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-9 main">
+        <!--banner-section-->
+        <div class="banner-section">
+            <h3 class="tittle"><i class="glyphicon glyphicon-paperclip"></i>آخرین مطالب</h3>
+            <!-------------->
+
+            <div class="edit-pics">
+                @if (Model.ListPost != null)
+                {
+                    foreach (var i in Model.ListPost)
+                    {
+
+                        <div class="editor-pics">
+                            <div class="col-md-2 item-pic">
+                                <img src="@i.Pathdata" class="img-responsive" alt="@i.Title">
+                            </div>
+                            <div class="col-md-10 item-details">
+                                <h5 class="inner two"><a href="single.html">@i.Title</a></h5>
+                                <div class="td-post-date two" style=""><i class="glyphicon glyphicon-time"></i>@PersianDate.ToPersianDateString((DateTime)i.Datecreate)<a href="#" style="display: none;"><i class="glyphicon glyphicon-comment"></i>0 </a></div>
+                                <p style="text-align: justify;margin-top: 3px;">
+                                    @i.Description
+                                    <a href="#" class="read-more">مطالعه ادامه مطلب</a>
+                                </p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        @*<li><a href="/Home/index?idmenu= @ViewData["idmenu"]&paging= @ViewData["paging"]">@i.Name</a></li>*@
+                    }
+
+                }
+                else
+                {
+                    <span>دسته بندی انجام نشده است</span>
+                }
+
+                @{
+
+                    var PostRe = (PagedResult<PTemplate.Data.DataBase.Post>)@ViewData["PostRe"];
+        <div style="text-align: center;font-weight: bold;font-size: 1.5em;color: #333;background-color: #eee;margin: 5px 0px;border-radius: 3px;">
+
+            <a href="~/Home/Index?Idmenu=@ViewData["idmenu"]&paging=@PostRe.FirstRowOnPage" class="btn btn-default">ابتدا</a>
+            @for (var p = 1; p <= PostRe.PageCount; p++)
+            {
+                <a href="~/Home/Index?Idmenu=@ViewData["idmenu"]&paging=@ViewData["paging"]" class="btn btn-default">@p</a>
+            }
+            <a href="~/Home/Index?Idmenu=@ViewData["idmenu"]&paging=@PostRe.PageCount" class="btn btn-default">انتها</a>
+        </div>
+                    }
+            </div>
+
+            <!----------end of previous part---->
+
+
+            <div class="top-news">
+                <h3 class="tittle"><i class="glyphicon glyphicon-picture"></i>آخرین پادکست های تصویری</h3>
+                <div class="top-inner">
+                    @if (Model.ListPostImageText != null)
+                    {
+                        foreach (var i in Model.ListPostImageText)
+                        {
+                            <div class="col-md-3 top-text">
+                                <a href="#"><img src="@i.Pathdata" class="img-responsive" alt="@i.Title"></a>
+                            </div>
+                        }
+                    }
+
+                   
+                    </div>
+
+                    <div class="clearfix"> </div>
+                </div>
+
+            </div>
+
+
+
+            <h3 class="tittle"><i class="glyphicon glyphicon-picture"></i>یک برش دانایی</h3>
+            <div class="banner">
+                <div class="callbacks_container">
+
+                    <ul class="rslides callbacks callbacks1" id="slider4">
+                        <li id="callbacks1_s0" style="display: block; float: left; position: relative; opacity: 1; z-index: 2; transition: opacity 500ms ease-in-out 0s;" class="callbacks1_on">
+                            <img src="images/1.jpg" class="img-responsive" alt="">
+                        </li>
+                        <li id="callbacks1_s1" style="display: block; float: none; position: absolute; opacity: 0; z-index: 1; transition: opacity 500ms ease-in-out 0s;" class="">
+                            <img src="images/2.jpg" class="img-responsive" alt="">
+                        </li>
+                        <li id="callbacks1_s2" style="display: block; float: none; position: absolute; opacity: 0; z-index: 1; transition: opacity 500ms ease-in-out 0s;" class="">
+                            <img src="images/3.jpg" class="img-responsive" alt="">
+                        </li>
+
+                    </ul>
+                </div>
+                <!--banner-->
+                 
+                <script src="js/responsiveslides.min.js"></script>
+                <script>
+                    // You can also use "$(window).load(function() {"
+                    $(function () {
+                        // Slideshow 4
+                        $("#slider4").responsiveSlides({
+                            auto: true,
+                            pager: true,
+                            nav: true,
+                            speed: 500,
+                            namespace: "callbacks",
+                            before: function () {
+                                $('.events').append("<li>before event fired.</li>");
+                            },
+                            after: function () {
+                                $('.events').append("<li>after event fired.</li>");
+                            }
+                        });
+
+                    });
+                </script>
+                <div class="clearfix"> </div>
+
+            </div>
+            <!--//banner-->
+            <!--/top-news-->
+             
+            <!--//top-news-->
+
+        </div>
+        <!--//banner-section-->
+         
+        <div class="banner-left-text">
+            <div class="media">
+                <h3 class="tittle media"><i class="glyphicon glyphicon-user"></i>من دادرس</h3>
+                <div class="general-text two">
+                    <a href="single.html"><img class="img-responsive" alt="" src="images/sample.png" style="width: 70%;margin: 0 auto;"></a>
+                    <h5 class="top"><a href="single.html">***</a></h5>
+                    <p style="text-align: justify;">***</p>
+
+                </div>
+            </div>
+
+            <!--/general-news-->
+            <div class="general-news">
+
+                <div class="general-inner">
+
+                    @if (Model.ListPostVideo != null)
+                    {
+                        foreach (var i in Model.ListPostVideo)
+                        {
+                            <div class="media">
+                                <h3 class="tittle media"><i class="glyphicon glyphicon-user"></i>@i.Title</h3>
+                                <div class="general-text two">
+                                    <a href="#"><img class="img-responsive" alt="" src="images/sample.png" style="width: 70%;margin: 0 auto;"></a>
+                                    <h5 class="top"><a href="single.html">@i.Title</a></h5>
+                                   
+                                </div>
+                            </div>
+                        }
+                    }
+                 
+                </div>
+
+            </div>
+
+             
+        </div>
+        <div class="clearfix"> </div>
+
+    </div>
+    <div class="clearfix"> </div>
+
+
+
+    <!----------------------------------------------------->
+    <!--/footer-->
+    <div class="footer">
+        <div class="footer-top">
+            <div class="col-md-4 footer-grid">
+                <h4>
+
+                    لورم ایپسوم
+                </h4>
+                <ul class="bottom">
+                    <li>صفحه‌آرایی و طراحی گرافیک</li>
+                    <li>صفحه‌آرایی و طراحی گرافیک</li>
+                </ul>
+            </div>
+            <div class="col-md-4 footer-grid">
+                <h4>
+                    پیام ما در حال حاضر
+                </h4>
+                <ul class="bottom">
+                    <li><i class="glyphicon glyphicon-home"></i>در دسترس 24/7</li>
+                    <li><i class="glyphicon glyphicon-envelope"></i><a href="mailto:info@example.com">mail@example.com</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 footer-grid">
+                <h4>
+                    ارتباط با مجموعه ی من دادرس
+                </h4>
+                <ul class="bottom">
+                    <li><i class="glyphicon glyphicon-map-marker"></i>شریعتی-خ ملک کوچه ایرانیاد</li>
+                    <li><i class="glyphicon glyphicon-earphone"></i>تلفن: (888) 123-456-7899 </li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="copy">
+        <p>کلیه حقوق مادی و معنوی وبسایت متعلق به مجموعه ی من دادرس است. مشاوره و برندینگ دیجیتال: <a href="http://www.yarsoft.ir">شرکت نرم افزاری یاران صفر و یک جهان گستر</a> </p>
+    </div>
+    <div class="clearfix"> </div>
+
+
+    <!----------------------------------------------------->
+

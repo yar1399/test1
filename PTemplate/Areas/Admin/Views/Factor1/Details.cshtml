@@ -1,0 +1,166 @@
+﻿@model PTemplate.Models.DataViewModel.subFactorViewModel
+
+@using PTemplate.Data
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "اطلاعات فاکتور";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>اطلاعات خرید کاربر</h2>
+
+@{
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+
+    var user = appA.sp_UseridGet( ViewData["iduser"].ToString()).FirstOrDefault();
+}
+
+
+<div>
+    <h4>فاکتور خرید کاربر</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            وضعیت کالا
+        </dt>
+        <dt>
+
+            <form asp-action="Upfactorstate" method="post">
+
+                <input type="hidden" name="Id" id="Id" asp-for="factor.Id" />
+
+                <div class="form-group">
+                    <label asp-for="factor.Idfactorstate" class="control-label"></label>
+                    <select name="Idfactorstate" class="form-control" asp-items="ViewBag.Idfactorstate"></select>
+                    <span asp-validation-for="factor.Idfactorstate" class="text-danger"></span>
+                </div>
+                <input type="submit" value="اعمال تغییرات" class="btn btn-default" />
+            </form>
+
+
+
+
+
+
+
+        </dt>
+        <dt>
+            کاربر
+        </dt>
+        <dd>
+           @user.Email
+        </dd>
+        <dt>
+            شماره وضعیت بانک
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.factor.Idbankstate)
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.factor.Isactive)
+        </dd>
+        <dt>
+            تاریخ ایجاد
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)Model.factor.Datecreate)
+        </dd>
+        <dt>
+            تاریخ آخرین تغییرات
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)Model.factor.Datechangestate)
+        </dd>
+        <dt>
+            آدرس
+        </dt>
+        <dd>
+            @*@Model.factor.Addressreceiver*@
+        </dd>
+        <dt>
+            وضعیت فاکتور
+        </dt>
+        <dd>
+            @Model.factor.IdfactorstateNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+@if (Model.factorsubs.Count >= 1)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    تعداد
+                </th>
+                <th>
+                    قیمت
+                </th>
+                <th>
+                    تخفیف
+                </th>
+                <th>
+                    تاریخ
+                </th>
+                <th>
+                    رنگ
+                </th>
+                @*<th>
+                      شماره فاکتور
+                    </th>*@
+                <th>
+                    عنوان محصول
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.factorsubs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Money)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Offpercent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datecreate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdproductcolorNavigation)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.IdfactorNavigation.)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdproductNavigation.Id)
+                    </td>
+                    @*<td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id"></a>*@ |
+    <a href="~/Admin/Factor1/Index">برگشت</a>
+</div>

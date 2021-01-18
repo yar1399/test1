@@ -1,0 +1,59 @@
+﻿@model PTemplate.Data.DataBase.Productmenuinfo
+
+@using Microsoft.AspNetCore.Identity
+
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ویرایش اطلاعات منو ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ویرایش اطلاعات جزئیات منو</h2>
+
+<h4>اطلاعات منو</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="~/Admin/productmenuinfoes/Edit" method="post" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+               منو
+                <select asp-for="Idsubmenu" class="form-control" asp-items="ViewBag.idsubmenu"></select>
+                <span asp-validation-for="Idsubmenu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              عنوان
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               تاریخ درج
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               شماره
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخبره" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/productmenuinfoes/Index">برگشت</a>
+</div>
+

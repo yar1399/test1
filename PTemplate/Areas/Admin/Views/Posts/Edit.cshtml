@@ -1,0 +1,168 @@
+﻿@model PTemplate.Data.DataBase.Post
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Models
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ویرایش پست";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+
+    <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
+
+    <link href='~/PersianDateTimePicker/css/normalize.css' rel='stylesheet' />
+
+    <link href='~/PersianDateTimePicker/css/fontawesome/css/font-awesome.min.css' rel='stylesheet' />
+    <link href="~/PersianDateTimePicker/css/vertical-responsive-menu.min.css" rel="stylesheet" />
+    <link href="~/PersianDateTimePicker/css/style.css" rel="stylesheet" />
+    <link href="~/PersianDateTimePicker/css/prism.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/PersianDateTimePicker/css/persianDatepicker-default.css" />
+    <link rel="stylesheet" href="~/PersianDateTimePicker/css/persianDatepicker-dark.css" />
+    <link rel="stylesheet" href="~/PersianDateTimePicker/css/persianDatepicker-latoja.css" />
+    <link rel="stylesheet" href="~/PersianDateTimePicker/css/persianDatepicker-melon.css" />
+    <link rel="stylesheet" href="~/PersianDateTimePicker/css/persianDatepicker-lightorang.css" />
+    <script src="~/PersianDateTimePicker/js/prism.js" type="text/javascript"></script>
+}
+
+<h1>ویرایش پست</h1>
+
+<h4>ویرایش پست</h4>
+<hr />
+<div class="row">
+
+    <form action="~/Admin/Posts/Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="col-md-4">
+            <div class="form-group">
+                تاریخ ساخت
+                @PersianDate.ToPersianDate((DateTime)Model.Datecreate)
+                @*<input asp-for="Datecreate" class="form-control" />
+                    <span asp-validation-for="Datecreate" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                عنوان
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                نوع پست
+                <select asp-for="Idposttype" class="form-control" asp-items="ViewBag.Idposttype"></select>
+                <span asp-validation-for="Idposttype" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                دسته ارسال
+
+                @if (ViewBag.Idposttoptype != null)
+                {
+                    <select asp-for="Idposttoptype" class="form-control" asp-items="ViewBag.Idposttoptype"></select>
+                }
+
+            </div>
+            <div class="form-group">
+                منو
+                <select asp-for="Idmenu" class="form-control" asp-items="ViewBag.Idmenu"></select>
+                <span asp-validation-for="Idmenu" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                توضیح
+                <textarea asp-for="Description" cols="150" rows="20" class="form-control"></textarea>
+                @*<span asp-validation-for="Description" class="text-danger"></span>*@
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                مسیر
+                <input asp-for="Pathdata" class="form-control" />
+                <span asp-validation-for="Pathdata" class="text-danger"></span>
+               
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                متن
+                <textarea asp-for="Text" maxlength="2500" rows="20" cols="150"></textarea>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                تاریخ انتشار
+                <input id="Datestart" name="Datestart" class="form-control" value="@(((DateTime)Model.Datestart).ToPersianDateTime())" />
+            </div>
+
+            <div class="form-group">
+                فعال
+                @*<input asp-for="Isactive" class="form-control" />*@
+                @Html.CheckBox("Isactive", Model.Isactive)
+                <span asp-validation-for="Isactive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                html فعال
+                @*<input asp-for="Iswrite" class="form-control" />*@
+                @Html.CheckBox("Iswrite", Model.Iswrite)
+                <span asp-validation-for="Iswrite" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="ذخیره" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <a href="~/Admin/Posts/Index">برگشت</a>
+</div>
+
+@section scripts {
+    <script>
+        // Attaching event listeners to the global CKEDITOR object.
+        // The instanceReady event is fired when an instance of CKEditor 4 has finished its initialization.
+        CKEDITOR.on('instanceReady', function (ev) {
+            ShowMessage('Editor instance <em>' + ev.editor.name + '</em> was loaded.');
+
+            // The editor is ready, so sample buttons can be displayed.
+            document.getElementById('eButtons').style.display = 'block';
+        });
+
+        // Replace the <textarea id="Text"> with a CKEditor 4 instance.
+        // A reference to the editor object is returned by CKEDITOR.replace() allowing you to work with editor instances.
+        var editor = CKEDITOR.replace('Text', {
+            height: 150
+        });
+
+        // Attaching event listeners to CKEditor 4 instances.
+        // Refer to https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editor.html for a list of all available events.
+        editor.on('focus', function (evt) {
+            ShowMessage('Editor instance <em>' + this.name + '</em> <b>is focused</b>.');
+        });
+        editor.on('blur', function (evt) {
+            ShowMessage('Editor instance <em>' + this.name + '</em> <b>lost focus</b>.');
+        });
+        // Helper variable to count the number of detected changes in CKEditor 4.
+        var changesNum = 0;
+        editor.on('change', function (evt) {
+            ShowMessage('The number of changes in <em>' + this.name + '</em>: <b>' + ++changesNum + '</b>.');
+        });
+    </script>
+    <script src="~/PersianDateTimePicker/js/jquery-1.10.1.min.js"></script>
+    <script src="~/PersianDateTimePicker/js/persianDatepicker.js"></script>
+    <script>
+        $(function () {
+
+            $("#Datestart").persianDatepicker({ theme: "latoja", alwaysShow: false, formatDate: "YYYY/MM/DD 0h:0m:0s", selectedDate: "@DateTime.Now.ToPersianDateTime()", });
+
+        });
+    </script>
+
+
+
+
+}

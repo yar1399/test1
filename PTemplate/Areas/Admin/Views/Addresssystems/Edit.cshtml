@@ -1,0 +1,102 @@
+﻿@model PTemplate.Data.DataBase.Addresssystem
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+@{
+    ViewData["Title"] = "ویرایش اطلاعات سامانه";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ویرایش</h2>
+
+<h4>ویرایش اطلاعات سیستم</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <form action="~/Admin/Addresssystems/Edit" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                نام
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                شماره تلفن
+                <input asp-for="Tell" class="form-control" />
+                <span asp-validation-for="Tell" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                فکس
+                <input asp-for="Fax" class="form-control" />
+                <span asp-validation-for="Fax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                توضیح
+                <textarea id="Description" name="Description" asp-for="Description" class="form-control" maxlength="2500" rows="20" cols="150">
+ 
+</textarea>
+                @*<span asp-validation-for="Description" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                استان
+                <input asp-for="Province" class="form-control" />
+                <span asp-validation-for="Province" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                شهر
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                آدرس
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                ایمیل
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                کد پستی
+                <input asp-for="Postalcode" class="form-control" />
+                <span asp-validation-for="Postalcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                متن
+                <textarea id="Text" name="Text" asp-for="Text" class="form-control" maxlength="5500" rows="40" cols="150">
+
+</textarea>
+                @*<span asp-validation-for="Text" class="text-danger"></span>*@
+            </div>
+
+            <div class="form-group">
+               وقت کار
+                <textarea id="Time" name="Time" asp-for="Time" class="form-control" maxlength="1000" rows="10" cols="150">
+
+</textarea>
+                @*<span asp-validation-for="Text" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                نام مدیر
+                <input asp-for="Namemanger" class="form-control" />
+                <span asp-validation-for="Namemanger" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ویرایش" class="btn btn-default text-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details">برگشت</a>
+</div>
+

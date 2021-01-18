@@ -1,0 +1,40 @@
+﻿@page
+@model LockoutModel
+@{
+    ViewData["Title"] = "قفل حساب کاربری";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "/";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+@*<div id="container">*@
+@*<div class="container panel panel-default">*@
+
+
+
+@section sitmapplaceholder{
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="fa " aria-hidden="true"></i> خروج از اکانت</a></li>
+
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="col-12 col-xl-8">
+    <div class="contact-content-area bg-white mb-30 p-30 box-shadow">
+        <header>
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+            <p class="text-danger">شما به مدت 5 دقیقه , حساب کاربری شما قفل می باشد.</p>
+        </header>
+    </div>
+</div>

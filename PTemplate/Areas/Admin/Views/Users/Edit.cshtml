@@ -1,0 +1,92 @@
+﻿@model PTemplate.Data.DataBase.AspNetUsers1
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ویرایش کاربران";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>ویرایش</h2>
+
+<h4>سطح برنامه</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form  action="~/Admin/Users/Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+
+                رایان نامه:
+                @Model.Email
+
+            </div>
+
+            <div class="form-group">
+
+               تلفن همراه:
+                @Model.PhoneNumber
+
+            </div>
+
+            <div class="form-group">
+
+                 اسم کاربر
+                <input asp-for="UserName" class="form-control" />
+
+                <span asp-validation-for="UserName" class="text-danger"></span>
+
+            </div>
+       
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="EmailConfirmed" />تایید ایمیل 
+                    </label>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="PhoneNumberConfirmed" /> تایید تلفن همراه
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="TwoFactorEnabled" /> تایید دو فاکتوری
+                </label>
+            </div>
+        </div>
+          
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="LockoutEnabled" /> قفل شدن
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+               تعداد تلاش شکست ور به اکانت
+                <input asp-for="AccessFailedCount" class="form-control" />
+                <span asp-validation-for="AccessFailedCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">برگشت</a>
+</div>
+

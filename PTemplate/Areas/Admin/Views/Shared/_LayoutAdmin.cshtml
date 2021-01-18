@@ -1,0 +1,326 @@
+﻿
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="fa">
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>@ViewData["Title"]</title>
+
+    <meta content="Admin Dashboard" name="description" />
+    <meta content="ThemeDesign" name="author" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="~/assets/images/logo.png">
+
+
+    <link rel="stylesheet" href="~/assets/plugins/morris/morris.css">
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+
+
+<body class="fixed-left">
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu">
+            <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+                <i class="mdi mdi-close"></i>
+            </button>
+            <div class="left-side-logo d-block d-lg-none">
+                <div class="text-center">
+
+                    <a href="/Admin" class="logo">
+                    <img src="/assets/images/logo_dark.png" height="20" alt="logo"></a>
+                </div>
+            </div>
+            <div class="sidebar-inner slimscrollleft">
+
+                <div id="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="~/Admin/Admin" class="waves-effect"><i class="dripicons-home"></i><span>داشبورد</span></a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/Posts/Index" class="waves-effect"><i class="dripicons-article"></i><span> پست </span></a>
+                        </li>
+                        @if (User.IsInRole("Oprator"))
+                        {
+                            <li class="has_sub">
+                                <a href="javascript:void(0);"
+                                   class="waves-effect">
+                                    <i class="dripicons-menu"></i>
+                                    <span> منو </span>
+                                    <span class="menu-arrow float-right">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="list-unstyled">
+                                    @if (User.IsInRole("MenuGroup"))
+                                    {
+                                        <li><a href="~/Admin/Menugroups/Index">گروه</a></li>
+                                    }
+                                    @if (User.IsInRole("Menu"))
+                                    {
+                                        <li><a href="~/Admin/Menus/Index">دسته</a></li>
+                                    }
+                                    @if (User.IsInRole("Store"))
+                                    {
+                                        <li><a href="~/Admin/Productsubmenus/Index">جستجو زیر دسته</a></li>
+                                        <li><a href="~/Admin/productmenuinfoes/Index">جزئیات اطلاعات منو</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Ads"))
+                        {
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);"
+                                   class="waves-effect">
+                                    <i class="dripicons-menu"></i>
+                                    <span> بنر تبلیغاتی </span>
+                                    <span class="menu-arrow float-right">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="list-unstyled">
+                                    <li><a href="~/Admin/Ads/Index">لیست تبلیغات</a></li>
+                                </ul>
+                            </li>
+
+                        }
+
+
+                        @if (User.IsInRole("Store"))
+                        {
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-user-cog"></i> <span> محصولات </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                                <ul class="list-unstyled">
+
+                                    <li><a href="~/Admin/Products/Index">لیست محصولات</a></li>
+                                    <li><a href="~/Admin/Products/Create">محصول جدید</a></li>
+                                    <li><a href="~/Admin/Color1/Index"> رنگ ها</a></li>
+                                    <li><a href="~/Admin/Products/slider">لیست اسلایدر ها</a></li>
+                                    <li><a href="~/Admin/Products/banner">لیست بنر</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect">
+                                    <i class="fas fa-user-cog"></i> <span> سبد خرید </span>
+                                    <span class="menu-arrow float-right">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="list-unstyled">
+
+                                    <li><a href="~/Admin/Factor1/Index">  فاکتور ها  </a></li>
+
+                                    <li><a href="~/Admin/Factorposttypes/Index"> لیست وضعیت های ارسال مرسوله </a></li>
+
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Oprator"))
+                        {
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect">
+                                    <i class="fas fa-user-cog"></i> <span> کاربران  </span>
+                                    <span class="menu-arrow float-right">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="list-unstyled">
+
+                                    <li><a href="~/Admin/Users/Index">  کاربران </a></li>
+
+                                </ul>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("System"))
+                        {
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-user-cog"></i> <span> سامانه </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                                <ul class="list-unstyled">
+                                    @if (User.IsInRole("System"))
+                                    {
+                                        <li><a href="~/Admin/Addresssystems/Details">اطلاعات سامانه</a></li>
+                                    }
+                                        @if (User.IsInRole("Bot"))
+                                        {
+                                            <li><a href="~/Admin/botTelegrams/Details">ربات تلگرام</a></li>
+                                        }
+                                       
+                                            <li><a href="~/Admin/Socialwebs/Index">آدرس شبکه اجتماعی</a></li>
+                                       
+
+                                    </ul>
+                            </li>
+
+                        }
+                        </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div> <!-- end sidebarinner -->
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- Start right Content here -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <!-- Top Bar Start -->
+                <div class="topbar">
+                    <div class="topbar-left	d-none d-lg-block">
+                        <div class="text-center">
+                            <a href="/Admin" class="logo"><img src="~/assets/images/logo.png" height="22" alt="logo"></a>
+                        </div>
+                    </div>
+                    <nav class="navbar-custom">
+
+                        <ul class="list-inline float-right mb-0">
+                        
+
+
+                            <li class="list-inline-item dropdown notification-list nav-user">
+                                <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    @{
+                                        ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+                                        var iduserBase = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                                        var imageprofile =  appA.Imageprofiles
+                                        .Where(m => m.Iduser == iduserBase)
+                                        .FirstOrDefault();
+
+                                        if (imageprofile != null)
+                                        {
+                                            <img src="~/uploads/profile/@imageprofile.Path" alt="@User.Identity.Name" class="rounded-circle">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/account.png" alt="user" class="rounded-circle">
+                                        }
+                                    }
+                                    <span class="d-none d-md-inline-block ml-1">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <span>@User.Identity.Name</span>
+                                            @*<img src="/assets/images/users/avatar-6.jpg" alt="user" class="rounded-circle">*@
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
+                                                <a class="dropdown-item" href="~/Admin/imageprofiles/Details"><i class="dripicons-user text-muted"></i>عکس پروفایل</a>
+                                                @*<a class="dropdown-item" href="#"><i class="dripicons-wallet text-muted"></i> کیف پول من</a>
+                                                    <a class="dropdown-item" href="#"><span class="badge badge-success float-right m-t-5">5</span><i class="dripicons-gear text-muted"></i> تنظیمات</a>
+                                                    <a class="dropdown-item" href="#"><i class="dripicons-lock text-muted"></i> قفل صفحه</a>*@
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="/Identity/Account/Logout"><i class="dripicons-user text-muted"></i>خروج</a>
+
+
+                                            </div>
+                                        }
+
+                                        else
+                                        {
+                                            <span><a href="~/Admin/Admin/Index">وارد سامانه شوید</a></span>
+                                            <img src="~/images/icons8-green.png" alt="user" class="rounded-circle" />
+                                        }
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </span>
+                                </a>
+
+                            </li>
+                        </ul>
+                        <ul class="list-inline menu-left mb-0">
+                            <li class="list-inline-item">
+                                <button type="button" class="button-menu-mobile open-left waves-effect">
+                                    <i class="mdi mdi-menu"></i>
+                                </button>
+                            </li>
+
+                            <li class="list-inline-item notification-list d-none d-sm-inline-block">
+
+                                <a href="~/Admin/Posts/Create" class="nav-link waves-effect">
+                                    <span> پست جدید </span>   <i class="typcn typcn-document-add"></i>
+                                </a>
+
+                                <a href="~/Admin/Products/Create" class="nav-link waves-effect">
+                                    <span> محصول جدید </span>   <i class="typcn typcn-document-add"></i>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Top Bar End -->
+                <div class="page-content-wrapper ">
+                    <div class="container-fluid">
+
+                        @RenderBody()
+
+                    </div><!-- container fluid -->
+                </div> <!-- Page content Wrapper -->
+            </div> <!-- content -->
+            <footer class="footer">
+                © 1399 یاران <span class="d-none d-md-inline-block"> - طراحی با <i class="mdi mdi-heart text-danger"></i> شرکت یاران صفر یک جهان گستر.</span>
+            </footer>
+        </div>
+        <!-- End Right content here -->
+    </div>
+    <!-- END wrapper -->
+    <!-- jQuery  -->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/modernizr.min.js"></script>
+    <script src="~/assets/js/detect.js"></script>
+    <script src="~/assets/js/fastclick.js"></script>
+    <script src="~/assets/js/jquery.slimscroll.js"></script>
+    <script src="~/assets/js/jquery.blockUI.js"></script>
+    <script src="~/assets/js/waves.js"></script>
+    <script src="~/assets/js/jquery.nicescroll.js"></script>
+    <script src="~/assets/js/jquery.scrollTo.min.js"></script>
+    <!--Morris Chart-->
+    <script src="~/assets/plugins/morris/morris.min.js"></script>
+    <script src="~/assets/plugins/raphael/raphael.min.js"></script>
+    <!-- dashboard js -->
+    <script src="~/assets/pages/dashboard.int.js"></script>
+    <!-- App js -->
+    <script src="~/assets/js/app.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+
+</html>

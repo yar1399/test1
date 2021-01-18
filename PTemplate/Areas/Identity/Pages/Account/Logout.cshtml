@@ -1,0 +1,36 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "خروج از حساب کاربری";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "/";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+
+@section sitmapplaceholder{
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="fa " aria-hidden="true"></i> خروج</a></li>
+
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@*<div id="container">*@
+@*<div class="container panel panel-default ">*@
+<header>
+    <h1>@ViewData["Title"]</h1>
+    <p>خروج از حساب کاربری با موفقیت انجام شد.</p>
+</header>
+@*</div>*@
+@*</div>*@

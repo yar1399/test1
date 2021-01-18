@@ -1,0 +1,63 @@
+﻿@model PTemplate.Data.DataBase.Imageprofile
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "عکس پروفایل";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>عکس پروفایل</h2>
+
+<div>
+    <h4>عکس پروفایل</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+
+        </dt>
+        <dd>
+            @User.Identity.Name
+        </dd>
+        <dt>
+            عکس
+        </dt>
+        <dd>
+            @if (Model != null)
+            {
+                <img src="~/uploads/profile/@Model.Path" />
+            }
+            else
+            {
+                <img src="~/images/account.png" />
+            }
+
+        </dd>
+        <dt>
+            فعال
+        </dt>
+        <dd>
+            @if (Model != null)
+                @if (Model.Isactive.Value)
+                {
+                    <img src="~/images/icons8-green.png" />
+                }
+                else
+                {
+                    <img src="~/images/icons8-silver.png" />
+                }
+
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Model != null)
+    {
+        <span> <a href="~/Admin/imageprofiles/Delete">حذف</a> |</span>
+    }
+
+     <a href="~/Admin/imageprofiles/Create">عکس جدید</a> |
+     <a href="~/Admin/imageprofiles/Details">برگشت</a>
+</div>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Imageprofile>
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "لیست عکس پروفایل";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>عکس پروفایل</h2>
+
+<p>
+     <a href="~/Admin/imageprofiles/Create">درج عکس پروفایل</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.iduser)*@
+            </th>
+            <th>
+               عکس
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Isactive.Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iduser)
+                </td>
+                <td>
+                    <img src="~/uploads/profile/@item.Path)" />
+                    @*@Html.DisplayFor(modelItem => item.path)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isactive)
+                </td>
+                <td>
+                    <a href="~/Admin/imageprofiles/Edit/@item.Id">ویرایش</a> |
+                    <a href="~/Admin/imageprofiles/Details/@item.Id">جزئیات</a> |
+                    <a href="~/Admin/imageprofiles/Delete/@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

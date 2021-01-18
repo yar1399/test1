@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "ارتباط با ما";
+    Layout = "~/Views/dadras/Shared/_MainPostPages.cshtml";
+    ViewData["externalHomeUrl"] = "/dadras/";
+}
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+    var adress = appA.Addresssystems.FirstOrDefault();
+
+}
+
+
+@section posttitle{
+
+    <h1 class="text-white"> ارتباط با ما : @adress.Name </h1>
+
+}
+
+@section sitmapplaceholder{
+
+    <div class="mag-breadcrumb py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb rtl">
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]"><i class="fa fa-home" aria-hidden="true"></i> خانه</a></li>
+                            <li class="breadcrumb-item"><a href="@ViewData["externalHomeUrl"]contact"><i class="fa " aria-hidden="true"></i> ارتباط با ما</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<div class="col-12 col-xl-8">
+    <div class="contact-content-area bg-white mb-30 p-30 box-shadow">
+        <!-- Google Maps -->
+        @*<div class="map-area mb-30">
+                <img src="img/bg-img/contact.jpg" />
+            </div>*@
+
+        <!-- Section Title -->
+        <div class="section-heading">
+            <h5>اطلاعات تماس</h5>
+        </div>
+
+        <div class="contact-information mb-30">
+            <p>
+            </p>
+
+            <!-- Single Contact Info -->
+            <div class="single-contact-info d-flex align-items-center rtl">
+                <div class="icon mr-15">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                </div>
+                <div class="text">
+                    <p>آدرس ما: </p>
+                    <h6>@adress.Address</h6>
+                </div>
+            </div>
+
+            <!-- Single Contact Info -->
+            <div class="single-contact-info d-flex align-items-center rtl">
+                <div class="icon mr-15">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                </div>
+                <div class="text">
+                    <p>ایمیل: </p>
+                    <h6>@adress.Email</h6>
+                </div>
+            </div>
+
+            <!-- Single Contact Info -->
+            <div class="single-contact-info d-flex align-items-center rtl">
+                <div class="icon mr-15">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                </div>
+                <div class="text">
+                    <p>شماره تماس: </p>
+                    <h6>@adress.Tell</h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Title -->
+        <div class="section-heading">
+            <h5>ارسال پیام</h5>
+        </div>
+
+        <!-- Contact Form Area -->
+        <div class="contact-form-area">
+            <form action="#" method="post">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="نام شما">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="ایمیل">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="متن پیغام"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn mag-btn mt-30" type="submit">ارسال</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

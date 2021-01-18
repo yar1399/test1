@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <MS_x0020_SQL Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>MS SQL</Alias>
+        <ConnectionStringEncrypted>9FDhSERSQ6RFWvn46CBpJ9Hey4PGWVnNbGnt7MMspBeL2JvrRGdLCcBJ6Kl3hONKhlT1aEULqYzBFaQcYXjgP8LC3etPWUvtaVz9NHcAd2eB1lOtYV0ZwWscocxnceVnxMjRIGc=</ConnectionStringEncrypted>
+        <Name>MS SQL</Name>
+        <PromptUserNameAndPassword>True</PromptUserNameAndPassword>
+      </MS_x0020_SQL>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <st Ref="3" type="Stimulsoft.Report.Dictionary.StiDataViewSource" isKey="true">
+        <Alias>st</Alias>
+        <Columns isList="true" count="8">
+          <value>Id,System.Int64</value>
+          <value>Iduser,System.String</value>
+          <value>Namefamily,System.String</value>
+          <value>Tell,System.String</value>
+          <value>Address,System.String</value>
+          <value>City,System.String</value>
+          <value>Province,System.String</value>
+          <value>Postalcode,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>281c1a5a085e41ca9f3f75bc7726359e</Key>
+        <Name>st</Name>
+        <NameInSource>st</NameInSource>
+      </st>
+      <store_productaddress Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>store.productaddress</Alias>
+        <Columns isList="true" count="12">
+          <value>id,System.Int64</value>
+          <value>iduser,System.String</value>
+          <value>namefamily,System.String</value>
+          <value>tell,System.String</value>
+          <value>address,System.String</value>
+          <value>city,System.String</value>
+          <value>province,System.String</value>
+          <value>postalcode,System.String</value>
+          <value>geo,System.String</value>
+          <value>isactive,System.Boolean</value>
+          <value>isactivebase,System.Boolean</value>
+          <value>createdate,System.DateTime</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>1822ed938b27401c898c194c9d0c3857</Key>
+        <Name>store.productaddress</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from store.productaddress</SqlCommand>
+      </store_productaddress>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="1">
+      <value>,variableName,variableName,,System.String,,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>453b2c89f919403a99e8db8eaccc2cb7</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="5" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <Text1 Ref="6" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>17.4,0,1.6,0.6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Arial,8</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <Text>{st.City}</Text>
+          <TextBrush>Black</TextBrush>
+        </Text1>
+        <Text2 Ref="7" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0.2,0,1.6,0.6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Arial,8</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text2</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <Text>{variableName}</Text>
+          <TextBrush>Black</TextBrush>
+        </Text2>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>2388d953e70a4a1fa33ec952401e4397</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>2/10/2020 1:14:03 AM</ReportChanged>
+  <ReportCreated>2/9/2020 11:24:11 PM</ReportCreated>
+  <ReportFile>C:\Users\RezaJamali\Desktop\Base Hamed\PTemplate\wwwroot\Report\address.mrt</ReportFile>
+  <ReportGuid>b73662a303e64b64802b6d9a39b38434</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2020.2.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>رنگ نام</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/owl.carousel.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+
+  <body id="first">
+      <div class="container-fluid top-menu">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12 col-xs-12">
+                      <div class="logo">
+                          <h1><a href="#">نامرنگ</a></h1>
+                          <div>
+                              ببینید اسم خودتان چه رنگی است یا اسم فرزندتان چه رنگی میتواند باشد!
+                          </div>
+                      </div>
+                  </div>
+
+
+              </div>
+          </div>
+      </div>
+      <!---------------- Esmam Che Rangi Misheh? -------------->
+      <div class="container-fluid p-t-20 bgcolor-magenta " id="first-form">
+          <div class="container">
+              <div class="content-title">
+                  <h3 class="h3-title color-white">اسمم چه رنگی میشه؟</h3>
+              </div>
+              <div class="clearfix"></div>
+              <div class="content-body">
+                  <div class="row">
+                      <div class="col-md-6 col-lg-6 wow fadeInRight">
+                          <form action="contact.php" method="post">
+                              <input class="input-style" type="text" id="name" value="" placeholder="نام">
+                              <input class="input-style" type="text" id="family" value="" placeholder="نام خانوادگی">
+                              <button type="submit" name="submit">ببین چه رنگی میشه <span class="lnr lnr-arrow-left"></span></button>
+                              <div class="clearfix"></div>
+                              <div class="row product-info text-center" id="messageBase"></div>
+                                  <script>
+
+                                      function startTask() {
+
+                                          var name = $('#name').val();
+                                          var fameli = $('#family').val();
+                                         
+
+
+                                          //var select = document.getElementById("input-option2001");
+                                          //var options = select.options[select.selectedIndex];
+                                          //var idcolor = options.value;
+                                          alert(name);
+                                          if (name === "") {
+                                              alert('کالاکنی را وارد د.');
+                                              return;
+                                          }
+
+                                          //if (fameli == null || fameli == '') {
+                                          //    alert('کالا انتخاب نشد است را وارد کنید.');
+                                          //    return;
+                                          //}
+
+
+
+
+
+                                          //$.ajax({
+                                          //    type: 'GET',
+                                          //    url: '/Namrang/yourColor?name=' + name + '&fameli=' + fameli,
+                                          //    contentType: "application/json",
+                                          //    success: function (result) {
+
+                                          //        if ('Yes' == result)
+                                          //            window.location.replace("/cbkala/Cart");
+                                          //        else {
+
+
+                                          //            document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + result + '</span>';
+
+                                          //        }
+
+
+                                          //    }
+                                          //});
+
+                                      }
+
+
+                                  </script>
+
+
+                          </form>
+                      </div>
+                      <div class="col-md-6 col-lg-6 color-white wow fadeInLeft">
+                          <p class="text-justify">
+                              روان‌شناسان می‌گویند همه ما به نحوی تحت‌تاثیر رنگ‌ها هستیم و به عبارت دیگر (خود) واقعی‌مان را با این رنگ‌ها نشان می‌دهیم. برای اسم هر فرد رنگ مخصوصی وجود دارد که می‌تواند بر زندگی او تاثیر بگذارد. جالب است نه؟! این‌که شما بدانید برای اسم‌تان رنگ مخصوصی وجود دارد و می‌توانید راز شخصیتی خود را از لابه‌لای آن دریابید! باید بسیار جالب و هیجان‌انگیز باشد... (برگرفته از خبر گزاری ایسنا).
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!------------------------------>
+      <!--------------- ویژگی های شخصیتی این رنگ چی میشه؟ --------------->
+      <div class="container-fluid p-t-20 bgcolor-white" id="second-form">
+          <div class="container">
+              <div class="content-title">
+                  <h3 class="h3-title color-magenta">ویژگی های شخصیتی این رنگ چی میشه؟</h3>
+              </div>
+              <div class="clearfix"></div>
+              <div class="content-body">
+                  <div class="row">
+                      <div class="col-md-6 col-lg-6 wow fadeInRight">
+                          <form action="contact.php" method="post">
+
+                              <select class="input-style extra-select-style" name="color" id="color" placeholder="انتخاب رنگ">
+                                  <option value="1">چه رنگی مد نظرتونه؟</option>
+                                  <option value="2">آبی</option>
+                                  <option value="3">قرمز</option>
+                                  <option value="4">و...</option>
+                              </select>
+
+                              <button type="submit" name="submit">ببین چی میشه <span class="lnr lnr-arrow-left"></span></button>
+                              <div class="clearfix"></div>
+                          </form>
+                      </div>
+                      <div class="col-md-6 col-lg-6  wow fadeInLeft">
+                          <p class="text-justify">
+                            <!--------نتیجه اینجا نوشته میشه------>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!----------------برای فرزندم چه اسمی انتخاب کنم که رنگ دلخواهم بشه؟ -------------->
+      <div class="container-fluid slided">
+          <div class="container">
+              <div class="content-title">
+                  <h3 class="h3-title color-white">یعنی برای فرزندم چه اسمی بذارم که رنگش همونی بشه که دلم میخواد؟</h3>
+              </div>
+              <div class="clearfix"></div>
+              <div class="content-body">
+                  <div class="row">
+                      <div class="col-md-6 col-lg-6 wow fadeInRight">
+                          <form action="contact.php" method="post">
+                              <input class="input-style" type="text" name="family" value="" placeholder="نام خانوادگی فرزند شما">
+                              <select class="input-style extra-select-style" name="color" id="color" placeholder="انتخاب رنگ">
+                                  <option value="1">چه رنگی مد نظرتونه؟</option>
+                                  <option value="2">آبی</option>
+                                  <option value="3">قرمز</option>
+                                  <option value="4">و...</option>
+                              </select>
+                              <div class="container-fluid container-radio">
+                                  <label class="radio-inline">
+                                      <input type="radio" name="optradio" checked>دختر
+                                  </label>
+                                  <label class="radio-inline">
+                                      <input type="radio" name="optradio">پسر
+                                  </label>
+                                  <div class="clearfix"></div>
+                              </div>
+                              <button type="submit" name="submit">ببین چه اسم هایی این رنگی میشه <span class="lnr lnr-arrow-left"></span></button>
+                              <div class="clearfix"></div>
+                          </form>
+                      </div>
+                      <div class="col-md-6 col-lg-6 color-white wow fadeInLeft">
+                          <p class="text-justify"></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!--------------  لیست نام ها ---------------->
+      <div id="name-result" class="container p-t-20">
+          <div class="col-md-12">
+              <h3 class="h3-title">
+                  لیست نام هایی که رنگشان
+                  <span>  "مثلا سبز" </span>
+                  است
+              </h3>
+          </div>
+          <div class="col-md-4">
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span>یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+              <!------------->
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span>یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+              <!------------->
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span>یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+          </div>
+
+          <div class="col-md-4">
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span class="name-list-item">یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+              <!------------->
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span class="name-list-item">یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+              <!------------->
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span class="name-list-item">یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+          </div>
+
+          <div class="col-md-4">
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span class="name-list-item">یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+              <!------------->
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span class="name-list-item">یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+              <!------------->
+              <p>
+                  <span class="icon lnr lnr-checkmark-circle"></span>
+                  <span class="name-list-item">یلدا</span>
+                  <span> - </span>
+                  <span>
+
+                      توضیحات این اسم هر چیزی که باشد کنارش قرار میگیرد
+
+                  </span>
+              </p>
+          </div>
+      </div>
+
+      <!------------------------------>
+
+      <div class="container-fluid footer">
+          <div class="col-md-12">
+              <div>
+                  <a href="http://www.yarsoft.ir" target="_blank">
+                     
+                      <img src="../Namrang/images/yar_logo.png" />
+                  </a>
+              </div>
+
+              <div class="btn-simulate">
+                  <a href="https://www.instagram.com/yarsoft_ir/" target="_blank">
+                     
+                      <span class="bold">yarsoft_ir</span>
+                      <span class=" icn"></span>
+                  </a>
+
+
+              </div>
+
+          </div>
+              <p>
+                  این پروژه توسط
+
+                  <a href="http://www.yarsoft.ir" target="_blank">
+                      شرکت نرم افزاری یاران صفر و یک جهان گستر (یار)
+                  </a>
+
+                  پیاده سازی شده
+                  <br />
+                  و به شما عزیزان تقدیم می گردد.
+              </p>
+
+          </div>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/owl.carousel.js"></script>
+      <script src="js/style.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

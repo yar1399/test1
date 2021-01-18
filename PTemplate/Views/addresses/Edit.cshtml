@@ -1,0 +1,86 @@
+﻿@model PTemplate.Data.DataBase.Productaddress
+
+@{
+    ViewData["Title"] = "صفحه نخست";
+    Layout = "~/Views/cbkala/Shared/personmanger.cshtml";
+    ViewData["externalHomeUrl"] = "/cbkala/";
+    ViewData["HomeUrl"] = "/";
+}
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <h2>ویرایش اطلاعات ادرس</h2>
+
+            <h4>ادرس ارسالی کالا</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        @*<div class="form-group">
+                            <label asp-for="Iduser" class="control-label"></label>
+                            <select asp-for="Iduser" class="form-control" asp-items="ViewBag.Iduser"></select>
+                            <span asp-validation-for="Iduser" class="text-danger"></span>
+                        </div>*@
+                        <div class="form-group">
+                           نام و نام خانوادگی
+                            <input asp-for="Namefamily" class="form-control" />
+                            <span asp-validation-for="Namefamily" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                          شماره تماس پیگیری کالا و دنبال کردن کالا
+                            <input asp-for="Tell" class="form-control" />
+                            <span asp-validation-for="Tell" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                           آدرس
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                           شهر
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                        استان
+                            <input asp-for="Province" class="form-control" />
+                            <span asp-validation-for="Province" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                          کد پستی
+                            <input asp-for="Postalcode" class="form-control" />
+                            <span asp-validation-for="Postalcode" class="text-danger"></span>
+                        </div>
+                      @*<div class="form-group">
+                            <label asp-for="Isactive" class="control-label"></label>
+                            <input asp-for="Isactive" class="form-control" />
+                            <span asp-validation-for="Isactive" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Isactivebase" class="control-label"></label>
+                            <input asp-for="Isactivebase" class="form-control" />
+                            <span asp-validation-for="Isactivebase" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Createdate" class="control-label"></label>
+                            <input asp-for="Createdate" class="form-control" />
+                            <span asp-validation-for="Createdate" class="text-danger"></span>
+                        </div>*@
+                        <div class="form-group">
+                            <input type="submit" value="ذخیره" class="btn btn-default" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <a asp-action="Index">برگشت</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

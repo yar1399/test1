@@ -1,0 +1,182 @@
+﻿@model List<PTemplate.Data.DataBase.Postdatum>
+
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+@{
+    ViewData["Title"] = "محتوا پست";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>محتوای پست</h2>
+
+<p>
+
+    @if (long.Parse(ViewData["Idpost"].ToString()) != 0)
+    {
+     
+            <a href="/Admin/Postdatas/Create/@ViewData["Idpost"]">محتوای جدید</a>
+    }
+    else
+    {
+            <a asp-action="Create">ساخت محتوا</a>
+    }
+
+</p>
+
+
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Post)ViewData["post"];
+
+    }
+    <h1> @b.Title</h1>
+    <h4> @b.Description</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @if (b.Isactive != null)
+            {
+                <span>فعال</span>
+                <img src="~/images/icons8-green.png" />
+            }
+            else
+            {
+                <span>غیر فعال</span>
+                <img src="~/images/icons8-silver.png" />
+            }
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                عکس
+            </th>
+            <th>
+                فعال
+            </th>
+            <th>
+                توضیح
+            </th>
+            <th>
+                نوع وضعیت
+            </th>
+            @*<th>
+                      @Html.DisplayNameFor(model => model.IdpostNavigation)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @Html.Raw("<tr>");
+            @Html.Raw("<td>");
+
+
+            @if (item.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.image ||
+item.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.tunble ||
+item.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.slide ||
+item.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.imagemedium)
+            {
+                <img src="@item.Pathdata" width="200" height="200" />
+            }
+            else if (item.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.mouzik)
+            {
+                <audio controls>
+                    <source src="@item.Pathdata" type="audio/mpeg">
+                </audio>
+            }
+            else if (item.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.video)
+            {
+                <iframe src="@item.Pathdata" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+            }
+
+            @Html.Raw("</td>");
+
+            @Html.Raw("<td>");
+
+
+            @*@Html.DisplayFor(modelItem => item.Isactive)*@
+
+            @if (item.Isactive != null)
+            {
+                <span>فعال</span>
+                <img src="~/images/icons8-green.png" />
+            }
+            else
+            {
+                <span>  غیر فعال</span>
+                <img src="~/images/icons8-silver.png" />
+            }
+            @Html.Raw("</td>");
+
+            @Html.Raw("<td>");
+
+
+
+            @Html.DisplayFor(modelItem => item.Description)
+
+            @Html.Raw("</td>");
+
+
+            @Html.Raw("<td>");
+
+
+            @Html.DisplayFor(modelItem => item.IddatatypeNavigation.Name)
+
+            @Html.Raw("</td>");
+
+
+
+
+            @Html.Raw("<td>");
+
+            <a href="~/Admin/Postdatas/Edit/@item.Id">ویرایش</a>
+
+            <a href="~/Admin/Postdatas/Details/@item.Id">جزئیات</a>
+
+            <a href="~/Admin/Postdatas/Delete/@item.Id">حذف</a>
+
+            @Html.Raw("</td>");
+            @Html.Raw("</tr>");
+        }
+    </tbody>
+    </table>

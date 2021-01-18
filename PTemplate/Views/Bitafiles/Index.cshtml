@@ -1,0 +1,84 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Bitafile>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "ارسال داستان";
+    ViewData["homeUrl"] = "/Home/";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<h2 class="p-r-20 p-l-20">فرم ارسال داستان</h2>
+<p class="p-r-20 p-l-20">فایل ارسالی باید از نوع PDF باشد.</p>
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <h3 class="p-r-20 p-l-20">لیست فایل های ارسال شده</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    نام فایل
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Namefile)
+                </th>*@
+                <th>
+                    تاریخ درج فایل
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.IduserNavigation)
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Namefile)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datecreate)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.IduserNavigation.Id)
+                    </td>*@
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                        @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form class="m-t-50 m-b-30 p-l-20 p-r-20" method="post"
+          asp-action="UploadBita"
+          asp-controller="Bitafiles"
+          enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="file" name="files" multiple />
+      
+        <input type="submit" class="btn btn-primary btn-action m-t-10" value="آپلود فایل" />
+    </form>
+}
+else
+{
+    <h1> با یکدیگر در ارزو های همدیگر در انیمیشن فراخوان بیتا یاران زندگی کنیم </h1>
+    <P>برای شر کت در فراخوان باید عضو سامانه باشید</P>
+    @Html.ActionLink("عضویت در سامانه فراخوان", "/Identity/Account/Register");
+    @Html.ActionLink("ورود به سامانه بیتا یاران", "/Identity/Account/Login");
+}

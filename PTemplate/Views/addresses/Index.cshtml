@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Productaddress>
+
+@{
+    ViewData["Title"] = "آدرس ها";
+    Layout = "~/Views/cbkala/Shared/personmanger.cshtml";
+    ViewData["externalHomeUrl"] = "/cbkala/";
+    ViewData["HomeUrl"] = "/";
+    ViewData["title-icon"] = "fa-map-marker";
+}
+
+    <div id="container">
+        <div class="p-l-15 p-r-15">
+            <div class="row">
+                <h2 class="m-t-0">لیست آدرس ها</h2>
+
+                <p>
+                    <a asp-action="Create">ایجاد آدرس جدید</a>
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                 فعال
+                            </th>
+                            <th>
+                              آدرس
+                            </th>
+                            <th>
+                              تاریخ ثبت
+                            </th>
+                           
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @if (item.Isactivebase.Value)
+                                {
+
+                                    <img src="~/images/icons8-green.png" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/icons8-silver.png" />
+                                }
+                                @*@Html.DisplayFor(modelItem => item.Isactivebase)*@
+                            </td>
+                            <td>
+                             
+                                نام و نام خانوادگی :   @Html.DisplayFor(modelItem => item.Namefamily)<br />
+                                شماره تماس :  @Html.DisplayFor(modelItem => item.Tell)<br />
+                                آدرس :  @Html.DisplayFor(modelItem => item.Province)-@Html.DisplayFor(modelItem => item.City)- آدرس :   @Html.DisplayFor(modelItem => item.Address)<br />
+                                کد پستی :  @Html.DisplayFor(modelItem => item.Postalcode)<br />
+                               
+                            </td>
+
+
+                            <td>
+                                @PersianDate.ToPersianDateString((DateTime)item.Createdate)
+                                @*@Html.DisplayFor(modelItem => item.Createdate)*@
+                            </td>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.IduserNavigation.Id)
+        </td>*@
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">ویرایش</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">اطلاعات</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">حذف</a> |
+                                <a asp-action="EditIsActiveAddress" asp-route-id="@item.Id">ادرس فعال</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+</div>
+</div>
+</div>

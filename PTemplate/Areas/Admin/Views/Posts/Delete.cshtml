@@ -1,0 +1,96 @@
+﻿@model  PTemplate.Data.DataBase.Post
+@using  Microsoft.AspNetCore.Identity
+@using  PTemplate
+@namespace PTemplate
+@using PTemplate.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "حذف پست";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>حذف</h1>
+
+<h3>ایا مایل به حذف این پست هستید?</h3>
+<div>
+    <h4>پست</h4>
+    <hr />
+    <dl class="row">
+        @*<dt class="col-sm-2">
+            کد کاربری
+        </dt>
+        <dd class="col-sm-10">
+            
+            @Html.DisplayFor(model => model.Iduser)
+        </dd>*@
+        <dt class="col-sm-2">
+            عنوان
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            توضیح هات
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            متن
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                WriteLiteral(Model.Text);
+            }
+            @*@Html.DisplayFor(model => model.Text)*@
+        </dd>
+        <dt class="col-sm-2">
+            مسیر
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pathdata)
+        </dd>
+        <dt class="col-sm-2">
+            تاریخ ساخت
+        </dt>
+        <dd class="col-sm-10">
+            @PersianDate.ToPersianDate((DateTime)Model.Datecreate)
+        </dd>
+        <dt class="col-sm-2">
+            فعال
+        </dt>
+
+        <dd class="col-sm-10">
+
+            @*@Html.CheckBox("Isactive", Model.Isactive)*@
+            @if (Model.Isactive != null)
+                @if ((Boolean)Model.Isactive) { 
+                    <span>فعال</span>
+                <img src="~/images/icons8-green.png" />
+                }
+                else
+                {
+                <span>  غیر فعال</span>
+                <img src="~/images/icons8-silver.png" />
+                }
+            </dd>
+        <dt class="col-sm-2">
+            منو
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdmenuNavigation.Name)
+        </dd>
+        <dt class="col-sm-2">
+            نوع دسته بندی
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdposttypeNavigation.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف" class="btn btn-danger" /> |
+        <a href="~/Admin/Posts/Index">برگشت</a>
+    </form>
+</div>

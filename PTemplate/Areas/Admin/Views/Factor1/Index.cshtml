@@ -1,0 +1,202 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.Factor1>
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "لیست فاکتور ها";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+
+
+    ApplicationDbContext _context = new
+        ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+
+
+
+
+}
+<h2>سبد خرید کالا</h2>
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <form name="form1" asp-controller="Products" asp-action="Index">
+                <label class="control-label"></label>
+                <select class="form-control"
+                        name="ProductsBase"
+                        id="ProductsBase"
+                        asp-items="ViewBag.Idfactorstate"
+                        onchange="change">
+                    <option value="0">انتخاب کنید</option>
+                    <option value="0">همه ایتم ها</option>
+                </select>
+                <a href="~/Admin/Factor1/index?Idmenu=0&paging=1" class="btn btn-action">همه لیست</a>
+                @section scripts {
+                    <script>
+                        $("#ProductsBase").on("change", function () {
+
+                            var select = document.getElementById("ProductsBase");
+
+                            var option = select.options[select.selectedIndex];
+
+                            //if (option.value != "0") {
+
+                            document.form1.action = "/Admin/Factor1/index?Idmenu=" + option.value + "&paging=1";
+                            document.form1.submit();
+
+                            //}
+                        });
+                    </script>
+                }
+            </form>
+        </div>
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    کاربر
+                </th>
+                <th>
+                    کد وضعیت
+                </th>
+                <th>
+                    عنوان وضعیت
+                </th>
+                <th>
+                    فعال
+                </th>
+                <th>
+                    تاریخ درج
+                </th>
+                <th>
+                    تاریخ تغییرات
+                </th>
+                <th>
+                    آدرس
+                </th>
+                <th>
+                    مرسوله
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.IduserNavigation.UserName)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Idbankstate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdfactorstateNavigation.Name)
+                    </td>
+                    <td>
+                        @if (item.Isactive.Value)
+                        {
+                            <span>فعال</span>
+                            <img src="~/images/icons8-green.png" />
+                        }
+                        else
+                        {
+                            <span>غیر فعال</span>
+                            <img src="~/images/icons8-silver.png" />
+                        }
+                    </td>
+                    <td>
+                        @PersianDate.ToPersianDateString((DateTime)item.Datecreate)
+                        @*@Html.DisplayFor(modelItem => item.Datecreate)*@
+                    </td>
+                    <td>
+                        @PersianDate.ToPersianDateString((DateTime)item.Datechangestate)
+                        @*@Html.DisplayFor(modelItem => item.Datechangestate)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdproductaddressNavigation.Address)
+                    </td>
+                    <td>
+                        @if (item.Isactive.Value)
+                        {
+                            <span>غیر فعال</span>
+                            <img src="~/images/icons8-silver.png" />
+                        }
+                        else
+                        {
+
+
+                            var prpo = _context.Factorposts.Where(a => a.Idfactor == item.Id).ToList();
+
+                            if (prpo.Count == 0)
+                            {
+
+                                @:<span>   وضعیت ارسال نامشخص</span>
+                            }
+                            else
+                            {
+                                bool post = false;
+                                <img src="~/images/icons8-green.png" />
+                                foreach (var i in prpo)
+                                {
+                                    if (!i.Isfinesh.Value)
+                                    {
+                                        post = true;
+                                        break;
+                                    }
+                                }
+
+                                if (post)
+                                {
+                                    @:<span>مرسوله ارسال نشده</span>
+                                }
+                                else
+                                {
+                                    @:<span>مرسوله پست شده</span>
+                                }
+
+                            }
+
+                        }
+
+                        <a href="~/Admin/Factorposts/Index/@item.Id">وضعیت مرسوله</a>
+
+                    </td>
+                    <td>
+                        | <a  asp-action="PrintPage" asp-route-id="@item.Id">چاپ</a> |
+
+                        <a href="~/Admin/Factor1/Details/@item.Id">جزئیات</a> |
+
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

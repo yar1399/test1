@@ -1,0 +1,149 @@
+﻿@model IEnumerable<PTemplate.Data.DataBase.AspNetUsers1>
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "کاربران";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>کاربر ان سامانه</h2>
+
+<p>
+    <a href="~/Admin/Users/Create">ساخت</a>
+
+    <form id="Base" method="post"  action="~/Admin/Users/Index" >
+        نام کاربری
+        <input id="id" name="id" type="text" />
+        <input type="submit" value="جستجو" />
+    </form>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+           فعال
+        </th>
+            <th>
+                کاربر
+            </th>
+            <th>
+                اسم عادی شده
+            </th>
+            <th>
+                رایانه
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.NormalizedEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PasswordHash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecurityStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConcurrencyStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LockoutEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LockoutEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessFailedCount)
+        </th>
+        <th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @if(item.EmailConfirmed)
+                {
+
+                  <img src="~/images/icons8-green.png" />
+
+                }else
+                {
+
+                  <img src="~/images/icons8-silver.png" />
+
+                }
+
+             
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalizedUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.NormalizedEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PasswordHash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecurityStamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConcurrencyStamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LockoutEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LockoutEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessFailedCount)
+        </td>*@
+            <td>
+                <a href="~/Admin/Users/Edit/@item.Id">ویرایش</a> |
+                @*<a asp-action="Details" asp-route-id="@item.Id">اطلاعات</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">حذف</a> |*@
+                <a href="~/Admin/UserRoles/Index/@item.Id">نقش ها</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

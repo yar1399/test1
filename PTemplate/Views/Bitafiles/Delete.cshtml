@@ -1,0 +1,42 @@
+﻿@model PTemplate.Data.DataBase.Bitafile
+
+@{
+    ViewData["Title"] = "حذف فایل";
+    ViewData["homeUrl"] = "/Home/";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="p-r-20 p-l-20">حذف فایل ارسالی</h2>
+
+<h3 class="p-r-20 p-l-20">آیا مطمئنید که میخواهید این فایل را حذف کنید؟</h3>
+<div>
+    <h4>فایل ارسالی</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           نام
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+           نام فایل
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Namefile)
+        </dd>
+        <dt>
+          تاریخ درج
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datecreate)
+        </dd>
+        
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف" class="btn btn-default" /> |
+        <a asp-action="Index">برگشت</a>
+    </form>
+</div>

@@ -1,0 +1,69 @@
+﻿@model PTemplate.Data.DataBase.Socialweb
+@using Microsoft.AspNetCore.Identity
+
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "حذف شبکه";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>حذف</h2>
+
+<h3>ایا مایل به حذف شبکه می باشید</h3>
+<div>
+    <h4>Socialweb</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            اسم شبکه
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdsocialNavigation.Name)
+        </dd>
+        <dt>
+            ادرس
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Link)
+        </dd>
+        <dt>
+            فعال
+        </dt>
+        <dd>
+            @if (Model.Isactive != null)
+                @if ((Boolean)Model.Isactive)
+
+                {
+                    <span>فعال</span>
+                    <img src="~/images/icons8-green.png" />
+                }
+                else
+                {
+                    <span>  غیر فعال</span>
+                    <img src="~/images/icons8-silver.png" />
+                }
+        </dd>
+        <dt>
+            توضیح
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف" class="btn btn-default" /> |
+        <a asp-action="Index">برگشت</a>
+    </form>
+</div>

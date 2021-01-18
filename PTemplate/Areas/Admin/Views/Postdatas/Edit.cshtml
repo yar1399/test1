@@ -1,0 +1,81 @@
+﻿@model PTemplate.Data.DataBase.Postdatum
+
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ویرایش محتوای پست";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ویرایش اطلاعات</h2>
+
+<h4>محتوای پست</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+
+        <form method="post" action="~/Admin/Postdatas/Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="hidden" asp-for="Idpost" />
+                <input type="hidden" asp-for="Pathdata" />
+                @*<label asp-for="Idpost" class="control-label"></label>
+        <select asp-for="Idpost" class="form-control" asp-items="ViewBag.Idpost"></select>
+        <span asp-validation-for="Idpost" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+             نوع پست
+                <select asp-for="Iddatatype" class="form-control" asp-items="ViewBag.Iddatatype"></select>
+                <span asp-validation-for="Iddatatype" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                @if (Model.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.image ||
+Model.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.tunble ||
+Model.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.imagemedium)
+                {
+                    <img src="@Model.Pathdata" width="200" height="200" />
+                }
+                else if (Model.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.mouzik)
+                {
+                    <audio controls>
+                        <source src="@Model.Pathdata" type="audio/mpeg">
+                    </audio>
+                }
+                else if (Model.Iddatatype == (byte)PTemplate.Models.Enum.PostDatatypes.video)
+                {
+                    <iframe src="@Model.Pathdata" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                }
+                @*<img src="~/uploads/post/@Model.Pathdata" width="200" height="200" />*@
+                @*<label asp-for="Pathdata" class="control-label"></label>
+        <input asp-for="Pathdata" class="form-control" />
+        <span asp-validation-for="Pathdata" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+              فعال
+                @*<input asp-for="Isactive" class="form-control" />*@
+                @Html.CheckBox("Isactive",Model.Isactive)
+                @*<span asp-validation-for="Isactive" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+               توضیح
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/Postdatas/Index/@Model.Idpost" >برگشت</a>
+</div>
+

@@ -1,0 +1,375 @@
+﻿@using PTemplate.Data;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+@{
+    ViewData["Title"] = "سبد خرید";
+    Layout = "~/Views/cbkala/Shared/personmanger.cshtml";
+    ViewData["externalHomeUrl"] = "/cbkala/";
+    ViewData["HomeUrl"] = "/";
+    ViewData["title-icon"] = "fa-shopping-cart";
+}
+
+
+
+@{
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+    var pro = appA.Menugroups.ToList();
+    Decimal summoneypost = 0;
+    decimal sum = 0;
+    var iduser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var address = appA.Productaddresses.Where(pa => pa.Iduser == iduser && pa.Isactivebase == true && pa.Isactive == true).FirstOrDefault();
+    long tax = 0;
+    //var b = (PTemplate.Data.DataBase.Product)ViewData["product"];
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        var subproduct = await appA.sp_subfactorlist(iduser);
+
+        foreach (var j in subproduct)
+            sum += j.countfactorsub * j.productprice;
+
+
+
+        foreach (var j in subproduct)
+            sum += j.countfactorsub * j.productprice;
+
+         tax = ((long)(((long)(summoneypost + sum)) * 0.09));
+
+
+
+        if (subproduct.Count != 0)
+        {
+
+            foreach (var i in subproduct)
+                summoneypost += i.moneypost;
+        }
+
+
+    }
+}
+
+
+    <div id="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @if (address != null)
+                        {
+                            <span> شخص  : <span class="text-dark"> @address.Namefamily </span>  </span><br />
+                            <span> استان  : <span class="text-dark"> @address.Province </span>  </span><br />
+                            <span> شهر  : <span class="text-dark"> @address.City </span>  </span><br />
+                            <span> کد پستی  : <span class="text-dark"> @address.Postalcode </span>  </span><br />
+                            <span> آدرس  : <span class="text-dark"> @address.Address </span>  </span><br />
+                            <span> شماره تلفن  : <span class="text-dark"> @address.Tell </span>  </span><br />
+                            @*<span> ادرس   : <span class="text-dark">@address.Address </span>  </span><br />*@
+                            <div class="pull-right">
+                                <a href="/addresses/Create" class="btn btn-primary" style="min-width:100px;">آدرس جدید</a>
+                                <a href="/addresses/Index" class="btn btn-primary" style="min-width:100px;">تغییر آدرس</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="pull-right">
+                                برای ادامه مسیر خرید نیاز به ادرس شما می باشد
+                                <br />
+                                <a href="/addresses/Create" class="btn btn-primary" style="min-width:100px;">آدرس خود را وارد نمائید</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><i class="fa fa-truck"></i> شیوه ی تحویل</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>لطفا یک شیوه حمل و نقل انتخاب کنید.</p>
+                            <div class="radio">
+
+                                <label>
+                                    <input type="radio"  checked="checked" id="posttype"   name="posttype" value="2" class="radioBtnClass">
+                                  ارسال با اتوبوس
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="radio"  checked="checked" id="posttype1" name="posttype" value="1" class="radioBtnClass">
+                                    ارسال با پست پیشتاز - @summoneypost تومان
+                                </label>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><i class="fa fa-credit-card"></i> شیوه پرداخت</h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <p>لطفا یک شیوه پرداخت برای سفارش خود انتخاب کنید.</p>
+                            @*<div class="radio">
+                        <label>
+                            <input type="radio" checked="checked" name="Cash On Delivery">
+                            پرداخت هنگام تحویل
+                        </label>
+                    </div>*@
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked="checked" name="Bank Transfer">
+                                    پرداخت بوسیله ی کارت بانکی عضو شتاب
+                                </label>
+                            </div>
+                            <div class="radio" style="display:none">
+                                <label>
+                                    <input type="radio" name="Paypal">
+                                    پی پال
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Middle Part Start-->
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var subproduct = await appA.sp_subfactorlist(iduser);
+
+                    if (subproduct.Count != 0)
+                    {
+
+                        <div id="content" class="col-sm-12">
+
+                            <div class="row product-info text-center" id="messageBase">
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center">تصویر</td>
+                                            <td class="text-center">نام محصول</td>
+                                            <td class="text-center">مدل</td>
+                                            <td class="text-center">تعداد</td>
+                                            <td class="text-center">قیمت واحد</td>
+                                            <td class="text-center">کل</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var i in subproduct)
+                                        {
+
+
+
+
+                                            <tr>
+                                                <td class="text-center"><a href="@ViewData["externalHomeUrl"]Product/@i.idproduct"><img src="/uploads/product/@i.pathdata" alt="@i.title" title="@i.title" class="img-thumbnail" /></a></td>
+                                                <td class="text-center"><a href="@ViewData["externalHomeUrl"]Product/@i.idproduct">@i.title</a><br /></td>
+                                                <td class="text-center">@i.title</td>
+                                                <td class="text-center">
+                                                    <div class="input-group btn-block quantity">
+                                                        <input type="number" id="quantity-@i.idproduct" name="quantity-@i.idproduct" value="@i.countfactorsub" size="1" class="form-control" />
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" data-toggle="tooltip" title="بروزرسانی" class="btn btn-official" onclick="startUpdate('@i.idfactorsub',@i.idproduct,@i.idproductcolor)"><i class="fa fa-refresh"></i></button>
+                                                            <button type="button" data-toggle="tooltip" title="حذف" class="btn btn-official" onclick="startDelete('@i.idfactorsub')"><i class="fa fa-times-circle"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">@( i.productprice )</td>
+
+                                                <td class="text-center">@( i.countfactorsub * i.productprice )</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <script type="text/javascript">
+
+                                function mysendChackout() {
+                                    var selectedVal = "0";
+                                    if ($("input[type='radio'].radioBtnClass").is(':checked')) {
+                                        var card_type = $("input[type='radio'].radioBtnClass:checked").val();
+                                      
+                                        window.location.replace("/cbkala/Checkout/" + card_type);
+                                    }
+                                 
+                                  
+                                }
+
+
+                                function startUpdate(isf1, ipro, idc) {
+
+                                    if (ipro == 0 || idc == 0) {
+                                        document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + 'درخواست نامعتبر' + '</span>';
+                                        return;
+                                    }
+                                    var bn = '#quantity-' + ipro;
+                                    var count = $(bn).val();
+
+                                    var subtop = "quantity-1-" + ipro;
+
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: '/cbkala/UpdateProduct?idsubfactor=' + isf1 + '&idproduct=' + ipro + '&countsefaresh=' + count + '&idproductcolor=' + idc,
+                                        contentType: "application/json",
+                                        success: function (result) {
+
+                                            if ('Yes' == result) {
+                                                document.getElementById("messageBase").innerHTML = ' <span class="text-info text-lg-center">کالا درج شد.</span>';
+                                                document.getElementById(subtop).innerHTML = ' <span> x' + count + '</span>';
+                                                 window.location.replace("/cbkala/Cart");
+                                            }
+                                            else {
+
+
+                                                document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + result + '</span>';
+
+                                            }
+
+
+                                        }
+                                    });
+
+                                }
+
+                                function startDelete(idsubfutor) {
+
+                                    if (idsubfutor <= 0) {
+                                        document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + 'درخواست نامعتبر' + '</span>';
+                                        return;
+                                    }
+
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: '/cbkala/DeleteProduct?idsubfactor=' + idsubfutor,
+                                        contentType: "application/json",
+                                        success: function (result) {
+
+                                            if ('Yes' == result) {
+                                                document.getElementById("messageBase").innerHTML = ' <span class="text-info text-lg-center">' + result + '</span>';
+                                                window.location.replace("/cbkala/Cart");
+                                                var subid = "quantity-2-" + idsubfutor;
+                                                document.getElementById(subid).remove();
+                                            }
+                                            else {
+
+
+                                                document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + result + '</span>';
+
+
+                                            }
+
+
+                                        }
+                                    });
+
+                                }
+
+
+                            </script>
+
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-sm-offset-0">
+                                    <table class="table table-bordered">
+
+
+
+
+                                        <tr>
+                                            <td class="text-right" colspan="5"><strong>هزینه ارسال:</strong></td>
+
+                                            <td class="text-right">@summoneypost ریال</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="5"><strong>مالیات ارزش افزوده:</strong></td>
+                                            <td class="text-right">@(((long)(summoneypost + sum + tax)) * 0.09) ریال</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right"><strong>جمع کل:</strong></td>
+                                            <td class="text-right">@sum ریال</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right"><strong>مبلغ قابل پرداخت :</strong></td>
+                                            <td class="text-right">@(sum + summoneypost + tax) ریال</td>
+                                        </tr>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                @if (address != null)
+                                {
+                                <div class="pull-right">
+                                    
+                                        
+                                    <button onclick="mysendChackout()" class="btn btn-primary" style="min-width:100px;">  تکمیل خرید</button>
+                                      
+                                       
+                                </div>
+                                }
+                                else
+                                {
+                                    <div class="pull-right">
+                                        <a href="/addresses/Index" class="btn btn-primary" style="min-width:100px;">ادرس خود را وارد نمائید</a>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                        <!--Middle Part End -->
+                    }
+                    else
+                    {
+
+                        <div id="content" class="col-sm-12">
+                            <h1 class="title">سبد خرید</h1>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center">تصویر</td>
+                                            <td class="text-center">نام محصول</td>
+                                            <td class="text-center">مدل</td>
+                                            <td class="text-center">تعداد</td>
+                                            <td class="text-center">قیمت واحد</td>
+                                            <td class="text-center">کل</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            کالای در سبد خرید نیست .
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center">
+                        لطفا جهت دیدن سبد خرید  یا
+                        <a href="/Identity/Account/Register">ثبت نام انجام دهید</a>
+                        <a href="/Identity/Account/Login"> ورود به سامانه</a>
+                    </div>
+                }
+
+            </div>
+    </div>
+
+
+

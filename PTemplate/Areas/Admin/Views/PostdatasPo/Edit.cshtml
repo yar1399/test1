@@ -1,0 +1,113 @@
+﻿@model PTemplate.Data.DataBase.Postdata
+
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Models
+@namespace PTemplate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ویرایش محتوای پست";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h2>ویرایش جدید</h2>
+
+
+
+
+
+<p>
+
+
+    @if (long.Parse(ViewData["Idpost"].ToString()) >= 1)
+    {
+        <a harf="~/Admin/PostdatasPo/Create/@ViewData["Idpost"]">محتوای جدید</a>
+    }
+   
+
+
+</p>
+
+
+
+<div>
+    @{
+        var b = (PTemplate.Data.DataBase.Post)ViewData["post"];
+
+    }
+    <h1> @b.Title</h1>
+    <p> @b.Description</p>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            تاریخ
+        </dt>
+        <dd>
+            @PersianDate.ToPersianDateString((DateTime)b.Datecreate)
+            @*@Html.DisplayFor(model => model.Datecreate)*@
+        </dd>
+        <dt>
+            وضعیت
+        </dt>
+        <dd>
+            @b.Isactive
+        </dd>
+
+        <dt>
+            زیر گروه
+        </dt>
+        <dd>
+            @b.IdmenuNavigation.Name
+        </dd>
+
+    </dl>
+</div>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+               پست
+                <select asp-for="Idpost" class="form-control" asp-items="ViewBag.Idpost"></select>
+                <span asp-validation-for="Idpost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              نوع فایل
+                <select asp-for="Iddatatype" class="form-control" asp-items="ViewBag.Iddatatype"></select>
+                <span asp-validation-for="Iddatatype" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               مسیر
+                <input asp-for="Pathdata" class="form-control" />
+                <span asp-validation-for="Pathdata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                فعال
+                <input asp-for="Isactive" class="form-control" />
+                <span asp-validation-for="Isactive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                توضیح
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+
+    <a harf="~/Admin/PostdatasPo/Index/@ViewData["Idpost"].ToString()">برگشت</a>
+</div>
+

@@ -1,0 +1,83 @@
+﻿@model PTemplate.Data.DataBase.BotTelegram
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ویرایش اطلاعات تلگرام";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>تلگرام</h2>
+
+<h4>ویرایش ربات تلگرام</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+               نام کانال
+                <input asp-for="Namechanale" class="form-control" />
+                <span asp-validation-for="Namechanale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              توکن
+                <input asp-for="Token" class="form-control" />
+                <span asp-validation-for="Token" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactive" /> فعال
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactivesendauto" />ارسال اتوماتیک
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactivediscription" /> استفاده از متن پیش ساخته
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactivepost" /> ارسال اتوماتیک پست
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Isactiveproduct" /> ارسال اتوماتیک محصول
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                توضیح هات پیش فرض
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/Admin/botTelegrams/Index">برگشت</a>
+</div>
+

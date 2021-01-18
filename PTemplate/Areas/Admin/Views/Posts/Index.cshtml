@@ -1,0 +1,164 @@
+﻿@model PTemplate.Models.PagedResult<PTemplate.Data.DataBase.Post>
+@using Microsoft.AspNetCore.Identity
+
+@using PTemplate.Areas.Admin.Data
+@using PTemplate.Models
+@namespace PTemplate
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "لیست پست ها";
+     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>لیست پست ها</h1>
+
+<p>
+    <a href="~/Admin/Posts/Create" >ساخت</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                عنوان
+            </th>
+            <th>
+                توضیح
+            </th>
+
+            <th>
+                تاریخ
+            </th>
+            <th>
+                تاریخ نمایش  
+            </th>
+            <th>
+                وضعیت
+            </th>
+            <th>
+                نوع نوشتاری پیام
+            </th>
+            <th>
+                <span>منو</span>
+            </th>
+            <th>
+                <span>مدل پست</span>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+
+                <td>
+                       
+                        @if (item.Datecreate != null)
+                        {
+
+                            <span> @PersianDate.ToPersianDateString((DateTime)item.Datecreate)</span>
+                            // @Html.DisplayFor(modelItem => item.Datecreate)
+                        }
+                        else
+                        {
+                            @Html.DisplayText("...")
+                        }
+
+                </td> 
+                <td>
+                    @if (item.Datestart != null)
+                    {
+
+                        <span> @PersianDate.ToPersianDateString((DateTime)item.Datestart)</span>
+                        // @Html.DisplayFor(modelItem => item.Datecreate)
+                    }
+                    else
+                    {
+                        @Html.DisplayText("...")
+                    }
+
+                </td>
+                <td>
+                    @if (item.Isactive != null )
+                    @if ((Boolean)item.Isactive  )
+
+                    {
+                        <span>فعال</span>
+                        <img src="~/images/icons8-green.png" />
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                        <img src="~/images/icons8-silver.png" />
+                    }
+
+                </td>
+                <td>
+                    @if (item.Iswrite != null)
+                    {
+                        <span>فعال</span>
+                    }
+                    else
+                    {
+                        <span>  غیر فعال</span>
+                    }
+
+                </td>
+                <td>
+                    @if (item.IdmenuNavigation.Name != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.IdmenuNavigation.Name)
+                    }
+                    else
+                    {
+                        @Html.DisplayText("...")
+                    }
+
+                </td>
+                <td>
+                    @if (item.IdposttypeNavigation.Name != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.IdposttypeNavigation.Name)
+                    }
+                    else
+                    {
+                        @Html.DisplayText("...")
+                    }
+
+                </td>
+                <td>
+                    <a href="~/Admin/Posts/Edit/@item.Id">بروز رسانی</a> |
+                    <a href="~/Admin/Posts/Details/@item.Id">جزییات</a> |
+                    <a href="~/Admin/Posts/Delete/@item.Id">حذف</a> | 
+                    <a href="~/Admin/Postdatas/Index/@item.Id">محتوا</a> | 
+                    <a href="~/Admin/Posts/bot/@item.Id">ارسال تلگرام</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+<a href="~/Admin/Posts?Idmenu=0&paging=@Model.FirstRowOnPage" class="btn btn-default">ابتدا</a>
+@for (var p = 1; p <= Model.PageCount; p++)
+{
+
+    <a href="~/Admin/Posts?Idmenu=0&paging=@p" class="btn btn-default">@p</a>
+}
+<a href="~/Admin/Posts?Idmenu=0&paging=@Model.PageCount" class="btn btn-default">انتها</a>

@@ -1,0 +1,36 @@
+﻿@model PTemplate.Data.DataBase.Color1
+
+@using PTemplate
+@using PTemplate.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "جزئیات رنگ";
+   Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>جزئیات رنگ</h2>
+
+<div>
+    <h4>رنگ</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+         نام
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+         توضیح
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descrition)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a href="~/Admin/Color1/Edit/@Model.Id">ویرایش</a> |
+    <a href="~/Admin/Color1/Index">برگشت</a>
+</div>

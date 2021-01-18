@@ -1,0 +1,443 @@
+﻿@using PTemplate.Data;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+@using PTemplate.Models.Enum;
+
+@{
+    ViewData["Title"] = "تکمیل خرید";
+    Layout = "~/Views/cbkala/Shared/_Layout.cshtml";
+    ViewData["externalHomeUrl"] = "/cbkala/";
+    ViewData["HomeUrl"] = "/";
+}
+
+@{
+
+    ApplicationDbContext appA = new ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+   
+    var pro = appA.Menugroups.ToList();
+
+    var iduser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    var address = appA.Productaddresses.Where(pa => pa.Iduser == iduser && pa.Isactivebase == true && pa.Isactive == true)
+        .FirstOrDefault();
+
+
+    List<PTemplate.Data.DB.subfactorlist> subproduct;
+
+    Decimal summoneypost = 0;
+
+    if (User.Identity.IsAuthenticated)
+    {
+        subproduct = await appA.sp_subfactorlist(iduser);
+
+    }
+    else
+        subproduct = new List<PTemplate.Data.DB.subfactorlist>();
+
+
+    PTemplate.Data.DataBase.Factor1 factor1;
+    if (subproduct.Count != 0)
+    {
+        factor1 = appA.Factors1.Where(a => a.Id == subproduct.FirstOrDefault().idfactor).FirstOrDefault();
+        foreach (var i in subproduct)
+            summoneypost += i.moneypost;
+    }
+
+    else
+        factor1 = null;
+
+
+}
+
+
+<div id="container">
+    <div class="container">
+
+        <div class="row">
+            <!--Middle Part Start-->
+            <div id="content" class="col-sm-12">
+                <h1 class="title">تکمیل خرید</h1>
+                <div class="row">
+                    <div class="col-sm-4">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-user"></i> ادرس ارسال بسته</h4>
+                            </div>
+                            <div class="panel-body">
+                                <fieldset id="account">
+                                    @if (address != null)
+                                    {
+                                        <span> شخص  : <span class="text-dark">@address.Namefamily </span>  </span><br />
+                                        <span> استان  : <span class="text-dark">@address.Province </span>  </span><br />
+                                        <span> شهر  : <span class="text-dark">@address.City </span>  </span><br />
+                                        <span> کد پستی  : <span class="text-dark">@address.Postalcode </span>  </span><br />
+                                        <span> آدرس  : <span class="text-dark">@address.Address </span>  </span><br />
+                                        <span> شماره تلفن  : <span class="text-dark">@address.Tell </span>  </span><br />
+                                        @*<span> ادرس   : <span class="text-dark">@address.Address </span>  </span><br />*@
+                                        <div class="pull-right">
+                                            <a href="/addresses/Create" class="btn btn-primary" style="min-width:100px;">آدرس جدید</a>
+                                            <a href="/addresses/Index" class="btn btn-primary" style="min-width:100px;">تغییر آدرس</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="pull-right">
+                                            برای ادامه مسیر خرید نیاز به ادرس شما می باشد
+                                            <br />
+                                            <a href="/addresses/Create" class="btn btn-primary" style="min-width:100px;">آدرس خود را وارد نمائید</a>
+                                        </div>
+                                    }
+
+                                    @*<div class="form-group required">
+                                            <label for="input-payment-firstname" class="control-label">نام</label>
+                                            <input type="text" class="form-control" id="input-payment-firstname" placeholder="نام" value="" name="firstname">
+                                        </div>
+                                        <div class="form-group required">
+                                            <label for="input-payment-lastname" class="control-label">نام خانوادگی</label>
+                                            <input type="text" class="form-control" id="input-payment-lastname" placeholder="نام خانوادگی" value="" name="lastname">
+                                        </div>
+                                        <div class="form-group required">
+                                            <label for="input-payment-email" class="control-label">آدرس ایمیل</label>
+                                            <input type="text" class="form-control" id="input-payment-email" placeholder="آدرس ایمیل" value="" name="email">
+                                        </div>
+                                        <div class="form-group required">
+                                            <label for="input-payment-telephone" class="control-label">شماره تلفن</label>
+                                            <input type="text" class="form-control" id="input-payment-telephone" placeholder="شماره تلفن" value="" name="telephone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="input-payment-fax" class="control-label">فکس</label>
+                                            <input type="text" class="form-control" id="input-payment-fax" placeholder="فکس" value="" name="fax">
+                                        </div>*@
+                                </fieldset>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><i class="fa fa-truck"></i> شیوه ی تحویل</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>لطفا یک شیوه حمل و نقل انتخاب کنید.</p>
+                                        <div class="radio">
+                                            @if (ViewData["posttype"].ToString()=="1")
+                                            {
+                                                <label class="text-info text-large">
+                                                    @*<input type="radio" checked="checked" name="pishtaz">*@
+                                                    ارسال با پست پیشتاز - @summoneypost تومان
+                                                </label>
+                                            }
+                                            else if (ViewData["posttype"].ToString() == "2")
+                                            {
+                                              <label class="text-info text-large">
+                                            @*<input type="radio" checked="checked" name="pishtaz">*@
+                                               ارسال ویژه )اتوبوسی )
+                                              </label>
+                                            }
+                                          
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><i class="fa fa-credit-card"></i> شیوه پرداخت</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>لطفا یک شیوه پرداخت برای سفارش خود انتخاب کنید.</p>
+                                      
+                                        <div class="radio">
+                                            <label class="text-info text-large">
+                                                @*<input type="radio" checked="checked" name="Bank Transfer">*@
+                                                پرداخت بوسیله ی کارت بانکی عضو شتاب
+                                            </label>
+                                        </div>
+                                        @*<div class="radio" style="display:none">
+                                            <label>
+                                                <input type="radio" name="Paypal" >
+                                                پی پال
+                                            </label>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><i class="fa fa-shopping-cart"></i>فاکتور فروش</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+
+                                                decimal sum = 0;
+
+                                                foreach (var j in subproduct)
+                                                    sum += j.countfactorsub * j.productprice;
+
+                                                long tax =((long)(((long)(summoneypost + sum)) * 0.09));
+
+                                                if (subproduct.Count != 0)
+                                                {
+
+                                                    <div id="content" class="col-sm-12">
+                                                        <h1 class="title">سبد خرید</h1>
+                                                        <div class="row product-info text-center" id="messageBase">
+
+                                                        </div>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td class="text-center">تصویر</td>
+                                                                        <td class="text-center">نام محصول</td>
+                                                                        <td class="text-center">مدل</td>
+                                                                        <td class="text-center">تعداد</td>
+                                                                        <td class="text-center">قیمت واحد</td>
+                                                                        <td class="text-center">کل</td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var i in subproduct)
+                                                                    {
+
+
+
+                                                                        <tr>
+                                                                            <td class="text-center"><a href="@ViewData["externalHomeUrl"]Product/@i.idproduct"><img src="~/uploads/product/@i.pathdata" alt="@i.title" title="@i.title" class="img-thumbnail" /></a></td>
+                                                                            <td class="text-center"><a href="@ViewData["externalHomeUrl"]Product/@i.idproduct">@i.title</a><br /></td>
+                                                                            <td class="text-center">@i.title</td>
+                                                                            <td class="text-center">   @i.countfactorsub </td>
+
+                                                                           
+                                                                            <td class="text-center">@( i.productprice)</td>
+                                                                            <td class="text-center">@(i.countfactorsub * i.productprice)</td>
+                                                                        </tr>
+                                                                    }
+
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    @*<tr>
+                                    <td class="text-right" colspan="4"><strong>جمع کل:</strong></td>
+                                    <td class="text-right">800000 تومان</td>
+                                </tr>*@
+                                                                    <tr>
+                                                                        <td class="text-right" colspan="5"><strong>هزینه ارسال:</strong></td>
+
+                                                                        <td class="text-right">@summoneypost ریال</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-right" colspan="5"><strong>مالیات ارزش افزوده:</strong></td>
+                                                                        <td class="text-right">@(((long)(summoneypost+sum+ tax)) * 0.09) ریال</td>
+                                                                    </tr>
+                                                                    @*<tr>
+                                    <td class="text-right" colspan="4"><strong>کل :</strong></td>
+                                    <td class="text-right">‭820100‬ تومان</td>
+                                </tr>*@
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                        <script type="text/javascript">
+
+                                                            function startUpdate(isf1, ipro, idc) {
+
+                                                                if (ipro == 0 || idc == 0) {
+                                                                    document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + 'درخواست نامعتبر' + '</span>';
+                                                                    return;
+                                                                }
+                                                                var bn = '#quantity-' + ipro;
+                                                                var count = $(bn).val();
+
+                                                                var subtop = "quantity-1-" + ipro;
+
+                                                                $.ajax({
+                                                                    type: 'GET',
+                                                                    url: '/cbkala/UpdateProduct?idsubfactor=' + isf1 + '&idproduct=' + ipro + '&countsefaresh=' + count + '&idproductcolor=' + idc,
+                                                                    contentType: "application/json",
+                                                                    success: function (result) {
+
+                                                                        if ('Yes' == result) {
+                                                                            document.getElementById("messageBase").innerHTML = ' <span class="text-info text-lg-center">کالا درج شد.</span>';
+                                                                            document.getElementById(subtop).innerHTML = ' <span> x' + count + '</span>';
+                                                                            // window.location.replace("/cbkala/Cart");
+                                                                        }
+                                                                        else {
+
+
+                                                                            document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + result + '</span>';
+
+                                                                        }
+
+
+                                                                    }
+                                                                });
+
+                                                            }
+
+                                                            function startDelete(idsubfutor) {
+
+                                                                if (idsubfutor <= 0) {
+                                                                    document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + 'درخواست نامعتبر' + '</span>';
+                                                                    return;
+                                                                }
+
+                                                                $.ajax({
+                                                                    type: 'GET',
+                                                                    url: '/cbkala/DeleteProduct?idsubfactor=' + idsubfutor,
+                                                                    contentType: "application/json",
+                                                                    success: function (result) {
+
+                                                                        if ('Yes' == result) {
+                                                                            document.getElementById("messageBase").innerHTML = ' <span class="text-info text-lg-center">' + result + '</span>';
+                                                                            window.location.replace("/cbkala/Cart");
+                                                                        }
+                                                                        else {
+                                                                            var subid = "quantity-2-" + idsubfutor;
+
+                                                                            document.getElementById("messageBase").innerHTML = ' <span class="text-danger text-lg-center">' + result + '</span>';
+                                                                            document.getElementById(subid).innerHTML = "";
+
+                                                                        }
+
+
+                                                                    }
+                                                                });
+
+                                                            }
+
+
+                                                        </script>
+
+
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-sm-offset-0">
+                                                                <table class="table table-bordered">
+
+
+
+
+                                                                    <tr>
+                                                                        <td class="text-right"><strong>هزینه ارسال:</strong></td>
+                                                                        <td class="text-right">@summoneypost ریال</td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td class="text-right"><strong>جمع کل:</strong></td>
+                                                                        <td class="text-right">@sum ریال</td>
+                                                                    </tr>
+
+                                                                    @*<tr>
+                                    <td class="text-right"><strong>مالیات:</strong></td>
+                                    <td class="text-right">15400 تومان</td>
+                                </tr>*@
+                                                                    <tr>
+                                                                        <td class="text-right"><strong>مبلغ قابل پرداخت :</strong></td>
+                                                                        <td class="text-right">@(sum+summoneypost+tax) ریال</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--Middle Part End -->
+                                                }
+                                                else
+                                                {
+
+                                                    <div id="content" class="col-sm-12">
+                                                        <h1 class="title">سبد خرید</h1>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td class="text-center">تصویر</td>
+                                                                        <td class="text-center">نام محصول</td>
+                                                                        <td class="text-center">مدل</td>
+                                                                        <td class="text-center">تعداد</td>
+                                                                        <td class="text-center">قیمت واحد</td>
+                                                                        <td class="text-center">کل</td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        کالای در سبد خرید نیست .
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div class="col-12 text-center">
+                                                    لطفا جهت دیدن سبد خرید  یا
+                                                    <a href="/Identity/Account/Register">ثبت نام انجام دهید</a>
+                                                    <a href="/Identity/Account/Login"> ورود به سامانه</a>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    @if (address != null)
+                                    {
+
+
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa fa-pencil"></i>تایید خرید.</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            @*<textarea rows="4" class="form-control" id="confirm_comment" name="comments"></textarea>
+                                                <br>*@
+                                            <label class="control-label" for="confirm_agree">
+                                                <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
+                                                <span><a class="agree" href="@ViewData["externalHomeUrl"]Policy"><b>شرایط و قوانین</b></a> را خوانده ام و با آنها موافق هستم.</span>
+                                            </label>
+                                            <div class="buttons">
+                                                <div class="pull-right">
+                                                    <a class="btn btn-primary" href="@ViewData["externalHomeUrl"]Cart">بازگشت به سبد خرید</a>
+                                                    <form id="payment" method="post" asp-controller="Payment" asp-action="PaymentProduct">
+                                                     <input type="hidden" value="@ViewData["posttype"].ToString()" id="typepost" name="typepost" />
+                                                        <input type="submit" class="btn btn-primary" id="button-confirm" value="تایید سفارش و پرداخت">
+                                                    </form>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="pull-right">
+                                            <a href="/addresses/Index" class="btn btn-primary" style="min-width:100px;">ادرس خود را وارد نمائید</a>
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Middle Part End -->
+        </div>
+    </div>
+</div>
+

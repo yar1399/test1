@@ -1,0 +1,88 @@
+﻿@model PTemplate.Data.DataBase.Post
+@using PTemplate.Models
+@using Microsoft.AspNetCore.Identity
+@using PTemplate
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ارسال محصول به تلگرام";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div>
+    <h4>محصول  برای ارسال به تلگرام</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            منو
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdmenuNavigation.Name)
+        </dd>
+        <dt>
+            عنوان
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            توضیح هات
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            متن
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            تاریخ ارسال
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datecreate)
+        </dd>
+        <dt>
+            فعال
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isactive)
+        </dd>
+        <form id="idbot" name="idbot" method="post" action="~/Admin/Products/botmessage/botmessage">
+
+            <span class="text-center text-danger">
+                @ViewData["message"].ToString()
+            </span>
+
+            <input type="hidden" value="@Model.Id" name="Id" id="Id" />
+            <dt>
+                ارسال مطلب
+            </dt>
+            <dd>
+
+                @*<input type="text" value="@Model.IdpostNavigation.Title
+                @Model.Description  @Model.Price" name="Id" id="Id" />*@
+
+                <textarea name="message" id="message" maxlength="2500" rows="20" cols="150">
+                  @Model.Title
+                  @Model.Description 
+                  @Model.Text
+
+                  @ViewData["discription"].ToString()
+                </textarea>
+                <br />
+
+            </dd>
+            <input type="submit" value="ارسال" />
+        </form>
+    </dl>
+</div>
+<div>
+
+    <a href="~/Admin/Products/Index">برگشت</a>
+</div>

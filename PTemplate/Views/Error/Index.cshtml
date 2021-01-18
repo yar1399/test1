@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "استثنا";
+    Layout = "~/Views/sjtejarat/Shared/_MainHome.cshtml";
+    ViewData["homeUrl"] = "";
+    ViewData["externalHomeUrl"] = "/sjtejarat/";
+}
+
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 font-32">
+
+                <h2>استثنا</h2>
+
+
+                @if (106769 == int.Parse(ViewData["code"].ToString()))
+                {
+                    <span class="text-danger text-center font-32">محصولی یافت نشد. </span>
+                }
+                else
+                {
+                    <span class="text-danger text-center font-32">استثنا : @ViewData["code"].ToString() </span>
+                }
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

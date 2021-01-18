@@ -1,0 +1,249 @@
+﻿@{
+    Layout = "~/Views/dadras/Shared/_Layout.cshtml";
+    ViewData["homeUrl"] = "/";
+    ViewData["externalHomeUrl"] = "/dadras/";
+}
+
+
+@using PTemplate.Data;
+@using PTemplate.Data.DataBase;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+
+
+
+@using PTemplate
+@using PTemplate.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+@{
+
+
+    ApplicationDbContext appA = new
+        ApplicationDbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ApplicationDbContext>());
+
+
+    var adress = appA.Addresssystems.FirstOrDefault();
+
+
+    var pro = appA.Menugroups.Where(b => b.Istype == false && b.Isactive == true).ToList();
+
+
+
+
+}
+
+<!-- ##### Breadcrumb Area Start ##### -->
+<section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(@ViewData["externalHomeUrl"]img/bg-img/49.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    @RenderSection("posttitle", required: false)
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Breadcrumb Area End ##### -->
+<!-- ##### Breadcrumb Area Start ##### -->
+
+@RenderSection("sitmapplaceholder", required: false)
+
+<!-- ##### Breadcrumb Area End ##### -->
+<!-- ##### Post Details Area Start ##### -->
+<section class="post-details-area">
+    <div class="container">
+        @RenderSection("videoplaceholder", required: false)
+        <div class="row justify-content-center">
+
+
+
+            @RenderBody()
+
+
+            @RenderSection("Scripts", required: false)
+            <!-- Sidebar Widget -->
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="sidebar-area bg-white mb-30 box-shadow">
+                    <!-- Sidebar Widget -->
+                    <div class="single-sidebar-widget p-30">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h5>ما در رسانه های دیگر</h5>
+                        </div>
+                        <!-- Social Followers Info -->
+                        <div class="social-followers-info">
+
+
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/mandadras/" class="instagram-following"><i class="fa fa-instagram"></i><span>اینستا گرا م : ManDadras</span></a>
+                            <!-- Telegram -->
+                            <a href="https://t.me/mandadras" class="telegram-following"><i class="fa fa-telegram"></i><span>ManDadras :  تلگرام</span></a>
+                            <!-- Aparat -->
+                            <a href="https://www.aparat.com/Maryam.Dadras" class="aparat-following"><img class="icon" src="@ViewData["externalHomeUrl"]img/core-img/aparat_48.png"><span>ManDadras : آپارت</span></a>
+
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Widget -->
+                    <div class="single-sidebar-widget p-30">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h5>آرشیو تکیه ای از دانایی</h5>
+                        </div>
+
+                        <!-- Catagory Widget -->
+
+
+                        <ul class="catagory-widgets rtl">
+
+                            @foreach (var i in pro)
+                            {
+
+                                i.Menus = @appA.Menus.AsEnumerable().Where(m => (long)m.Idmenugroup == (long)i.Id && m.Isactive == true).ToList();
+                                if (@i.Menus.Count >= 0)
+                                {
+
+
+
+                                        @foreach (var j in i.Menus)
+                                        {
+                                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=@(j.Id)&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> @(j.Name)</span> @*<span>0</span>*@</a></li>
+                                        }
+
+                                   
+
+                                }
+
+                            }
+
+
+                            <!--<li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=11&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> کوچینگ</span>--> @*<span>0</span>*@<!--</a></li>
+                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=7&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> سواد زندگی</span>--> @*<span>0</span>*@<!--</a></li>
+                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=8&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> روابط زناشویی</span>--> @*<span>0</span>*@<!--</a></li>
+                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=9&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> تغییر و تحول فردی</span>--> @*<span>0</span>*@<!--</a></li>
+                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=10&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> مهندسی متقاعد سازی</span>--> @*<span>0</span>*@<!--</a></li>
+                            <li><a href="@ViewData["externalHomeUrl"]archive?Idmenu=12&paging=1"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> جذابیت</span>--> @*<span>0</span>*@<!--</a></li>-->
+
+
+                        </ul>
+                    </div>
+
+                    @*<!-- Sidebar Widget -->
+                        <div class="single-sidebar-widget">
+                            <a href="#" class="add-img"><img src="@ViewData["externalHomeUrl"]img/bg-img/add3.jpg" alt=""></a>
+                        </div>
+
+                        <!-- Sidebar Widget -->
+                        <div class="single-sidebar-widget p-30">
+                            <!-- Section Title -->
+                            <div class="section-heading">
+                                <h5>پُر بحث ترین ها</h5>
+                            </div>
+
+                            <!-- Single Blog Post -->
+                            <div class="single-blog-post d-flex">
+                                <div class="post-thumbnail">
+                                    <img src="@ViewData["externalHomeUrl"]img/bg-img/14.jpg" alt="">
+                                </div>
+                                <div class="post-content">
+                                    <a href="@ViewData["externalHomeUrl"]singlepost" class="post-title">این یک عنوان آزمایشی است</a>
+                                    <div class="post-meta d-flex justify-content-between">
+                                        <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> ? </a>
+                                        <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 84</a>
+                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 14</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single Blog Post -->
+                            <div class="single-blog-post d-flex">
+                                <div class="post-thumbnail">
+                                    <img src="@ViewData["externalHomeUrl"]img/bg-img/15.jpg" alt="">
+                                </div>
+                                <div class="post-content">
+                                    <a href="@ViewData["externalHomeUrl"]singlepost" class="post-title">این یک عنوان آزمایشی است</a>
+                                    <div class="post-meta d-flex justify-content-between">
+                                        <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 34</a>
+                                        <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 84</a>
+                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 14</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single Blog Post -->
+                            <div class="single-blog-post d-flex">
+                                <div class="post-thumbnail">
+                                    <img src="@ViewData["externalHomeUrl"]img/bg-img/16.jpg" alt="">
+                                </div>
+                                <div class="post-content">
+                                    <a href="@ViewData["externalHomeUrl"]singlepost" class="post-title">این یک عنوان آزمایشی است</a>
+                                    <div class="post-meta d-flex justify-content-between">
+                                        <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 34</a>
+                                        <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 84</a>
+                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 14</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single Blog Post -->
+                            <div class="single-blog-post d-flex">
+                                <div class="post-thumbnail">
+                                    <img src="@ViewData["externalHomeUrl"]img/bg-img/17.jpg" alt="">
+                                </div>
+                                <div class="post-content">
+                                    <a href="@ViewData["externalHomeUrl"]singlepost" class="post-title">این یک عنوان آزمایشی است</a>
+                                    <div class="post-meta d-flex justify-content-between">
+                                        <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 34</a>
+                                        <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 84</a>
+                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 14</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single Blog Post -->
+                            <div class="single-blog-post d-flex">
+                                <div class="post-thumbnail">
+                                    <img src="@ViewData["externalHomeUrl"]img/bg-img/18.jpg" alt="">
+                                </div>
+                                <div class="post-content">
+                                    <a href="@ViewData["externalHomeUrl"]singlepost" class="post-title">این یک عنوان آزمایشی است</a>
+                                    <div class="post-meta d-flex justify-content-between">
+                                        <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 34</a>
+                                        <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 84</a>
+                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 14</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Sidebar Widget -->
+                        <div class="single-sidebar-widget p-30">
+                            <!-- Section Title -->
+                            <div class="section-heading">
+                                <h5>دنبال کردن خبرنامه</h5>
+                            </div>
+
+                            <div class="newsletter-form">
+                                <p>با دنبال کردن سایت، میتوانید خبرها و پست های این سایت را در ایمیل خود دریافت نمایید</p>
+                                <form action="#" method="get">
+                                    <input type="search" name="widget-search" placeholder="لطفا ایمیل خود را وارد نمایید">
+                                    <button type="submit" class="btn mag-btn w-100">دنبال کردن</button>
+                                </form>
+                            </div>
+
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Post Details Area End ##### -->
