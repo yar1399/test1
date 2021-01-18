@@ -1,27 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PTemplate.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
+using PTemplate.Data;
 using PTemplate.Models;
-
-using System.IO;
-
-using Microsoft.AspNetCore.Http;
-using PTemplate.Data.DataBase;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using PTemplate.Models.Interface;
 using PTemplate.Models.JobTime;
+using System;
+using System.IO;
 
 namespace PTemplate
 {
@@ -249,7 +240,7 @@ namespace PTemplate
         name: "imageprofiles",
         pattern: "{area:exists}/{controller=imageprofiles}/{action=Index}/{id?}");
 
-          
+
                 endpoints.MapRazorPages();
             });
         }
